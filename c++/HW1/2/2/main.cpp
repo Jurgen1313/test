@@ -3,14 +3,14 @@
 
 using namespace std;
 
-int input_number;
-int digit_count = 0;
-int digit_count_check = 0;
-int sum = 0;
-int incorrect_number = 0;
+
 
 int main()
 {    
+
+    int input_number;
+    int sum = 0;
+
     cout << "\t Welcome\n";
     cout << " Type uint number : ";
     cin >> input_number;
