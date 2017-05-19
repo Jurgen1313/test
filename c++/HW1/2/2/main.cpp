@@ -13,7 +13,7 @@ int main()
 {    
     cout << "\t Welcome\n";
     cout << "How many digit numbers do you want to input?\n";
-    cout << "n = ";
+    cout << "the number should be uint n = ";
     cin >> digit_count;
     cout << endl;
 
@@ -37,7 +37,7 @@ int main()
         }
 
     }
-    cout << "digit in a number = " << digit_count_check << endl;
+//    cout << "digit in a number = " << digit_count_check << endl;
 
     if ( digit_count_check == digit_count )
     {
