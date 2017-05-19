@@ -27,19 +27,6 @@ int main()
     {
         cout << " Give me integer number [" << i + 1 << "] = ";
         cin >> input_number;
-//        cout << input_number << "\n";
-
-
-        while( cin.fail() ) // if the input number is not digit
-        {
-            cout << input_number << "\n";
-            cout << "Error. Please give me integer number\n";
-            cin.clear();
-            cin.ignore(256,'\n');
-            cout << " Give me integer number [" << i + 1 << "] = ";
-            cin >> input_number;
-
-        }
 
         if ( input_number > max_number )
         {
