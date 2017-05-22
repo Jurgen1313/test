@@ -3,6 +3,72 @@
 
 using namespace std;
 
+double F_is_this_number (char symbol)
+{
+
+    int i_number;
+    double d_number;
+
+    bool keep_asking = true;
+
+    do
+    {
+        switch (symbol)
+        {
+        case 'i':
+        {
+            cin >> i_number;
+            break;
+        }
+        case 'd':
+        {
+            cin >> d_number;
+            break;
+        }
+        default:
+        {
+            cout << "INCORRECOT";
+            break;
+        }
+
+        }
+//        cin >> number;
+        if ( cin.get() != '\n' )
+        {
+            cin.clear(); // відновлення прапорця функції cin.fail() в стан good
+//                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            while (cin.get() != '\n');
+            cout << " Retype number : ";
+        }
+        else
+        {
+            keep_asking = false;
+        }
+    }while (keep_asking);
+
+    switch (symbol)
+    {
+    case 'i':
+    {
+        return i_number;
+        break;
+    }
+    case 'd':
+    {
+        return d_number;
+        break;
+    }
+    default:
+    {
+        cout << "INCORRECOT";
+        return 1;
+        break;
+    }
+
+    }
+//    return number;
+}
+
 double F_is_this_int_number ()
 {
     int number;
@@ -137,7 +203,8 @@ int main()
 
         do
         {
-            task_number = F_is_this_int_number();
+//            task_number = F_is_this_int_number();
+            task_number = F_is_this_number('i');
             switch (task_number)
             {
                 case 1:
@@ -174,13 +241,15 @@ int main()
                 cout << "\t Welcome o task 1\n";
                 cout << "How many integer numbers do you want to input?\n";
                 cout << "n = ";
-                numbers_count = F_is_this_int_number();
+//                numbers_count = F_is_this_int_number();
+                numbers_count = F_is_this_number('i');
                 cout << endl;
 
                 for ( int i = 0; i < numbers_count; i++)
                 {
                     cout << " Give me integer number [" << i + 1 << "] = ";
-                    input_number = F_is_this_int_number();
+//                    input_number = F_is_this_int_number();
+                    input_number = F_is_this_number('i');
 
                     if ( input_number > max_number )
                     {
@@ -200,7 +269,8 @@ int main()
                 cout << "\t Welcome\n";
                 cout << " Type int number : ";
 
-                input_number = F_is_this_int_number();
+//                input_number = F_is_this_int_number();
+                input_number = F_is_this_number('i');
 
                 cout << " You type int number : " << input_number << endl;
                 cout << "Sum of all digits in a number " << input_number << " is equel to : " << Sum_of_digits (input_number) << endl << endl;
@@ -215,7 +285,7 @@ int main()
 
                 cout << "\t Console calculator" << endl << endl;
                 cout << "\n------------------";
-                cout << "|func      Symbol|";
+                cout << "\n|func      Symbol|";
                 cout << "\n------------------";
                 cout << "\n| add  ----   +  |";
                 cout << "\n| sub  ----   -  |";
@@ -229,7 +299,8 @@ int main()
                 cout << "\n------------------" << endl;
 
                 cout << "Input number : ";
-                number_1 = F_is_this_double_number();
+//                number_1 = F_is_this_double_number();
+                number_1 = F_is_this_number('d');
                 cout << "Choose function : ";
                 function_type = F_is_this_char();
 
@@ -238,35 +309,40 @@ int main()
                     case '+':
                     {
                         cout << "Input second number : ";
-                        number_2 = F_is_this_double_number();
+//                        number_2 = F_is_this_double_number();
+                        number_2 = F_is_this_number('d');
                         cout << "Result " << number_1 << " + " << number_2 << " is equal to : " << number_1 + number_2 << endl;
                         break;
                     }
                     case '-':
                     {
                         cout << "Input second number : ";
-                        number_2 = F_is_this_double_number();
+//                        number_2 = F_is_this_double_number();
+                        number_2 = F_is_this_number('d');
                         cout << "Result " << number_1 << " - " << number_2 << " is equal to : " << number_1 - number_2 << endl;
                         break;
                     }
                     case '*':
                     {
                         cout << "Input second number : ";
-                        number_2 = F_is_this_double_number();
+//                        number_2 = F_is_this_double_number();
+                        number_2 = F_is_this_number('d');
                         cout << "Result " << number_1 << " * " << number_2 << " is equal to : " << number_1 * number_2 << endl;
                         break;
                     }
                     case '/':
                     {
                         cout << "Input second number : ";
-                        number_2 = F_is_this_double_number();
+//                        number_2 = F_is_this_double_number();
+                        number_2 = F_is_this_number('d');
                         cout << "Result " << number_1 << " / " << number_2 << " is equal to : " << number_1 / number_2 << endl;
                         break;
                     }
                     case 'p':
                     {
                         cout << "Input second number : ";
-                        number_2 = F_is_this_double_number();
+//                        number_2 = F_is_this_double_number();
+                        number_2 = F_is_this_number('d');
                         cout << "Result " << number_1 << " ^ " << number_2 << " is equal to : " << pow (number_1,number_2) << endl;
                         break;
                     }
