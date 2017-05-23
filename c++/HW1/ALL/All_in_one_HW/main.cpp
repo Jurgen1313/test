@@ -172,6 +172,7 @@ int main()
                 default:
                 {
                     cout << " Retype number : ";
+                    keep_asking = true;
                     break;
                 }
             }
@@ -261,7 +262,6 @@ int main()
                     case '-':
                     {
                         cout << "Input second number : ";
-//                        number_2 = F_is_this_double_number();
                         number_2 = F_is_this_number('d');
                         cout << "Result " << number_1 << " - " << number_2 << " is equal to : " << number_1 - number_2 << endl;
                         break;
