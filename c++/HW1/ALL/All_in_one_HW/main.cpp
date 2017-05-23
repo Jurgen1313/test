@@ -27,7 +27,7 @@ double F_is_this_number (char symbol)
         }
         default:
         {
-            cout << "INCORRECOT";
+            cout << "INCORRECT";
             break;
         }
 
@@ -67,54 +67,6 @@ double F_is_this_number (char symbol)
 
     }
 //    return number;
-}
-
-double F_is_this_int_number ()
-{
-    int number;
-    bool keep_asking = true;
-
-    do
-    {
-        cin >> number;
-        if ( cin.get() != '\n' )
-        {
-            cin.clear(); // відновлення прапорця функції cin.fail() в стан good
-//                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            while (cin.get() != '\n');
-            cout << " Retype number : ";
-        }
-        else
-        {
-            keep_asking = false;
-        }
-    }while (keep_asking);
-
-    return number;
-}
-
-double F_is_this_double_number ()
-{
-    double number;
-    bool keep_asking = true;
-
-    do
-    {
-        cin >> number;
-        if ( cin.get() != '\n' )
-        {
-            cin.clear(); // відновлення прапорця функції cin.fail() в стан good
-//                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            while (cin.get() != '\n');
-            cout << " Retype number : ";
-        }
-        else
-        {
-            keep_asking = false;
-        }
-    }while (keep_asking);
-
-    return number;
 }
 
 int Sum_of_digits (int number)
@@ -373,6 +325,4 @@ int main()
             }
         }
     }while(1);
-
-    return 0;
 }
