@@ -68,6 +68,47 @@ double F_is_this_number (char symbol)
     }
 }
 
+bool F_repeat ()
+{
+    bool cycle;
+    char answer;
+    bool input_char = true;
+
+    do
+    {
+        cout << "\nDo you want to repeat?\n";
+        cout << "Type <Y>es to repeat or <N>o to exit: ";
+        cin >> answer;
+
+        switch (answer)
+        {
+            case 'Y':
+            case 'y':
+            {
+                input_char = false;
+                cycle = true;
+                break;
+            }
+            case 'N':
+            case 'n':
+            {
+                cycle = false;
+                input_char = false;
+                break;
+            }
+        }
+
+        if (cin.get() != '\n')
+        {
+            while (cin.get() != '\n');
+            input_char = true;
+            cycle = true;
+            cout << "Make correct choise!!!\n";
+//            cout << "Type <Y>es to repeat or <N>o to exit: ";
+        }
+    } while (input_char);
+    return cycle;
+}
 
 int main()
 {
@@ -75,14 +116,10 @@ int main()
     bool play_again = true;
     srand (time(NULL));
 
-//    int L_number = 0;
-//    int H_number = 100;
-
-
     do
     {
-        int L_number = 0;
-        int H_number = 100;
+        int L_number = 1;
+        int H_number = 101;
         int user_number;
         int attempt = 0;
         bool try_again = true;
@@ -94,8 +131,10 @@ int main()
         {
             cout << "\nTry to gues what number i have? : ";
             user_number = F_is_this_number('i');
-            if (user_number < L_number || user_number > H_number)
-                cout << "\nBe carefull, you should enter the number between " << L_number << " and " << H_number;
+            if (user_number <= L_number)
+                cout << "\nI told you the number should be greater then " << L_number;
+            else if (user_number >= H_number)
+                cout << "\nI told you the number should be less then " << H_number;
             else if (user_number == true_number)
             {
                 cout << "\nYou win!!! My number is " << true_number;
@@ -115,6 +154,7 @@ int main()
         }while(try_again);
         cout << "\nAttempt : " << attempt;
         cin.get();
+        play_again = F_repeat();
     }while(play_again);
     return 0;
 }
