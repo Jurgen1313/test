@@ -72,23 +72,23 @@ double F_is_this_number (char symbol)
 int main()
 {
     int left_border;
-    int right_boarder;
+    int right_border;
     int quantity_even = 0;
     int quantity_odd = 0;
 
     cout << "Give me left boarder : ";
     left_border = F_is_this_number('i');
     cout << "Give me right boarder : ";
-    right_boarder = F_is_this_number('i');
+    right_border = F_is_this_number('i');
 
-    if (left_border >= right_boarder)
+    if (left_border >= right_border)
     {
         cout << "\n\tWARNING!!!!\n\tLeft boarder should be less then right boarder!!!!!\n";
         return 0;
     }
 
-    cout << "\nThis program prints even number :\n";
-    for (; left_border <= right_boarder; ++left_border)
+    cout << "\nThis program prints even numbers from " << left_border << " to " << right_border << endl;
+    for (; left_border <= right_border; ++left_border)
     {
         if (!(left_border % 2))
         {
