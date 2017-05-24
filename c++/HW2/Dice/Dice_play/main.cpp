@@ -110,7 +110,6 @@ bool F_repeat ()
     return cycle;
 }
 
-
 int main()
 {
 //    QCoreApplication a(argc, argv);
