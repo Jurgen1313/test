@@ -188,7 +188,7 @@ int main()
 
         switch (task_number)
         {
-            case 1: // Change even elements with odd elements
+            case 1: // Find string lenght
             {
                 const size_t string_lenght = 1000;
                 char user_string[string_lenght];
@@ -217,18 +217,33 @@ int main()
                 system ("pause");
                 break;
             }
-            case 2: // Bubble sort
+            case 2: // String compare 1
             {
                 system ("pause");
                 break;
             }
-            case 3: // Quicksort (((
+            case 3: // String compare 2
             {
                 system ("pause");
                 break;
             }
-            case 4: // Search element in array
+            case 4: // Revers word order
             {
+                const size_t string_lenght = 1000;
+                char user_string[string_lenght];
+//                size_t element_number = 0;
+                cout << "Enter your text : ";
+
+                do
+                {
+                    cin >> user_string;
+                    size_t element = 0;
+                    while (user_string[element++]);
+                    while (element-- != 0)
+                        cout << user_string[element];
+                }while(cin.get() != '\n');
+                cout << endl;
+
                 system ("pause");
                 break;
             }
