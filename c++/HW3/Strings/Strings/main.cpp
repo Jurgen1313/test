@@ -229,7 +229,7 @@ int main()
                 bool equal_strings = true;
 
                 size_t element_number = 0;
-                while (user_string_1[element_number++])
+                while (user_string_1[element_number++] & equal_strings)
                     equal_strings = equal_strings && (user_string_1[element_number] == user_string_2[element_number]);
 
                 if (equal_strings)
