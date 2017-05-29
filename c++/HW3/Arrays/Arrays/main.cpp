@@ -148,7 +148,7 @@ int main()
         cout << "\tWellcome to home work 3" << endl << endl;
         cout << " Choose task : " << endl;
         cout << "<1> Create array" << endl;
-        cout << "<2> Bubble sort" << endl;;
+        cout << "<2> Bubble sorting" << endl;;
         cout << "<3> Quicksort" << endl;
         cout << "<4> Search element" << endl;
         cout << "<5> Binary search" << endl;
@@ -187,11 +187,10 @@ int main()
 
         switch (task_number)
         {
-            case 1: // Create array
+            case 1: // Create array and change even elements with odd elements
             {
                 uint element_number;
                 srand(time(0));
-//                char =
 
                 cout << "How many elements should array have? : ";
                 element_number = F_is_this_number('u');
@@ -215,15 +214,12 @@ int main()
 
                 F_print_array(array_size, arr);
 
-                for (uint i = 0; i < array_size; i += 2)
+                for (uint i = 0; i < array_size - 1; i += 2)
                 {
-                    if ( i != array_size - 1)
-                    {
                         double temp_val;
                         temp_val = arr[i];
                         arr[i] = arr[i+1];
                         arr[i+1] = temp_val;
-                    }
                 }
 
                 F_print_array(array_size, arr);
@@ -231,8 +227,82 @@ int main()
                 system ("pause");
                 break;
             }
-            case 2:
+            case 2: // Bubble sort
             {
+                uint element_number;
+                srand(time(0));
+
+                cout << "How many elements should array have? : ";
+                element_number = F_is_this_number('u');
+
+                double arr[element_number];
+                const size_t array_size = sizeof(arr)/sizeof(arr[0]);
+
+                cout << "Do you want manual input? <Y>es or <N>o : ";
+
+                if (F_repeat())
+                {
+                    for(uint i = 0; i < array_size; ++i)
+                    {
+                        cout << "Insert number arr[" << i <<"] = ";
+                        arr[i] = F_is_this_number('d');
+                    }
+                }
+                else
+                    for (uint i = 0; i < array_size; ++i)
+                        *(arr + i) = rand();
+
+                F_print_array(array_size, arr);
+
+                // sorting from min to max
+
+                bool change;
+                size_t number_of_changes = 0;
+                do
+                {
+                    change = false;
+                    for (uint i = 0; i < array_size - 1; ++i )
+                    {
+                        if ( arr[i] > arr[i+1])
+                        {
+                            double temp_val;
+                            temp_val = arr[i];
+                            arr[i] = arr[i+1];
+                            arr[i+1] = temp_val;
+                            change = true;
+                            ++number_of_changes;
+                        }
+                    }
+                }while(change);
+
+                cout << "\nNumber of changes n = " << number_of_changes << endl;
+                F_print_array(array_size, arr);
+
+                // sorting from max to min
+                number_of_changes = 0;
+
+                do
+                {
+                    change = false;
+                    for (uint i = 0; i < array_size - 1; ++i )
+                    {
+                        if ( arr[i+1] > arr[i])
+                        {
+                            double temp_val;
+                            temp_val = arr[i];
+                            arr[i] = arr[i+1];
+                            arr[i+1] = temp_val;
+                            change = true;
+                            ++number_of_changes;
+                        }
+                    }
+                }while(change);
+
+                cout << "\nNumber of changes n = " << number_of_changes << endl;
+                F_print_array(array_size, arr);
+
+                system ("pause");
+
                 break;
             }
             case 3:
