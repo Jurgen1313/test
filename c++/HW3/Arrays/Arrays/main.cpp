@@ -145,7 +145,7 @@ int main()
     do
     {
         system("cls");
-        cout << "\tWellcome to home work 3" << endl << endl;
+        cout << "\tWellcome to homework 3" << endl << endl;
         cout << " Choose task : " << endl;
         cout << "<1> Create array" << endl;
         cout << "<2> Bubble sorting" << endl;;
@@ -341,8 +341,9 @@ int main()
                 double find_number;
                 bool find = false;
                 cout << "\nType number which you want to find in array : ";
-                cin >> find_number;
+                find_number = F_is_this_number('d');
 
+//                while (arr[i++] != find_number)
                 for (uint i = 0; i < array_size; ++i)
                 {
                     if ( arr[i] == find_number)
@@ -353,13 +354,86 @@ int main()
                 }
 
                 if (!find)
-                    cout << "Not found number " << find_number << " in the array" <<endl;
+                    cout << "I couldn't find number " << find_number << " in the array" <<endl;
 
                 system ("pause");
                 break;
             }
-            case 5:
+            case 5: // Binary search
             {
+                uint element_number;
+                srand(time(0));
+
+                cout << "How many elements should array have? : ";
+                element_number = F_is_this_number('u');
+
+                double arr[element_number];
+                const size_t array_size = sizeof(arr)/sizeof(arr[0]);
+
+                cout << "Do you want manual input? <Y>es or <N>o : ";
+
+                if (F_repeat())
+                {
+                    for(uint i = 0; i < array_size; ++i)
+                    {
+                        cout << "Insert number arr[" << i <<"] = ";
+                        arr[i] = F_is_this_number('d');
+                    }
+                }
+                else
+                    for (uint i = 0; i < array_size; ++i)
+                        *(arr + i) = rand();
+
+                F_print_array(array_size, arr);
+
+                // sorting from min to max
+
+                bool change;
+                size_t number_of_changes = 0;
+                do
+                {
+                    change = false;
+                    for (uint i = 0; i < array_size - 1; ++i )
+                    {
+                        if ( arr[i] > arr[i+1])
+                        {
+                            double temp_val;
+                            temp_val = arr[i];
+                            arr[i] = arr[i+1];
+                            arr[i+1] = temp_val;
+                            change = true;
+                            ++number_of_changes;
+                        }
+                    }
+                }while(change);
+//                cout << "\nNumber of changes n = " << number_of_changes << endl;
+                F_print_array(array_size, arr);
+
+                size_t left_val = 0;
+                size_t right_val = array_size - 1;
+                size_t middle_val = (right_val + left_val) / 2;
+
+                cout << "What number you want me to find? : ";
+                double search_val = F_is_this_number('d');
+
+                while ( left_val <= right_val)
+                {
+                    if (arr[middle_val] == search_val)
+                    {
+                        cout << "I found your value " << search_val << " in the position " << middle_val << endl;
+                        if (arr[middle_val + 1] == search_val || arr[middle_val - 1])
+                            cout << "There are more than 1 equell number in the array!!!!!" << endl;
+//                        left_val = middle_val - 1;
+                        break;
+                    }
+                    else if (arr[middle_val] < search_val)
+                        left_val = middle_val;
+                    else
+                        right_val = middle_val;
+
+                    middle_val = (right_val + left_val) / 2;
+                }
+                system ("pause");
                 break;
             }
         }
