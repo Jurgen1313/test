@@ -219,6 +219,26 @@ int main()
             }
             case 2: // String compare 1
             {
+                const size_t string_lenght = 1000;
+                char user_string_1[string_lenght];
+                char user_string_2[string_lenght];
+                cout << "Enter your text1 : ";
+                cin.getline(user_string_1, string_lenght);
+                cout << "Enter your text2 : ";
+                cin.getline(user_string_2, string_lenght);
+                bool equal_strings = true;
+
+                size_t element_number = 0;
+                while (user_string_1[element_number++])
+                    equal_strings = equal_strings && (user_string_1[element_number] == user_string_2[element_number]);
+
+                if (equal_strings)
+                    cout << "Strings are equal\n";
+                else
+                    cout << "Strings are not equal\n";
+
+                cout << "\nFirst string  :  " << user_string_1;
+                cout << "\nSecond string :  " << user_string_2 << endl;
                 system ("pause");
                 break;
             }
