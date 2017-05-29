@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+//#include <iomanip>
 
 using namespace std;
 
@@ -189,6 +190,30 @@ int main()
         {
             case 1: // Change even elements with odd elements
             {
+                const size_t string_lenght = 1000;
+                char user_string[string_lenght];
+                size_t element_number = 0;
+                cout << "Enter your text : ";
+
+                do
+                {
+                    cin >> user_string;
+                    size_t element = 0;
+                    while (user_string[element++]);
+                    element_number += element;
+                }while(cin.get() != '\n');
+
+                --element_number;
+                cout << "Your string lenght is: " << element_number << endl;
+                cout << "Your string is: " << user_string << endl;
+
+                cout << "\n\nEnter your text : ";
+                cin.getline(user_string, string_lenght);
+                size_t element = 0;
+                while (user_string[element++]);
+                cout << "Your string lenght is: " << --element << endl;
+                cout << "Your string is:<!>" << user_string << "<!>" << endl;
+
                 system ("pause");
                 break;
             }
