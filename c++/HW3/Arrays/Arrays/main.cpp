@@ -305,12 +305,57 @@ int main()
 
                 break;
             }
-            case 3:
+            case 3: // Quicksort (((
             {
+                cout << "Algorithm is under construction" << endl;
+                system ("pause");
                 break;
             }
-            case 4:
+            case 4: // Search element in array
             {
+                uint element_number;
+                srand(time(0));
+
+                cout << "How many elements should array have? : ";
+                element_number = F_is_this_number('u');
+
+                double arr[element_number];
+                const size_t array_size = sizeof(arr)/sizeof(arr[0]);
+
+                cout << "Do you want manual input? <Y>es or <N>o : ";
+
+                if (F_repeat())
+                {
+                    for(uint i = 0; i < array_size; ++i)
+                    {
+                        cout << "Insert number arr[" << i <<"] = ";
+                        arr[i] = F_is_this_number('d');
+                    }
+                }
+                else
+                    for (uint i = 0; i < array_size; ++i)
+                        *(arr + i) = rand();
+
+                F_print_array(array_size, arr);
+//****************************************************************************************
+                double find_number;
+                bool find = false;
+                cout << "\nType number which you want to find in array : ";
+                cin >> find_number;
+
+                for (uint i = 0; i < array_size; ++i)
+                {
+                    if ( arr[i] == find_number)
+                    {
+                        cout << "Found number " << find_number << " in the position " << i << endl;
+                        find = true;
+                    }
+                }
+
+                if (!find)
+                    cout << "Not found number " << find_number << " in the array" <<endl;
+
+                system ("pause");
                 break;
             }
             case 5:
