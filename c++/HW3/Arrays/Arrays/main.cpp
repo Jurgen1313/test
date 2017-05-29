@@ -136,9 +136,10 @@ void F_print_array (uint size_array, double *parray)
         cout << "arr [" << i << "] = " << *(parray + i) << endl;
 }
 
+
 int main()
 {
-
+    srand(time(0));
     int task_number = 0;
     bool keep_asking = true;
 
@@ -184,36 +185,33 @@ int main()
             }
         }while (keep_asking);
 
+        uint element_number;
+        cout << "How many elements should array have? : ";
+        element_number = F_is_this_number('u');
+
+        double arr[element_number] = {0};
+        const size_t array_size = sizeof(arr)/sizeof(arr[0]);
+
+        cout << "Do you want manual input? <Y>es or <N>o : ";
+
+        if (F_repeat())
+        {
+            for(uint i = 0; i < array_size; ++i)
+            {
+                cout << "Insert number arr[" << i <<"] = ";
+                arr[i] = F_is_this_number('d');
+            }
+        }
+        else
+            for (uint i = 0; i < array_size; ++i)
+                *(arr + i) = rand();
+
+        F_print_array(array_size, arr);
 
         switch (task_number)
         {
-            case 1: // Create array and change even elements with odd elements
+            case 1: // Change even elements with odd elements
             {
-                uint element_number;
-                srand(time(0));
-
-                cout << "How many elements should array have? : ";
-                element_number = F_is_this_number('u');
-
-                double arr[element_number];
-                const size_t array_size = sizeof(arr)/sizeof(arr[0]);
-
-                cout << "Do you want manual input? <Y>es or <N>o : ";
-
-                if (F_repeat())
-                {
-                    for(uint i = 0; i < array_size; ++i)
-                    {
-                        cout << "Insert number arr[" << i <<"] = ";
-                        arr[i] = F_is_this_number('d');
-                    }
-                }
-                else
-                    for (uint i = 0; i < array_size; ++i)
-                        *(arr + i) = rand();
-
-                F_print_array(array_size, arr);
-
                 for (uint i = 0; i < array_size - 1; i += 2)
                 {
                         double temp_val;
@@ -221,38 +219,13 @@ int main()
                         arr[i] = arr[i+1];
                         arr[i+1] = temp_val;
                 }
-
                 F_print_array(array_size, arr);
-
                 system ("pause");
                 break;
             }
             case 2: // Bubble sort
             {
-                uint element_number;
-                srand(time(0));
 
-                cout << "How many elements should array have? : ";
-                element_number = F_is_this_number('u');
-
-                double arr[element_number];
-                const size_t array_size = sizeof(arr)/sizeof(arr[0]);
-
-                cout << "Do you want manual input? <Y>es or <N>o : ";
-
-                if (F_repeat())
-                {
-                    for(uint i = 0; i < array_size; ++i)
-                    {
-                        cout << "Insert number arr[" << i <<"] = ";
-                        arr[i] = F_is_this_number('d');
-                    }
-                }
-                else
-                    for (uint i = 0; i < array_size; ++i)
-                        *(arr + i) = rand();
-
-                F_print_array(array_size, arr);
 
                 // sorting from min to max
 
@@ -300,19 +273,15 @@ int main()
 
                 cout << "\nNumber of changes n = " << number_of_changes << endl;
                 F_print_array(array_size, arr);
-
                 system ("pause");
-
                 break;
             }
             case 3: // Quicksort (((
             {
-                cout << "Algorithm is under construction" << endl;
+
+                cout << "\nSORRY, Algorithm is under construction!!!!\n";
                 system ("pause");
                 break;
-            }
-            case 4: // Search element in array
-            {
                 uint element_number;
                 srand(time(0));
 
@@ -337,13 +306,80 @@ int main()
                         *(arr + i) = rand();
 
                 F_print_array(array_size, arr);
-//****************************************************************************************
+
+                uint middle_val = 0;                        ;
+                uint middle_midlle_val = 0;
+                 //                int right_val = array_size - 1;
+                uint temp_val = array_size - 1;
+                int direction = 0;
+
+                do
+                {
+                    while (middle_val != temp_val)
+                    {
+                        switch (direction)
+                        {
+                            case 0:
+                            {
+                                if (arr[middle_val] > arr[temp_val])
+                                {
+                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << " with arr[" << temp_val << "] = " << arr[temp_val] << endl;
+                                    double temp_buff;
+                                    temp_buff = arr[middle_val];
+                                    arr[middle_val] = arr[temp_val];
+                                    arr[temp_val] = temp_buff;
+
+                                    uint temp_buff_1 = 0;
+                                    temp_buff_1 = middle_val;
+                                    middle_val = temp_val;
+                                    temp_val = temp_buff_1;
+                                    direction = 1;
+                                    break;
+                                }
+                                --temp_val;
+                                break;
+                            }
+                            case 1:
+                            {
+                                if (arr[middle_val] < arr[temp_val])
+                                {
+                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << "with arr[" << temp_val << "] = " << arr[temp_val] << endl;
+                                    double temp_buff;
+                                    temp_buff = arr[middle_val];
+                                    arr[middle_val] = arr[temp_val];
+                                    arr[temp_val] = temp_buff;
+
+                                    uint temp_buff_1 = 0;
+                                    temp_buff_1 = middle_val;
+                                    middle_val = temp_val;
+                                    temp_val = temp_buff_1;
+                                    direction = 0;
+                                    break;
+                                }
+                                ++temp_val;
+                                break;
+                            }
+                        }
+                    }
+//                    F_print_array(array_size, arr);
+                    cout << "left_val = " << temp_val << "\tright_val = " << middle_val << endl;
+                }while(false);
+
+                F_print_array(array_size, arr);
+
+                cout << "left part" << "right part" << endl;
+
+
+                system ("pause");
+                break;
+            }
+            case 4: // Search element in array
+            {
                 double find_number;
                 bool find = false;
                 cout << "\nType number which you want to find in array : ";
                 find_number = F_is_this_number('d');
 
-//                while (arr[i++] != find_number)
                 for (uint i = 0; i < array_size; ++i)
                 {
                     if ( arr[i] == find_number)
@@ -361,33 +397,7 @@ int main()
             }
             case 5: // Binary search
             {
-                uint element_number;
-                srand(time(0));
-
-                cout << "How many elements should array have? : ";
-                element_number = F_is_this_number('u');
-
-                double arr[element_number];
-                const size_t array_size = sizeof(arr)/sizeof(arr[0]);
-
-                cout << "Do you want manual input? <Y>es or <N>o : ";
-
-                if (F_repeat())
-                {
-                    for(uint i = 0; i < array_size; ++i)
-                    {
-                        cout << "Insert number arr[" << i <<"] = ";
-                        arr[i] = F_is_this_number('d');
-                    }
-                }
-                else
-                    for (uint i = 0; i < array_size; ++i)
-                        *(arr + i) = rand();
-
-                F_print_array(array_size, arr);
-
                 // sorting from min to max
-
                 bool change;
                 size_t number_of_changes = 0;
                 do
@@ -406,9 +416,10 @@ int main()
                         }
                     }
                 }while(change);
-//                cout << "\nNumber of changes n = " << number_of_changes << endl;
+
                 F_print_array(array_size, arr);
 
+                // Find my number
                 size_t left_val = 0;
                 size_t right_val = array_size - 1;
                 size_t middle_val = (right_val + left_val) / 2;
@@ -416,14 +427,13 @@ int main()
                 cout << "What number you want me to find? : ";
                 double search_val = F_is_this_number('d');
 
-                while ( left_val <= right_val)
+                while ( left_val < right_val)
                 {
                     if (arr[middle_val] == search_val)
                     {
                         cout << "I found your value " << search_val << " in the position " << middle_val << endl;
-                        if (arr[middle_val + 1] == search_val || arr[middle_val - 1])
+                        if (arr[middle_val + 1] == search_val || arr[middle_val - 1] == search_val)
                             cout << "There are more than 1 equell number in the array!!!!!" << endl;
-//                        left_val = middle_val - 1;
                         break;
                     }
                     else if (arr[middle_val] < search_val)
@@ -433,6 +443,9 @@ int main()
 
                     middle_val = (right_val + left_val) / 2;
                 }
+
+                if ( left_val == right_val && arr[left_val] != search_val)
+                    cout << ":( There are now number in the array!!!" << endl;
                 system ("pause");
                 break;
             }
@@ -441,3 +454,4 @@ int main()
 
     return 0;
 }
+
