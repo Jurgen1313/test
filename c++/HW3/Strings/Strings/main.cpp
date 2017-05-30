@@ -243,7 +243,37 @@ int main()
                 break;
             }
             case 3: // String compare 2
-            {
+            {            
+                const size_t string_lenght = 1000;
+                char user_string_1[string_lenght];
+                char user_string_2[string_lenght];
+                cout << "Enter your string 1 : ";
+                cin.getline(user_string_1, string_lenght);
+                cout << "Enter your string 2 : ";
+                cin.getline(user_string_2, string_lenght);
+                bool equal_strings = true;
+                bool equal_strings_2 = false;
+                int element_string_2 = 0;
+
+                size_t element_number = 0;
+                while (user_string_1[element_number++])
+                {
+                    cout << user_string_1[element_number - 1] << " ";
+                    if ((user_string_1[element_number - 1] == user_string_2[element_string_2]) && user_string_2[element_string_2])
+                    {
+                        ++element_string_2;
+                    }
+                    if (!user_string_2[element_string_2])
+                    {
+                        equal_strings_2 = true;
+                    }
+                }
+
+                if (equal_strings_2)
+                    cout << "\nStrings_2 " << user_string_2 << " is in string 1 " << user_string_1 << endl;
+                else
+                    cout << "NONONONONO\n";
+
                 system ("pause");
                 break;
             }
