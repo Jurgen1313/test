@@ -251,28 +251,27 @@ int main()
                 cin.getline(user_string_1, string_lenght);
                 cout << "Enter your string 2 : ";
                 cin.getline(user_string_2, string_lenght);
-                bool equal_strings = true;
                 bool equal_strings_2 = false;
                 int element_string_2 = 0;
+                int position = 0;
 
                 size_t element_number = 0;
                 while (user_string_1[element_number++])
                 {
-                    cout << user_string_1[element_number - 1] << " ";
                     if ((user_string_1[element_number - 1] == user_string_2[element_string_2]) && user_string_2[element_string_2])
                     {
                         ++element_string_2;
+                        if (!(element_string_2 - 1))
+                            position = element_number - 1;
                     }
                     if (!user_string_2[element_string_2])
-                    {
                         equal_strings_2 = true;
-                    }
                 }
 
                 if (equal_strings_2)
-                    cout << "\nStrings_2 " << user_string_2 << " is in string 1 " << user_string_1 << endl;
+                    cout << "\nStrings_2 " << user_string_2 << " is in string 1 " << user_string_1 << " from position " << position << " and starts with a symbol " << user_string_1[position] << endl;
                 else
-                    cout << "NONONONONO\n";
+                    cout << "NOT found\n";
 
                 system ("pause");
                 break;
@@ -281,7 +280,6 @@ int main()
             {
                 const size_t string_lenght = 1000;
                 char user_string[string_lenght];
-//                size_t element_number = 0;
                 cout << "Enter your text : ";
 
                 do
