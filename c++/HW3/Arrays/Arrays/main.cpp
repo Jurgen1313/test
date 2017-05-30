@@ -339,68 +339,9 @@ int main()
             }
             case 3: // Quicksort (((
             {
-
-//                uint middle_val = 0;                        ;
-//                uint middle_midlle_val = 0;
-//                int right_val = array_size - 1;
-//                uint temp_val = array_size - 1;
-//                int direction = 0;
-
-//                do
-//                {
-//                    while (middle_val != temp_val)
-//                    {
-//                        switch (direction)
-//                        {
-//                            case 0:
-//                            {
-//                                if (arr[middle_val] > arr[temp_val])
-//                                {
-//                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << " with arr[" << temp_val << "] = " << arr[temp_val] << endl;
-//                                    double temp_buff;
-//                                    temp_buff = arr[middle_val];
-//                                    arr[middle_val] = arr[temp_val];
-//                                    arr[temp_val] = temp_buff;
-
-//                                    uint temp_buff_1 = 0;
-//                                    temp_buff_1 = middle_val;
-//                                    middle_val = temp_val;
-//                                    temp_val = temp_buff_1;
-//                                    direction = 1;
-//                                    break;
-//                                }
-//                                --temp_val;
-//                                break;
-//                            }
-//                            case 1:
-//                            {
-//                                if (arr[middle_val] < arr[temp_val])
-//                                {
-//                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << "with arr[" << temp_val << "] = " << arr[temp_val] << endl;
-//                                    double temp_buff;
-//                                    temp_buff = arr[middle_val];
-//                                    arr[middle_val] = arr[temp_val];
-//                                    arr[temp_val] = temp_buff;
-
-//                                    uint temp_buff_1 = 0;
-//                                    temp_buff_1 = middle_val;
-//                                    middle_val = temp_val;
-//                                    temp_val = temp_buff_1;
-//                                    direction = 0;
-//                                    break;
-//                                }
-//                                ++temp_val;
-//                                break;
-//                            }
-//                        }
-//                    }
-////                    F_print_array(array_size, arr);
-//                    cout << "left_val = " << temp_val << "\tright_val = " << middle_val << endl;
-//                }while(false);
                 Quicksorf_alg (arr, 0, array_size - 1);
 
                 F_print_array(array_size, arr);
-//                cout << "left part" << "right part" << endl;
                 system ("pause");
                 break;
             }
