@@ -192,11 +192,13 @@ void Quicksorf_alg (double *parray, int left_val, int right_val )
         }
         cout << "Median = " << left_val  << endl;
 
-        if  ( left_val - 1 >= lv && left_val + 1 < rv)
+        if  ( left_val == right_val && (left_val != lv))
         {
-            Quicksorf_alg (parray, lv, left_val - 1);
+            Quicksorf_alg (parray, lv, rv);
 //            Quicksorf_alg (parray, left_val + 1, rv);
         }
+        else if (left_val == right_val && (left_val != rv))
+            Quicksorf_alg (parray, lv+1, rv);
 }
 
 int main()
