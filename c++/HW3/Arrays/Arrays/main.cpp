@@ -136,6 +136,68 @@ void F_print_array (uint size_array, double *parray)
         cout << "arr [" << i << "] = " << *(parray + i) << endl;
 }
 
+void Quicksorf_alg (double *parray, int left_val, int right_val )
+{
+    int dir = 0;
+    int lv = left_val;
+    int rv = right_val;
+    bool left_denied = true;
+    bool right_denied = true;
+
+        while (left_val != right_val)
+        {
+            switch (dir)
+            {
+                case 0:
+                {
+                    if (*(parray + left_val) > *(parray + right_val))
+                    {
+                        cout << "Change arr["<< left_val << "] = " << *(parray + left_val) << " with arr[" << right_val << "] = " << *(parray + right_val) << endl;
+                        double temp_buff;
+                        temp_buff = *(parray + left_val);
+                        *(parray + left_val) = *(parray + right_val);
+                        *(parray + right_val) = temp_buff;
+
+                        uint temp_buff_1 = 0;
+                        temp_buff_1 = left_val;
+                        left_val = right_val;
+                        right_val = temp_buff_1;
+                        dir = 1;
+                        break;
+                    }
+                    --right_val;
+                    break;
+                }
+                case 1:
+                {
+                    if (*(parray + left_val) < *(parray + right_val))
+                    {
+                        cout << "Change arr["<< left_val << "] = " << *(parray + left_val) << "with arr[" << right_val << "] = " << *(parray + right_val) << endl;
+                        double temp_buff;
+                        temp_buff = *(parray + left_val);
+                        *(parray + left_val) = *(parray + right_val);
+                        *(parray + right_val) = temp_buff;
+
+                        uint temp_buff_1 = 0;
+                        temp_buff_1 = left_val;
+                        left_val = right_val;
+                        right_val = temp_buff_1;
+                        dir = 0;
+                        break;
+                    }
+                    ++right_val;
+                    break;
+                }
+            }
+        }
+        cout << "Median = " << left_val  << endl;
+
+        if  ( left_val - 1 >= lv && left_val + 1 < rv)
+        {
+            Quicksorf_alg (parray, lv, left_val - 1);
+//            Quicksorf_alg (parray, left_val + 1, rv);
+        }
+}
 
 int main()
 {
@@ -276,91 +338,65 @@ int main()
             case 3: // Quicksort (((
             {
 
-//                 cout << "\nSORRY, Algorithm is under construction!!!!\n";
-//                 system ("pause");
-//                 break;
-//                uint element_number;
-// //                srand(time(0));
+//                uint middle_val = 0;                        ;
+//                uint middle_midlle_val = 0;
+//                int right_val = array_size - 1;
+//                uint temp_val = array_size - 1;
+//                int direction = 0;
 
-//                cout << "How many elements should array have? : ";
-//                element_number = F_is_this_number('u');
-
-//                double arr[element_number];
-//                const size_t array_size = sizeof(arr)/sizeof(arr[0]);
-
-//                cout << "Do you want manual input? <Y>es or <N>o : ";
-
-//                if (F_repeat())
+//                do
 //                {
-//                    for(uint i = 0; i < array_size; ++i)
+//                    while (middle_val != temp_val)
 //                    {
-//                        cout << "Insert number arr[" << i <<"] = ";
-//                        arr[i] = F_is_this_number('d');
+//                        switch (direction)
+//                        {
+//                            case 0:
+//                            {
+//                                if (arr[middle_val] > arr[temp_val])
+//                                {
+//                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << " with arr[" << temp_val << "] = " << arr[temp_val] << endl;
+//                                    double temp_buff;
+//                                    temp_buff = arr[middle_val];
+//                                    arr[middle_val] = arr[temp_val];
+//                                    arr[temp_val] = temp_buff;
+
+//                                    uint temp_buff_1 = 0;
+//                                    temp_buff_1 = middle_val;
+//                                    middle_val = temp_val;
+//                                    temp_val = temp_buff_1;
+//                                    direction = 1;
+//                                    break;
+//                                }
+//                                --temp_val;
+//                                break;
+//                            }
+//                            case 1:
+//                            {
+//                                if (arr[middle_val] < arr[temp_val])
+//                                {
+//                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << "with arr[" << temp_val << "] = " << arr[temp_val] << endl;
+//                                    double temp_buff;
+//                                    temp_buff = arr[middle_val];
+//                                    arr[middle_val] = arr[temp_val];
+//                                    arr[temp_val] = temp_buff;
+
+//                                    uint temp_buff_1 = 0;
+//                                    temp_buff_1 = middle_val;
+//                                    middle_val = temp_val;
+//                                    temp_val = temp_buff_1;
+//                                    direction = 0;
+//                                    break;
+//                                }
+//                                ++temp_val;
+//                                break;
+//                            }
+//                        }
 //                    }
-//                }
-//                else
-//                    for (uint i = 0; i < array_size; ++i)
-//                        *(arr + i) = rand();
+////                    F_print_array(array_size, arr);
+//                    cout << "left_val = " << temp_val << "\tright_val = " << middle_val << endl;
+//                }while(false);
+                Quicksorf_alg (arr, 0, array_size - 1);
 
-//                F_print_array(array_size, arr);
-
-                uint middle_val = 0;                        ;
-                uint middle_midlle_val = 0;
-                 //                int right_val = array_size - 1;
-                uint temp_val = array_size - 1;
-                int direction = 0;
-
-                do
-                {
-                    while (middle_val != temp_val)
-                    {
-                        switch (direction)
-                        {
-                            case 0:
-                            {
-                                if (arr[middle_val] > arr[temp_val])
-                                {
-                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << " with arr[" << temp_val << "] = " << arr[temp_val] << endl;
-                                    double temp_buff;
-                                    temp_buff = arr[middle_val];
-                                    arr[middle_val] = arr[temp_val];
-                                    arr[temp_val] = temp_buff;
-
-                                    uint temp_buff_1 = 0;
-                                    temp_buff_1 = middle_val;
-                                    middle_val = temp_val;
-                                    temp_val = temp_buff_1;
-                                    direction = 1;
-                                    break;
-                                }
-                                --temp_val;
-                                break;
-                            }
-                            case 1:
-                            {
-                                if (arr[middle_val] < arr[temp_val])
-                                {
-                                    cout << "Change arr["<< middle_val << "] = " << arr[middle_val] << "with arr[" << temp_val << "] = " << arr[temp_val] << endl;
-                                    double temp_buff;
-                                    temp_buff = arr[middle_val];
-                                    arr[middle_val] = arr[temp_val];
-                                    arr[temp_val] = temp_buff;
-
-                                    uint temp_buff_1 = 0;
-                                    temp_buff_1 = middle_val;
-                                    middle_val = temp_val;
-                                    temp_val = temp_buff_1;
-                                    direction = 0;
-                                    break;
-                                }
-                                ++temp_val;
-                                break;
-                            }
-                        }
-                    }
-//                    F_print_array(array_size, arr);
-                    cout << "left_val = " << temp_val << "\tright_val = " << middle_val << endl;
-                }while(false);
                 F_print_array(array_size, arr);
 //                cout << "left part" << "right part" << endl;
                 system ("pause");
