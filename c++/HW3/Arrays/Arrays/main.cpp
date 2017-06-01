@@ -5,6 +5,8 @@
 
 using namespace std;
 
+uint ccc = 0;
+
 double F_is_this_number (char symbol)
 {
 
@@ -138,6 +140,7 @@ void F_print_array (uint size_array, double *parray)
 
 void Quicksorf_alg (double *parray, int left_val, int right_val )
 {
+        ++ccc;
     int dir = 0;
     int lv = left_val;
     int rv = right_val;
@@ -342,6 +345,8 @@ int main()
                 Quicksorf_alg (arr, 0, array_size - 1);
 
                 F_print_array(array_size, arr);
+
+                cout << "\n\n NUMBER = " << ccc << endl;
                 system ("pause");
                 break;
             }
@@ -399,7 +404,7 @@ int main()
                 cout << "What number you want me to find? : ";
                 double search_val = F_is_this_number('d');
 
-                while ( left_val < right_val)
+                while ( left_val <= right_val)
                 {
                     if (arr[middle_val] == search_val)
                     {
@@ -409,9 +414,9 @@ int main()
                         break;
                     }
                     else if (arr[middle_val] < search_val)
-                        left_val = middle_val;
+                        left_val = middle_val + 1;
                     else
-                        right_val = middle_val;
+                        right_val = middle_val - 1;
 
                     middle_val = (right_val + left_val) / 2;
                 }
