@@ -319,9 +319,7 @@ int main()
             case 1: // Change even elements with odd elements
             {
                 for (uint i = 0; i < array_size - 1; i += 2)
-                {
                     swap (arr[i], arr[i+1]);
-                }
                 F_print_array(array_size, arr);
                 system ("pause");
                 break;
