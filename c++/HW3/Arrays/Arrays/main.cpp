@@ -204,6 +204,45 @@ void Quicksorf_alg (double *parray, int left_val, int right_val )
             Quicksorf_alg (parray, lv+1, rv);
 }
 
+void BubbleSort_min_max(double *arr, const size_t array_size)
+{
+    // sorting from min to max
+    bool change = true;
+    size_t number_of_changes = 0;
+    for (uint j = 1; (j <= array_size) && change; ++j)
+    {
+        change = false;
+        for (uint i = 0; i < (array_size - j); ++i )
+        {
+            if ( arr[i] > arr[i+1] )
+            {
+                swap (arr[i],arr[i+1]);
+                change = true;
+                ++number_of_changes;
+            }
+        }
+    }
+}
+
+void BubbleSort_max_min(double *arr, const size_t array_size)
+{
+    // sorting from min to max
+    bool change = true;
+    size_t number_of_changes = 0;
+    for (uint j = 1; (j <= array_size) && change; ++j)
+    {
+        change = false;
+        for (uint i = 0; i < (array_size - j); ++i )
+        {
+            if ( arr[i] < arr[i+1] )
+            {
+                swap (arr[i],arr[i+1]);
+                change = true;
+                ++number_of_changes;
+            }
+        }
+    }
+}
 int main()
 {
     srand(time(0));
@@ -281,10 +320,7 @@ int main()
             {
                 for (uint i = 0; i < array_size - 1; i += 2)
                 {
-                        double temp_val;
-                        temp_val = arr[i];
-                        arr[i] = arr[i+1];
-                        arr[i+1] = temp_val;
+                    swap (arr[i], arr[i+1]);
                 }
                 F_print_array(array_size, arr);
                 system ("pause");
@@ -293,49 +329,10 @@ int main()
             case 2: // Bubble sort
             {
                 // sorting from min to max
-                bool change;
-                size_t number_of_changes = 0;
-                do
-                {
-                    change = false;
-                    for (uint i = 0; i < array_size - 1; ++i )
-                    {
-                        if ( arr[i] > arr[i+1])
-                        {
-                            double temp_val;
-                            temp_val = arr[i];
-                            arr[i] = arr[i+1];
-                            arr[i+1] = temp_val;
-                            change = true;
-                            ++number_of_changes;
-                        }
-                    }
-                }while(change);
-
-                cout << "\nNumber of changes n = " << number_of_changes << endl;
+                BubbleSort_min_max(arr, array_size);
                 F_print_array(array_size, arr);
 
-                // sorting from max to min
-                number_of_changes = 0;
-
-                do
-                {
-                    change = false;
-                    for (uint i = 0; i < array_size - 1; ++i )
-                    {
-                        if ( arr[i+1] > arr[i])
-                        {
-                            double temp_val;
-                            temp_val = arr[i];
-                            arr[i] = arr[i+1];
-                            arr[i+1] = temp_val;
-                            change = true;
-                            ++number_of_changes;
-                        }
-                    }
-                }while(change);
-
-                cout << "\nNumber of changes n = " << number_of_changes << endl;
+                BubbleSort_max_min(arr, array_size);
                 F_print_array(array_size, arr);
                 system ("pause");
                 break;
@@ -343,9 +340,7 @@ int main()
             case 3: // Quicksort (((
             {
                 Quicksorf_alg (arr, 0, array_size - 1);
-
                 F_print_array(array_size, arr);
-
                 cout << "\n\n NUMBER = " << ccc << endl;
                 system ("pause");
                 break;
@@ -375,25 +370,7 @@ int main()
             case 5: // Binary search
             {
                 // sorting from min to max
-                bool change;
-                size_t number_of_changes = 0;
-                do
-                {
-                    change = false;
-                    for (uint i = 0; i < array_size - 1; ++i )
-                    {
-                        if ( arr[i] > arr[i+1])
-                        {
-                            double temp_val;
-                            temp_val = arr[i];
-                            arr[i] = arr[i+1];
-                            arr[i+1] = temp_val;
-                            change = true;
-                            ++number_of_changes;
-                        }
-                    }
-                }while(change);
-
+                BubbleSort_min_max(arr, array_size);
                 F_print_array(array_size, arr);
 
                 // Find my number
