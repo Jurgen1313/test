@@ -250,7 +250,7 @@ int main()
                         cout << *(p_copy_array + i) << "  " << p_copy_array + i << endl;
 
                 system("pause");
-                // DELETE all dynamic variables
+                // DELETE all dynamic variables (THIS MAY NOT BE DONE!!!!)
                 delete[] p_array;
                 p_array = 0;
                 delete[] p_copy_array;
@@ -267,7 +267,6 @@ int main()
                 size_t *array_size = static_cast<size_t*>(malloc(sizeof(int)));
                 *array_size = F_is_this_number('i');
                 cout << "\nArray_size = " << *array_size << endl;
-//                system("pause");
                 double *p_array = static_cast<double*>(calloc(*array_size, sizeof(double)));
 
                 if (!p_array)
@@ -290,7 +289,12 @@ int main()
                 F_print_array(*array_size, p_array);
 
                 cout << endl;
-                cout << "How many ellements should new array have? :";
+                cout << "How many elements should new array have? :";
+                size_t *new_array_size = static_cast<size_t*>(malloc(sizeof(int)));
+                *new_array_size = F_is_this_number('i');
+
+//                double *p_copy_array = new double [*new_array_size] {0};
+//                double *p_array = static_cast<double*>(calloc(*array_size, sizeof(double)));
                 system("pause");
 //                size_t *new_array_size = new size_t (F_is_this_number('d'));
 //                double *p_copy_array = new double [*new_array_size] {0};
