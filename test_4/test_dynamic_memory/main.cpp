@@ -157,7 +157,7 @@ int main()
         cout << "\tWellcome to testwork 3 (dynamic memory)" << endl << endl;
         cout << " Choose task : " << endl;
         cout << "<1> Create dynamic array and change it size using NEW & DELETE" << endl;
-        cout << "<2> Create dynamic array and change it size using MALLOC, ALLOC, RELLOC" << endl;;
+        cout << "<2> Create dynamic array and change it size using MALLOC, CALLOC, REALLOC" << endl;;
         cout << "<3> " << endl;
         cout << "<4> " << endl;
         cout << "<5> " << endl;
@@ -266,7 +266,7 @@ int main()
                 cout << "How many elements should array have? : ";
                 size_t *array_size = static_cast<size_t*>(malloc(sizeof(int)));
                 *array_size = F_is_this_number('i');
-                cout << "\nArray_size = " << *array_size << endl;
+//                cout << "\nArray_size = " << *array_size << endl;
                 double *p_array = static_cast<double*>(calloc(*array_size, sizeof(double)));
 
                 if (!p_array)
@@ -287,17 +287,25 @@ int main()
                         *(p_array + i) = rand();
 
                 F_print_array(*array_size, p_array);
-
                 cout << endl;
                 cout << "How many elements should new array have? :";
                 size_t *new_array_size = static_cast<size_t*>(malloc(sizeof(int)));
                 *new_array_size = F_is_this_number('i');
+                double *p_copy_array = static_cast<double*>(realloc(p_array, *new_array_size * sizeof(double) ));
 
-//                double *p_copy_array = new double [*new_array_size] {0};
-//                double *p_array = static_cast<double*>(calloc(*array_size, sizeof(double)));
+                cout << "\nNew address = " << p_copy_array << endl;
+                p_array = p_copy_array;
+                p_copy_array = 0;
+                free(p_copy_array);
+
+                if ( *array_size < *new_array_size )
+                for (size_t i = *array_size; i < *new_array_size; ++i)
+                    *(p_array + i) = rand();
+                *array_size = *new_array_size;
+                free(new_array_size);
+
+                F_print_array(*array_size, p_array);
                 system("pause");
-//                size_t *new_array_size = new size_t (F_is_this_number('d'));
-//                double *p_copy_array = new double [*new_array_size] {0};
                 break;
             }
         }
