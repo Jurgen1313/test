@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
-#include <conio.h>
+//#include <conio.h>
 
 using namespace std;
 
@@ -149,9 +149,12 @@ int main()
 {
     srand(time(0));
 
+
     int task_number = 0;
     bool keep_asking = true;
-
+//char chchc;
+//chchc = _getchar_nolock();
+//_getwche()
     do
     {
         system("cls");
@@ -315,7 +318,8 @@ int main()
                 size_t count = 0;
                 char *p_char_array = static_cast<char*>(calloc(buff, sizeof(char)));
                 cout << "Input string : " << endl;
-                char input_value = getch();
+//                char input_value = getch();
+                char input_value = _getwch();
                 cout << input_value;
                 while (input_value != '0')
                 {
@@ -332,7 +336,8 @@ int main()
                         free (p_new_array);
                         *(p_char_array + count) = input_value;
                     }
-                    input_value = getch();
+//                    input_value = getch();
+                    input_value = _getwch();
                     ++count;
                     cout << input_value;
                 }
