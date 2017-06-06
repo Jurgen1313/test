@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <conio.h>
 
 using namespace std;
 
@@ -158,7 +159,7 @@ int main()
         cout << " Choose task : " << endl;
         cout << "<1> Create dynamic array and change it size using NEW & DELETE" << endl;
         cout << "<2> Create dynamic array and change it size using MALLOC, CALLOC, REALLOC" << endl;;
-        cout << "<3> " << endl;
+        cout << "<3> Read data until \"0\" " << endl;
         cout << "<4> " << endl;
         cout << "<5> " << endl;
         cout << "<6> EXIT" << endl << endl;
@@ -306,6 +307,44 @@ int main()
 
                 F_print_array(*array_size, p_array);
                 system("pause");
+                break;
+            }
+            case 3:
+            {
+                size_t buff = 2;
+                size_t count = 0;
+                char *p_char_array = static_cast<char*>(calloc(buff, sizeof(char)));
+                cout << "Input string : " << endl;
+                char input_value = getch();
+                cout << input_value;
+                while (input_value != '0')
+                {
+                    if (buff > count)
+                    {
+                        *(p_char_array + count) = input_value;
+                    }
+                    else
+                    {
+                        char *p_new_array = static_cast<char*>(realloc(p_char_array, (++buff) * sizeof(char)));
+//                        cout << "\nNew address = " << p_new_array << "   " << *p_new_array << endl;
+                        p_char_array = p_new_array;
+                        p_new_array = 0;
+                        free (p_new_array);
+                        *(p_char_array + count) = input_value;
+                    }
+                    input_value = getch();
+                    ++count;
+                    cout << input_value;
+                }
+
+                cout << "\nYou entered " << count << " symbols until \'0\'" << endl;
+                for (size_t i = 0; i < count; ++i)
+                {
+                    cout << "array [" << i << "] = " << *(p_char_array + i) << endl;
+                }
+
+                cout << "\n string : " << p_char_array << endl;
+                system ("pause");
                 break;
             }
         }
