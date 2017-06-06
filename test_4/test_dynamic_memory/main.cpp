@@ -152,9 +152,6 @@ int main()
 
     int task_number = 0;
     bool keep_asking = true;
-//char chchc;
-//chchc = _getchar_nolock();
-//_getwche()
     do
     {
         system("cls");
@@ -163,7 +160,7 @@ int main()
         cout << "<1> Create dynamic array and change it size using NEW & DELETE" << endl;
         cout << "<2> Create dynamic array and change it size using MALLOC, CALLOC, REALLOC" << endl;;
         cout << "<3> Read data until \"0\" " << endl;
-        cout << "<4> " << endl;
+        cout << "<4> Combine two strings" << endl;
         cout << "<5> " << endl;
         cout << "<6> EXIT" << endl << endl;
         cout << "Make your choise : " ;
@@ -344,11 +341,76 @@ int main()
 
                 cout << "\nYou entered " << count << " symbols until \'0\'" << endl;
                 for (size_t i = 0; i < count; ++i)
-                {
                     cout << "array [" << i << "] = " << *(p_char_array + i) << endl;
-                }
 
                 cout << "\n string : " << p_char_array << endl;
+                system ("pause");
+                break;
+            }
+            case 4:
+            {
+                size_t buff = 1000;
+//                char *first_string = new char[buff];
+                char *first_string = static_cast<char*>(calloc(buff, sizeof(char)));
+                cout << "\nGive string 1 : ";
+                cin.getline(first_string, buff);
+//                char *second_string = new char[buff];
+                char *second_string = static_cast<char*>(calloc(buff, sizeof(char)));
+                cout << "Give string 2 : ";
+                cin.getline(second_string, buff);
+
+                size_t string_1_lenght = 0;
+                size_t string_2_lenght = 0;
+                buff = 0;
+                while(*(first_string + (buff++)));
+                string_1_lenght = --buff;
+                buff = 0;
+                while(*(second_string + (buff++)));
+                string_2_lenght = --buff;
+
+
+                cout << "\nFirst string is : " << first_string << " string lenght = " << string_1_lenght << endl;
+                cout << "Second string is : " << second_string << " string lenght = " << string_2_lenght << endl;
+
+                //new third string
+                char *third_string = static_cast<char*>(calloc(string_1_lenght + string_2_lenght, sizeof(char)));
+
+//                for (size_t i = 0; i < (string_1_lenght + string_2_lenght); ++i)
+//                    if ( i < string_1_lenght )
+//                        *(third_string + i) = *(first_string + i);
+//                    else
+//                        *(third_string + i) = *(second_string + i);
+
+                for (size_t i = 0; i < string_1_lenght; ++i)
+                        *(third_string + i) = *(first_string + i);
+                for (size_t i = 0; i < string_2_lenght; ++i)
+                        *(third_string + string_1_lenght + i) = *(second_string + i);
+
+                cout << "\nNew Third string : " << third_string;
+
+                char *split_1_2_string = static_cast<char*>(realloc(first_string, (string_1_lenght + string_2_lenght)* sizeof(char)));
+                char *split_2_1_string = static_cast<char*>(realloc(second_string, (string_1_lenght + string_2_lenght) * sizeof(char)));
+                if (split_1_2_string == nullptr || split_2_1_string == nullptr )
+                    cout << "\n\n\n\nVERY-VERY-VERY BAD\n";
+                first_string = split_1_2_string;
+                second_string = split_2_1_string;
+                cout << "\n1_2 string : " << split_1_2_string;
+                cout << "\n2_1 string : " << split_2_1_string;
+
+                for (size_t i = 0; i < string_2_lenght; ++i)
+                    *(first_string + string_1_lenght + i) = *(second_string + i);
+
+                for (size_t i = 0; i < string_1_lenght; ++i)
+                    *(second_string + string_2_lenght + i) = *(split_1_2_string + i);
+
+                split_1_2_string = 0;
+                free(split_1_2_string);
+
+                split_2_1_string = 0;
+                free(split_2_1_string);
+
+                cout << "\nNew first string : " << first_string;
+                cout << "\nNew second string : " << second_string << endl;
                 system ("pause");
                 break;
             }
