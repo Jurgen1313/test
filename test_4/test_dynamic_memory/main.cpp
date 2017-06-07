@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
+#include <cstring>
 //#include <conio.h>
 
 using namespace std;
@@ -144,6 +145,19 @@ void F_print_array (const int size_array, const double *parray)
 //    for (double* q = parray; q != parray + size_array; ++q)
 //        cout << " " << *q << " " << q << endl;
 }
+
+void F_buffer_resize(char *input_string, size_t *buffer)
+{
+        if (*buffer <= strlen(input_string))
+        {
+            char *p_new_array = static_cast<char*>(realloc(input_string, (++(*buffer)) * sizeof(char)));
+            input_string = 0;
+            input_string = p_new_array;
+            p_new_array = 0;
+            free(p_new_array);
+        }
+}
+
 
 int main()
 {
@@ -311,40 +325,30 @@ int main()
             }
             case 3:
             {
+
                 size_t buff = 2;
-                size_t count = 0;
+                size_t num = 0;
+//                int reload = 0;
+//                F_buffer_resize(p_char_array, &buff, reload))
+//                size_t count = 0;
                 char *p_char_array = static_cast<char*>(calloc(buff, sizeof(char)));
+//                *p_char_array = ' ';
+//                reload = 1;
                 cout << "Input string : " << endl;
-//                char input_value = getch();
                 char input_value = _getwch();
                 cout << input_value;
                 while (input_value != '0')
                 {
-                    if (buff > count)
-                    {
-                        *(p_char_array + count) = input_value;
-                    }
-                    else
-                    {
-                        char *p_new_array = static_cast<char*>(realloc(p_char_array, (++buff) * sizeof(char)));
-//                        cout << "\nNew address = " << p_new_array << "   " << *p_new_array << endl;
-                        p_char_array = p_new_array;
-                        p_new_array = 0;
-                        free (p_new_array);
-                        *(p_char_array + count) = input_value;
-                    }
-//                    input_value = getch();
+                    F_buffer_resize(p_char_array, &buff);
+                    *(p_char_array + num) = input_value;
                     input_value = _getwch();
-                    ++count;
                     cout << input_value;
+                    ++num;
                 }
-
-                cout << "\nYou entered " << count << " symbols until \'0\'" << endl;
-                for (size_t i = 0; i < count; ++i)
-                    cout << "array [" << i << "] = " << *(p_char_array + i) << endl;
-
+                cout << "\nString size is " << strlen(p_char_array) << " symbols and you entered " << num << " symbols until \'0\'" << endl;
                 cout << "\n string : " << p_char_array << endl;
                 system ("pause");
+                free(p_char_array);
                 break;
             }
             case 4:
@@ -352,21 +356,23 @@ int main()
                 size_t buff = 1000;
 //                char *first_string = new char[buff];
                 char *first_string = static_cast<char*>(calloc(buff, sizeof(char)));
-                cout << "\nGive string 1 : ";
+                cout << "\nGive me string 1 : ";
                 cin.getline(first_string, buff);
 //                char *second_string = new char[buff];
                 char *second_string = static_cast<char*>(calloc(buff, sizeof(char)));
-                cout << "Give string 2 : ";
+                cout << "Give me string 2 : ";
                 cin.getline(second_string, buff);
 
-                size_t string_1_lenght = 0;
-                size_t string_2_lenght = 0;
-                buff = 0;
-                while(*(first_string + (buff++)));
-                string_1_lenght = --buff;
-                buff = 0;
-                while(*(second_string + (buff++)));
-                string_2_lenght = --buff;
+                size_t string_1_lenght = strlen(first_string);
+                size_t string_2_lenght = strlen(second_string);
+//                size_t string_1_lenght = 0;
+//                size_t string_2_lenght = 0;
+//                buff = 0;
+//                while(*(first_string + (buff++)));
+//                string_1_lenght = --buff;
+//                buff = 0;
+//                while(*(second_string + (buff++)));
+//                string_2_lenght = --buff;
 
 
                 cout << "\nFirst string is : " << first_string << " string lenght = " << string_1_lenght << endl;
