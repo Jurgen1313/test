@@ -151,16 +151,16 @@ void F_buffer_resize(char *input_string, size_t *buffer)
             char *p_new_array = static_cast<char*>(realloc(input_string, (++(*buffer)) * sizeof(char)));
             input_string = 0;
             input_string = p_new_array;
-            p_new_array = 0;
-            free(p_new_array);
+//            p_new_array = 0;
+//            free(p_new_array);
 }
 
-double* F_buffer_resize_new (double *tmp_arr, const size_t *new_lenght, const size_t *old_lenght)
+double* F_buffer_resize_new (double *tmp_arr, const size_t new_lenght, const size_t old_lenght)
 {
-    double *new_tmp_array = new double [*new_lenght];
-    for (size_t i = 0; i < *new_lenght; ++i)
+    double *new_tmp_array = new double [new_lenght];
+    for (size_t i = 0; i < new_lenght; ++i)
     {
-        if (i < *old_lenght )
+        if (i < old_lenght )
             new_tmp_array[i] = tmp_arr[i];
         else
             new_tmp_array[i] = rand();
@@ -170,10 +170,9 @@ double* F_buffer_resize_new (double *tmp_arr, const size_t *new_lenght, const si
     return new_tmp_array;
 }
 
-void F_buffer_resize_new_2 (double *tmp_arr, const size_t *const new_lenght, const size_t * const old_lenght)
+void F_buffer_resize_new_2 (double *tmp_arr, const size_t* const new_lenght, const size_t* const old_lenght)
 {
     double *new_tmp_array = new double [*new_lenght];
-//    cout << new_tmp_array << endl;
     for (size_t i = 0; i < *new_lenght; ++i)
     {
         if (i < *old_lenght )
@@ -181,10 +180,16 @@ void F_buffer_resize_new_2 (double *tmp_arr, const size_t *const new_lenght, con
         else
             new_tmp_array[i] = rand();
     }
-    delete [] tmp_arr;
-
-    tmp_arr = new_tmp_array;
     cout << tmp_arr << endl;
+    delete [] tmp_arr;
+    tmp_arr = 0;
+    tmp_arr = new_tmp_array;
+    new_tmp_array = 0;
+    cout << tmp_arr << endl;
+
+//    for (size_t i = 0; i < *new_lenght; ++i)
+//        cout << "new arr [" << i << "] = " << tmp_arr[i] << " address = " << tmp_arr + i << endl;
+//    return;
 }
 
 int main()
@@ -242,7 +247,7 @@ int main()
             {
                 cout << "How many elements should array have? : ";
                 size_t *array_size = new size_t (F_is_this_number('d'));
-                double *p_array = new (nothrow) double [*array_size] {0};
+                double *p_array = new double [*array_size] {0};
 
                 if (!p_array)
                 cout << "ERROR creating array" << endl;
@@ -266,7 +271,7 @@ int main()
 
                 size_t *new_array_size = new size_t (F_is_this_number('d'));
 
-                p_array = F_buffer_resize_new(p_array, new_array_size, array_size);
+                p_array = F_buffer_resize_new(p_array, *new_array_size, *array_size);
 //                F_buffer_resize_new_2(p_array, new_array_size, array_size);
 
                 cout << "\n new address = " << p_array <<endl;
@@ -349,16 +354,15 @@ int main()
                 cout << "\n string : " << p_char_array << endl;
                 system ("pause");
                 free(p_char_array);
+                p_char_array = 0;
                 break;
             }
             case 4:
             {
                 size_t buff = 1000;
-//                char *first_string = new char[buff];
                 char *first_string = static_cast<char*>(calloc(buff, sizeof(char)));
                 cout << "\nGive me string 1 : ";
                 cin.getline(first_string, buff);
-//                char *second_string = new char[buff];
                 char *second_string = static_cast<char*>(calloc(buff, sizeof(char)));
                 cout << "Give me string 2 : ";
                 cin.getline(second_string, buff);
@@ -379,10 +383,19 @@ int main()
 
                 cout << "\nNew Third string : " << third_string;
 
+//                if ( third_string != nullptr)
+//                {
+                    free (third_string );
+                    third_string = 0;
+                    cout << "\nthird string deleted" << endl;
+//                }
+
                 char *split_1_2_string = static_cast<char*>(realloc(first_string, (string_1_lenght + string_2_lenght)* sizeof(char)));
                 char *split_2_1_string = static_cast<char*>(realloc(second_string, (string_1_lenght + string_2_lenght) * sizeof(char)));
+
                 if (split_1_2_string == nullptr || split_2_1_string == nullptr )
                     cout << "\n\n\n\nVERY-VERY-VERY BAD\n";
+
                 first_string = split_1_2_string;
                 second_string = split_2_1_string;
                 cout << "\n1_2 string : " << split_1_2_string;
@@ -394,14 +407,45 @@ int main()
                 for (size_t i = 0; i < string_1_lenght; ++i)
                     *(second_string + string_2_lenght + i) = *(split_1_2_string + i);
 
-                split_1_2_string = 0;
-                free(split_1_2_string);
-
-                split_2_1_string = 0;
-                free(split_2_1_string);
-
                 cout << "\nNew first string : " << first_string;
                 cout << "\nNew second string : " << second_string << endl;
+
+
+                if (split_1_2_string != nullptr)
+                {
+                    free (split_1_2_string);
+                    split_1_2_string = 0;
+                    cout << "split_1_2_string deleted" << endl;
+                }
+                if (split_2_1_string != nullptr)
+                {
+                    free (split_2_1_string);
+                    split_2_1_string = 0;
+                    cout << "split_2_1_string deleted" << endl;
+                }
+                if (first_string != nullptr)
+                {
+                    free (first_string);
+                    first_string = 0;
+                    cout << "first string deleted" << endl;
+                }
+                if (second_string != nullptr)
+                {
+                    free (second_string);
+                    second_string = 0;
+                    cout << "second string deleted" << endl;
+                }
+//                if ( third_string != nullptr)
+//                {
+//                    free (third_string );
+//                    third_string = 0;
+//                    cout << "third string deleted" << endl;
+//                }
+//                free (split_1_2_string);
+//                split_1_2_string = 0;
+//                free (split_2_1_string);
+//                split_2_1_string = 0;
+
                 system ("pause");
                 break;
             }
