@@ -148,16 +148,44 @@ void F_print_array (const int size_array, const double *parray)
 
 void F_buffer_resize(char *input_string, size_t *buffer)
 {
-        if (*buffer <= strlen(input_string))
-        {
             char *p_new_array = static_cast<char*>(realloc(input_string, (++(*buffer)) * sizeof(char)));
             input_string = 0;
             input_string = p_new_array;
             p_new_array = 0;
             free(p_new_array);
-        }
 }
 
+double* F_buffer_resize_new (double *tmp_arr, const size_t *new_lenght, const size_t *old_lenght)
+{
+    double *new_tmp_array = new double [*new_lenght];
+    for (size_t i = 0; i < *new_lenght; ++i)
+    {
+        if (i < *old_lenght )
+            new_tmp_array[i] = tmp_arr[i];
+        else
+            new_tmp_array[i] = rand();
+    }
+    delete [] tmp_arr;
+    tmp_arr = 0;
+    return new_tmp_array;
+}
+
+void F_buffer_resize_new_2 (double *tmp_arr, const size_t *const new_lenght, const size_t * const old_lenght)
+{
+    double *new_tmp_array = new double [*new_lenght];
+//    cout << new_tmp_array << endl;
+    for (size_t i = 0; i < *new_lenght; ++i)
+    {
+        if (i < *old_lenght )
+            new_tmp_array[i] = tmp_arr[i];
+        else
+            new_tmp_array[i] = rand();
+    }
+    delete [] tmp_arr;
+
+    tmp_arr = new_tmp_array;
+    cout << tmp_arr << endl;
+}
 
 int main()
 {
@@ -222,13 +250,11 @@ int main()
                 cout << "Do you want manual input? <Y>es or <N>o : ";
 
                 if (F_repeat())
-                {
                     for(size_t i = 0; i < *array_size; ++i)
                     {
                         cout << "Insert number arr[" << i <<"] = ";
                         p_array[i] = F_is_this_number('d');
                     }
-                }
                 else
                     for (size_t i = 0; i < *array_size; ++i)
                         *(p_array + i) = rand();
@@ -239,41 +265,20 @@ int main()
                 cout << "How many ellements should new array have? :";
 
                 size_t *new_array_size = new size_t (F_is_this_number('d'));
-                double *p_copy_array = new double [*new_array_size] {0};
-                for (size_t i = 0; i < *new_array_size; ++i)
-                {
-                    if (i < *array_size )
-                        p_copy_array[i] = p_array[i];
-                    else
-                        p_copy_array[i] = rand();
-                }
-                F_print_array(*new_array_size, p_copy_array);
-                cout << endl;
-                cout << "New created array address = " << p_copy_array << "\nOld array address = " << p_array << endl;
-                delete[] p_array;
-                p_array = 0;
-                p_array = p_copy_array;
 
-                p_copy_array = 0;
-                delete[] p_copy_array;
-//                p_copy_array = 0;
+                p_array = F_buffer_resize_new(p_array, new_array_size, array_size);
+//                F_buffer_resize_new_2(p_array, new_array_size, array_size);
 
+                cout << "\n new address = " << p_array <<endl;
                 F_print_array(*new_array_size, p_array);
 
-                if ( p_copy_array != nullptr )
-                    for (size_t i = 0; i < *new_array_size; ++i)
-                        cout << *(p_copy_array + i) << "  " << p_copy_array + i << endl;
-
-                system("pause");
-                // DELETE all dynamic variables (THIS MAY NOT BE DONE!!!!)
                 delete[] p_array;
                 p_array = 0;
-                delete[] p_copy_array;
-                p_copy_array = 0;
                 delete array_size;
                 array_size = 0;
                 delete new_array_size;
                 new_array_size = 0;
+                system("pause");
                 break;
             }
             case 2:
@@ -281,11 +286,10 @@ int main()
                 cout << "How many elements should array have? : ";
                 size_t *array_size = static_cast<size_t*>(malloc(sizeof(int)));
                 *array_size = F_is_this_number('i');
-//                cout << "\nArray_size = " << *array_size << endl;
                 double *p_array = static_cast<double*>(calloc(*array_size, sizeof(double)));
 
                 if (!p_array)
-                cout << "ERROR creating array" << endl;
+                    cout << "ERROR creating array" << endl;
 
                 cout << "Do you want manual input? <Y>es or <N>o : ";
 
@@ -328,18 +332,14 @@ int main()
 
                 size_t buff = 2;
                 size_t num = 0;
-//                int reload = 0;
-//                F_buffer_resize(p_char_array, &buff, reload))
-//                size_t count = 0;
                 char *p_char_array = static_cast<char*>(calloc(buff, sizeof(char)));
-//                *p_char_array = ' ';
-//                reload = 1;
                 cout << "Input string : " << endl;
                 char input_value = _getwch();
                 cout << input_value;
                 while (input_value != '0')
                 {
-                    F_buffer_resize(p_char_array, &buff);
+                    if ( buff <= strlen(p_char_array) )
+                        F_buffer_resize(p_char_array, &buff);
                     *(p_char_array + num) = input_value;
                     input_value = _getwch();
                     cout << input_value;
@@ -365,27 +365,12 @@ int main()
 
                 size_t string_1_lenght = strlen(first_string);
                 size_t string_2_lenght = strlen(second_string);
-//                size_t string_1_lenght = 0;
-//                size_t string_2_lenght = 0;
-//                buff = 0;
-//                while(*(first_string + (buff++)));
-//                string_1_lenght = --buff;
-//                buff = 0;
-//                while(*(second_string + (buff++)));
-//                string_2_lenght = --buff;
-
 
                 cout << "\nFirst string is : " << first_string << " string lenght = " << string_1_lenght << endl;
                 cout << "Second string is : " << second_string << " string lenght = " << string_2_lenght << endl;
 
                 //new third string
                 char *third_string = static_cast<char*>(calloc(string_1_lenght + string_2_lenght, sizeof(char)));
-
-//                for (size_t i = 0; i < (string_1_lenght + string_2_lenght); ++i)
-//                    if ( i < string_1_lenght )
-//                        *(third_string + i) = *(first_string + i);
-//                    else
-//                        *(third_string + i) = *(second_string + i);
 
                 for (size_t i = 0; i < string_1_lenght; ++i)
                         *(third_string + i) = *(first_string + i);
