@@ -165,6 +165,7 @@ int main()
                     cout << input_value;
                     ++num;
                 }
+                    *(p_char_array + num) = '\0';
                 cout << "\nString size is " << (strlen(p_char_array) + 1) << " symbols and you entered " << num << " symbols until \'0\'" << endl;
                 cout << "\n string : " << p_char_array << " address = " << &p_char_array << endl;
 
