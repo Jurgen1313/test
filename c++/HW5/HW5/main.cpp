@@ -1,24 +1,21 @@
 #include <iostream>
-#include "fractionStruct.cpp"
+//#include "fractionStruct.cpp"
+#include "fraction.h"
 
 using namespace std;
-
-uFraction operator+ (const uFraction& first, const uFraction& second)
-{
-    uFraction result;
-    result.nom = first.nom * second.den + second.nom * first.den;
-    result.den = first.den * second.den;
-    result.Reduce();
-    return result;
-}
-
 
 int main(void)
 {
     int readVal;
     uFraction F1;
     uFraction F2 {3,5};
-    uFraction F3;
+    uFraction F3,F4;
+
+    cout << "\nAddress1 = " << &F1;
+    cout << "\nAddress2 = " << &F2;
+    cout << "\nAddress3 = " << &F3;
+    cout << "\nAddress4 = " << &F4;
+//    cout << "\nPointer = " << F1;
     cout << "\nInsert 1 value of the numerator : ";
     cin >> readVal;
     F1.setNumerator(readVal);
@@ -40,7 +37,7 @@ int main(void)
     F2.printFraction();
     cout << endl;
 
-//    F3 = F1 + F2;
+    F3 = F1 + F2 + F4;
 //    F1 += F2;
     cout << "\n";
     F1.Reduce();
@@ -48,11 +45,28 @@ int main(void)
     cout << " + ";
     F2.Reduce();
     F2.printFraction();
+    cout << " + ";
+    F4.Reduce();
+    F4.printFraction();
     cout << " = ";
-    F1 += F2;
-    F1.Reduce();
-    F1.printFraction();
-    F3 = F1 + F2;
+//    F1 /= F2;
+    F3.Reduce();
+    F3.printFraction();
+
+
+    cout << "\nAddress1 = " << &F1;
+    cout << "\nAddress2 = " << &F2;
+    cout << "\nAddress3 = " << &F3;
+    cout << "\nAddress4 = " << &F4;
+    cout << "\n";
+//    F1.Reduce();
+//    F3.printFraction();
+//    cout << " / ";
+// //    F2.Reduce();
+//    F2.printFraction();
+//    cout << " = ";
+// //    F3.Reduce();
+//    F3.printFraction();
 
 //    F1.printFraction();
 //    cout << endl;
