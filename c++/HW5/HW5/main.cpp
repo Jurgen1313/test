@@ -22,6 +22,7 @@ int main(void)
     cout << "Insert 1 value of the denominator : ";
     cin >> readVal;
     F1.setDenominator(readVal);
+    F1.negativeFraction();
 
     cout << "\nInsert 2 value of the numerator : ";
     cin >> readVal;
@@ -37,7 +38,7 @@ int main(void)
     F2.printFraction();
     cout << endl;
 
-    F3 = F1 + F2 + F4;
+    F3 = (F1^2) + F2 + F4;
 //    F1 += F2;
     cout << "\n";
     F1.Reduce();
@@ -59,6 +60,7 @@ int main(void)
     cout << "\nAddress3 = " << &F3;
     cout << "\nAddress4 = " << &F4;
     cout << "\n";
+    (F1^2).printFraction();
 //    F1.Reduce();
 //    F3.printFraction();
 //    cout << " / ";

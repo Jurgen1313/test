@@ -12,6 +12,7 @@ uFraction::uFraction (int nom_, int den_)
 {
     nom = nom_;
     den = den_;
+    negativeFraction();
 }
 void uFraction::setNumerator(int setValue )
 {
@@ -20,6 +21,7 @@ void uFraction::setNumerator(int setValue )
 void uFraction::setDenominator(int setValue)
 {
     den = setValue;
+    negativeFraction();
 }
 void uFraction::setFraction (int setNom, int setDen)
 {
@@ -49,6 +51,18 @@ void uFraction::Reduce()
     int gcdVal = gcd(abs(nom), abs(den));
     nom /= gcdVal;
     den /= gcdVal;
+    negativeFraction();
+}
+
+void uFraction::negativeFraction()
+{
+    if ((nom < 0 && den < 0) || (nom >= 0 && den < 0))
+    {
+        nom *= -1;
+        den *= -1;
+    }
+    if (nom == 0)
+        den = 1;
 }
 
  uFraction& uFraction::operator+= (const uFraction& first)
@@ -82,11 +96,6 @@ uFraction& uFraction::operator/= (const uFraction& first)
     Reduce();
     return *this;
 }
-//    void sqrt (uFraction& fract)
-//    {
-//        nom = sqrt (fract.nom);
-//        den = sqrt (fract.den);
-//    }
 
 uFraction uFraction::operator+ (const uFraction& second) const
  {
@@ -123,3 +132,14 @@ uFraction uFraction::operator/ (const uFraction& second) const
     result.Reduce();
     return result;
 }
+
+uFraction uFraction::operator^ (int power) const
+{
+    uFraction result;
+    result.nom = pow(nom, power) ;
+    result.den = pow(den, power);
+    result.Reduce();
+    return result;
+}
+
+
