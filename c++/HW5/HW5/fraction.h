@@ -12,14 +12,13 @@ struct uFraction
 
     uFraction ();
 
-//    uFraction (int nom_, int den_);
-    uFraction (int, int);
+    uFraction (const int,const int);
 
-    void setNumerator(int);
+    void setNumerator(const int);
 
-    void setDenominator(int);
+    void setDenominator(const int);
 
-    void setFraction (int, int);
+    void setFraction (const int,const int);
 
     int getNumerator() const;
 
@@ -32,6 +31,10 @@ struct uFraction
     void Reduce();
 
     void negativeFraction();
+
+    uFraction aProgression(const int, const int) const;
+
+    uFraction aProgression(const uFraction&, int) const;
 
     uFraction& operator+= (const uFraction&);
 
@@ -49,7 +52,17 @@ struct uFraction
 
     uFraction operator/ (const uFraction&) const;
 
-    uFraction operator^ (int) const;
+    uFraction operator+ (const int) const;
+
+    uFraction operator- (const int) const;
+
+    uFraction operator* (const int) const;
+
+    uFraction operator/ (const int) const;
+
+    uFraction operator^ (const int) const;
+
+    uFraction operator^ (const uFraction&) const;
 };
 
 

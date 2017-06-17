@@ -1,6 +1,4 @@
 #include "fraction.h"
-//#include <iostream>
-//#include <cmath>
 
 uFraction::uFraction ()
 {
@@ -8,22 +6,22 @@ uFraction::uFraction ()
     den = 1;
 }
 
-uFraction::uFraction (int nom_, int den_)
+uFraction::uFraction (const int nom_, const int den_)
 {
     nom = nom_;
     den = den_;
     negativeFraction();
 }
-void uFraction::setNumerator(int setValue )
+void uFraction::setNumerator(const int setValue )
 {
     nom = setValue;
 }
-void uFraction::setDenominator(int setValue)
+void uFraction::setDenominator(const int setValue)
 {
     den = setValue;
     negativeFraction();
 }
-void uFraction::setFraction (int setNom, int setDen)
+void uFraction::setFraction (const int setNom, const int setDen)
 {
     nom = setNom;
     den = setDen;
@@ -41,7 +39,7 @@ void uFraction::printFraction() const
 {
     std::cout << nom << "/" << den;
 }
-int uFraction::gcd(int a, int b) const
+int uFraction::gcd(const int a, const int b) const
 {
    if (b == 0) return a;
    return gcd(b, a % b);
@@ -56,19 +54,36 @@ void uFraction::Reduce()
 
 void uFraction::negativeFraction()
 {
-    if ((nom < 0 && den < 0) || (nom >= 0 && den < 0))
+    if (nom != 0 && den < 0)
     {
         nom *= -1;
         den *= -1;
     }
-    if (nom == 0)
+    else if (nom == 0)
         den = 1;
+}
+
+uFraction uFraction::aProgression(const int n, const int d) const
+{
+    uFraction result;
+    result.nom = (n/2)*(2*nom+d*(n-1));
+    result.den = den;
+    result.Reduce();
+    return result;
+}
+
+uFraction uFraction::aProgression(const uFraction& second, const int n) const
+{
+    uFraction result {n,2};
+    result *= (*this + second);
+    result.Reduce();
+    return result;
 }
 
  uFraction& uFraction::operator+= (const uFraction& first)
 {
     nom = first.nom * den + nom * first.den;
-    den = first.den * den;
+    den *= first.den;
     Reduce();
     return *this;
 }
@@ -76,7 +91,7 @@ void uFraction::negativeFraction()
 uFraction& uFraction::operator-= (const uFraction& first)
 {
     nom = nom * first.den - first.nom * den;
-    den = first.den * den;
+    den *= first.den;
     Reduce();
     return *this;
 }
@@ -133,7 +148,39 @@ uFraction uFraction::operator/ (const uFraction& second) const
     return result;
 }
 
-uFraction uFraction::operator^ (int power) const
+uFraction uFraction::operator+ (const int number) const
+{
+    uFraction result {number, 1};
+    result += *this;
+    result.Reduce();
+    return result;
+}
+
+uFraction uFraction::operator- (const int number) const
+{
+    uFraction result {number, 1};
+    result = *this - result;
+    result.Reduce();
+    return result;
+}
+
+uFraction uFraction::operator* (const int number) const
+{
+    uFraction result {number, 1};
+    result *= *this;
+    result.Reduce();
+    return result;
+}
+
+uFraction uFraction::operator/ (const int number) const
+{
+    uFraction result {number, 1};
+    result = *this / result;
+    result.Reduce();
+    return result;
+}
+
+uFraction uFraction::operator^ (const int power) const
 {
     uFraction result;
     result.nom = pow(nom, power) ;
@@ -142,4 +189,12 @@ uFraction uFraction::operator^ (int power) const
     return result;
 }
 
+uFraction uFraction::operator^ (const uFraction& power) const
+{
+    uFraction result;
+//    result.nom = pow(nom, power) ;
+//    result.den = pow(den, power);
+//    result.Reduce();
+    return result;
+}
 
