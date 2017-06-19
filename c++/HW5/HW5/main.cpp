@@ -26,13 +26,40 @@ int main(void)
     cin >> readVal;
     F2.setDenominator(readVal);
 
-    cout << endl;
+    cout << endl << "F1 = ";
     F1.printFraction();
-    cout << endl;
+    cout << endl << "F2 = ";
     F2.printFraction();
     cout << endl;
 
-//    F3 = (F1^2) + F2 + F4;
+    if (F1 > F2)
+        cout << F1 << " > " << F2 << endl;
+    else if (F1 < F2)
+        cout << F1 << " < " << F2 << endl;
+    else
+        cout << F1 << " = " << F2 << endl;
+
+    int n = 2;
+    F3 = n + F1;
+    cout << "F3 = n + F1 :: " << n << " + " << F1 << " = " << F3 << endl;
+    F3 = F1 + n;
+    cout << "F3 = F1 + n :: " << F1 << " + " << n << " = " << F3 << endl;
+    F3 = n - F1;
+    cout << "F3 = n - F1 :: " << n << " - " << F1 << " = " << F3 << endl;
+    F3 = F1 - n;
+    cout << "F3 = F1 - n :: " << F1 << " - " << n << " = " << F3 << endl;
+    F3 = n / F1;
+    cout << "F3 = n / F1 :: " << n << " / " << F1 << " = " << F3 << endl;
+    F3 = F1 / n;
+    cout << "F3 = F1 / n :: " << F1 << " / " << n << " = " << F3 << endl;
+    F3 = n * F1;
+    cout << "F3 = n * F1 :: " << n << " * " << F1 << " = " << F3 << endl;
+    F3 = F1 * n;
+    cout << "F3 = F1 * n :: " << F1 << " * " << n << " = " << F3 << endl;
+
+
+
+//    F3 = F1 + F2 + F4;
 //    cout << "\n";
 //    F1.Reduce();
 //    F1.printFraction();
@@ -49,10 +76,10 @@ int main(void)
 //    cout << "\n";
 //    (F1^2).printFraction();
 //    cout << endl;
-    int n = 5;
-    int d = 10;
-    F3 = ((F1 * 2)+(n-1)*d)*n/2;
-    F3.printFraction();
+//    int n = 5;
+//    int d = 10;
+//    F3 = ((F1 * 2)+(n-1)*d)*n/2;
+//    F3.printFraction();
     cout << endl;
 
 //    system("pause");

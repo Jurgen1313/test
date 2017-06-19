@@ -12,6 +12,7 @@ uFraction::uFraction (const int nom_, const int den_)
     den = den_;
     negativeFraction();
 }
+
 void uFraction::setNumerator(const int setValue )
 {
     nom = setValue;
@@ -180,6 +181,38 @@ uFraction uFraction::operator/ (const int number) const
     return result;
 }
 
+uFraction operator+ (const int number, const uFraction& f)
+{
+    uFraction result {number, 1};
+    result += f;
+    result.Reduce();
+    return result;
+}
+
+uFraction operator- (const int number, const uFraction& f)
+{
+    uFraction result {number, 1};
+    result -= f;
+    result.Reduce();
+    return result;
+}
+
+uFraction operator* (const int number, const uFraction& f)
+{
+    uFraction result {number, 1};
+    result *= f;
+    result.Reduce();
+    return result;
+}
+
+uFraction operator/ (const int number, const uFraction& f)
+{
+    uFraction result {number, 1};
+    result /= f;
+    result.Reduce();
+    return result;
+}
+
 uFraction uFraction::operator^ (const int power) const
 {
     uFraction result;
@@ -192,9 +225,37 @@ uFraction uFraction::operator^ (const int power) const
 uFraction uFraction::operator^ (const uFraction& power) const
 {
     uFraction result;
-//    result.nom = pow(nom, power) ;
-//    result.den = pow(den, power);
-//    result.Reduce();
+    result.nom = pow(nom, power.nom/power.den) ;
+    result.den = pow(den, power.nom/power.den);
+    result.Reduce();
     return result;
 }
+
+int uFraction::operator> (const uFraction& second) const
+{
+    return ((nom * second.den) > (second.nom * den));
+}
+
+int uFraction::operator< (const uFraction& second) const
+{
+    return ((nom * second.den) < (second.nom * den));
+}
+
+int uFraction::operator>= (const uFraction& second) const
+{
+    return ((nom * second.den) >= (second.nom * den));
+}
+
+int uFraction::operator<= (const uFraction& second) const
+{
+    return ((nom * second.den) <= (second.nom * den));
+}
+
+std::ostream& operator<< (std::ostream& os, const uFraction& f)
+{
+
+    os << f.nom << "/" << f.den;
+    return os;
+}
+
 

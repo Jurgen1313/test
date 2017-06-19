@@ -60,9 +60,22 @@ struct uFraction
 
     uFraction operator/ (const int) const;
 
+    friend uFraction operator+ (const int, const uFraction&);
+    friend uFraction operator- (const int, const uFraction&);
+    friend uFraction operator* (const int, const uFraction&);
+    friend uFraction operator/ (const int, const uFraction&);
+
     uFraction operator^ (const int) const;
 
     uFraction operator^ (const uFraction&) const;
+
+    int operator> (const uFraction&) const;
+    int operator< (const uFraction&) const;
+    int operator>= (const uFraction&) const;
+    int operator<= (const uFraction&) const;
+
+    friend std::ostream& operator<< (std::ostream&, const uFraction&);
+
 };
 
 
