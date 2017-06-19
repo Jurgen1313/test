@@ -32,6 +32,7 @@ int main(void)
     F2.printFraction();
     cout << endl;
 
+    cout << "Compare F1 and F2 " << endl;
     if (F1 > F2)
         cout << F1 << " > " << F2 << endl;
     else if (F1 < F2)
@@ -39,47 +40,55 @@ int main(void)
     else
         cout << F1 << " = " << F2 << endl;
 
+    cout << "Compare F2 and F1 " << endl;
+    if (F2 > F1)
+        cout << F2 << " > " << F1 << endl;
+    else if (F2 < F1)
+        cout << F2 << " < " << F1 << endl;
+    else
+        cout << F2 << " = " << F1 << endl;
+
     int n = 2;
     F3 = n + F1;
-    cout << "F3 = n + F1 :: " << n << " + " << F1 << " = " << F3 << endl;
+    cout << "F3  :: " << n << " + " << F1 << " = " << F3 << endl;
     F3 = F1 + n;
-    cout << "F3 = F1 + n :: " << F1 << " + " << n << " = " << F3 << endl;
+    cout << "F3 :: " << F1 << " + " << n << " = " << F3 << endl;
     F3 = n - F1;
-    cout << "F3 = n - F1 :: " << n << " - " << F1 << " = " << F3 << endl;
+    cout << "F3 :: " << n << " - " << F1 << " = " << F3 << endl;
     F3 = F1 - n;
-    cout << "F3 = F1 - n :: " << F1 << " - " << n << " = " << F3 << endl;
+    cout << "F3 :: " << F1 << " - " << n << " = " << F3 << endl;
     F3 = n / F1;
-    cout << "F3 = n / F1 :: " << n << " / " << F1 << " = " << F3 << endl;
+    cout << "F3 :: " << n << " / " << F1 << " = " << F3 << endl;
     F3 = F1 / n;
-    cout << "F3 = F1 / n :: " << F1 << " / " << n << " = " << F3 << endl;
+    cout << "F3 :: " << F1 << " / " << n << " = " << F3 << endl;
     F3 = n * F1;
-    cout << "F3 = n * F1 :: " << n << " * " << F1 << " = " << F3 << endl;
+    cout << "F3 :: " << n << " * " << F1 << " = " << F3 << endl;
     F3 = F1 * n;
-    cout << "F3 = F1 * n :: " << F1 << " * " << n << " = " << F3 << endl;
+    cout << "F3 :: " << F1 << " * " << n << " = " << F3 << endl;
+
+    n = -2;
+    F3 = n + F1;
+    cout << "F3  :: " << n << " + " << F1 << " = " << F3 << endl;
+    F3 = F1 + n;
+    cout << "F3 :: " << F1 << " + " << n << " = " << F3 << endl;
+    F3 = n - F1;
+    cout << "F3 :: " << n << " - " << F1 << " = " << F3 << endl;
+    F3 = F1 - n;
+    cout << "F3 :: " << F1 << " - " << n << " = " << F3 << endl;
+    F3 = n / F1;
+    cout << "F3 :: " << n << " / " << F1 << " = " << F3 << endl;
+    F3 = F1 / n;
+    cout << "F3 :: " << F1 << " / " << n << " = " << F3 << endl;
+    F3 = n * F1;
+    cout << "F3 :: " << n << " * " << F1 << " = " << F3 << endl;
+    F3 = F1 * n;
+    cout << "F3 :: " << F1 << " * " << n << " = " << F3 << endl;
 
 
-
-//    F3 = F1 + F2 + F4;
-//    cout << "\n";
-//    F1.Reduce();
-//    F1.printFraction();
-//    cout << " + ";
-//    F2.Reduce();
-//    F2.printFraction();
-//    cout << " + ";
-//    F4.Reduce();
-//    F4.printFraction();
-//    cout << " = ";
-//    F3.Reduce();
-//    F3.printFraction();
-
-//    cout << "\n";
-//    (F1^2).printFraction();
-//    cout << endl;
-//    int n = 5;
-//    int d = 10;
-//    F3 = ((F1 * 2)+(n-1)*d)*n/2;
-//    F3.printFraction();
+    n = 10;
+    int d = 3;
+    F3 = n/2*((2 * F1)+(n-1)*d);
+    cout << " Arithmetic progression starts from " << F1 << " with " << n << " elements and step " << d << " is equell : "<< F3 << endl;
     cout << endl;
 
 //    system("pause");

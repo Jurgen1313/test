@@ -19,7 +19,9 @@ void uFraction::setNumerator(const int setValue )
 }
 void uFraction::setDenominator(const int setValue)
 {
-    den = setValue;
+        den = setValue;
+    if (den == 0)
+        den = 1;
     negativeFraction();
 }
 void uFraction::setFraction (const int setNom, const int setDen)
@@ -222,14 +224,14 @@ uFraction uFraction::operator^ (const int power) const
     return result;
 }
 
-uFraction uFraction::operator^ (const uFraction& power) const
-{
-    uFraction result;
-    result.nom = pow(nom, power.nom/power.den) ;
-    result.den = pow(den, power.nom/power.den);
-    result.Reduce();
-    return result;
-}
+//uFraction uFraction::operator^ (const uFraction& power) const
+//{
+//    uFraction result;
+//    result.nom = pow(nom, power.nom/power.den) ;
+//    result.den = pow(den, power.nom/power.den);
+//    result.Reduce();
+//    return result;
+//}
 
 int uFraction::operator> (const uFraction& second) const
 {
@@ -251,10 +253,9 @@ int uFraction::operator<= (const uFraction& second) const
     return ((nom * second.den) <= (second.nom * den));
 }
 
-std::ostream& operator<< (std::ostream& os, const uFraction& f)
+std::ostream& operator<< (std::ostream& os, const uFraction& fraction)
 {
-
-    os << f.nom << "/" << f.den;
+    os << fraction.nom << "/" << fraction.den;
     return os;
 }
 

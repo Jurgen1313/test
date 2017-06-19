@@ -67,7 +67,7 @@ struct uFraction
 
     uFraction operator^ (const int) const;
 
-    uFraction operator^ (const uFraction&) const;
+//    uFraction operator^ (const uFraction&) const;
 
     int operator> (const uFraction&) const;
     int operator< (const uFraction&) const;
