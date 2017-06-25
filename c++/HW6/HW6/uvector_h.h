@@ -41,6 +41,8 @@ class uVector
     uVector& operator-= (const uVector&);
     uVector operator- (const uVector&) const;
 
+    friend std::ostream& operator<< (std::ostream&, const uVector&);
+    friend uVector operator* (const int, const uVector&);
 
 //    uVector operator* (const uVector&) const;
 

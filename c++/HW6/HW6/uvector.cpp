@@ -104,12 +104,13 @@
         return (*this +  (second * (-1)));
     }
 
+    //MUL
     uVector& uVector::operator*= (const int number)
     {
         x *= number;
         y *= number;
         z *= number;
-//        return (*this * number);
+//        return *this * number;
         return *this;
     }
 
@@ -120,4 +121,20 @@
         tmp.y = y * number;
         tmp.z = z * number;
         return tmp;
+    }
+
+    uVector operator* (const int number, const uVector& vector)
+    {
+        uVector tmp;
+        tmp.x = vector.x * number;
+        tmp.y = vector.y * number;
+        tmp.z = vector.z * number;
+        return tmp;
+    }
+
+    //COUT
+    std::ostream& operator<< (std::ostream& os, const uVector& vector)
+    {
+        os << "(" << vector.x << "," << vector.y << "," << vector.z << ")";
+        return os;
     }
