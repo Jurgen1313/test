@@ -31,12 +31,14 @@ class uVector
 
     int Compare(const uVector&) const;
     int ScalarProduct(const uVector&) const;
+    double cos_edge(const uVector&) const;
 
     uVector& operator+= (const uVector&);
     uVector operator+ (const uVector&) const;
 
-    uVector& operator*= (const int number);
+    uVector& operator*= (const int);
     uVector operator* (const int) const;
+    int operator* (const uVector&) const;
 
     uVector& operator-= (const uVector&);
     uVector operator- (const uVector&) const;

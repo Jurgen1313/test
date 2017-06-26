@@ -53,15 +53,15 @@
     }
     double uVector::cosX() const
     {
-        return (x)/Lenght();
+        return ((double)x)/Lenght();
     }
     double uVector::cosY() const
     {
-        return (y)/Lenght();
+        return ((double)y)/Lenght();
     }
     double uVector::cosZ() const
     {
-        return (z)/Lenght();
+        return ((double)z)/Lenght();
     }
     int uVector::Compare(const uVector& second) const
     {
@@ -71,6 +71,12 @@
     {
         return (x * second.x + y * second.y + z * second.z);
     }
+
+//    double uVector::cos_edge(const uVector& second) const
+//    {
+//        return (*this * second)/(this->Lenght() * second.Lenght());
+//    }
+
 
     //ADD
     uVector& uVector::operator+= (const uVector& second)
@@ -83,11 +89,12 @@
 
     uVector uVector::operator+ (const uVector& second) const
     {
-        uVector tmp;
-        tmp.x = x + second.x;
-        tmp.y = y + second.y;
-        tmp.z = z + second.z;
-        return tmp;
+//        uVector tmp;
+//        tmp.x = x + second.x;
+//        tmp.y = y + second.y;
+//        tmp.z = z + second.z;
+//        return tmp;
+        return uVector(x+second.x, y+second.y, z+second.z);
     }
 
     //SUB
@@ -116,20 +123,28 @@
 
     uVector uVector::operator* (const int number) const
     {
-        uVector tmp;
-        tmp.x = x * number;
-        tmp.y = y * number;
-        tmp.z = z * number;
-        return tmp;
+//        uVector tmp;
+//        tmp.x = x * number;
+//        tmp.y = y * number;
+//        tmp.z = z * number;
+//        return tmp;
+        return uVector(x*number, y*number, z*number);
     }
 
     uVector operator* (const int number, const uVector& vector)
     {
-        uVector tmp;
-        tmp.x = vector.x * number;
-        tmp.y = vector.y * number;
-        tmp.z = vector.z * number;
-        return tmp;
+//        uVector tmp;
+//        tmp.x = vector.x * number;
+//        tmp.y = vector.y * number;
+//        tmp.z = vector.z * number;
+//        return tmp;
+//        return vector * number;
+        return uVector(vector.x * number, vector.y * number, vector.z * number);
+    }
+
+    int uVector::operator* (const uVector& second) const
+    {
+        return x * second.x + y * second.y + z * second.z;
     }
 
     //COUT
@@ -137,4 +152,9 @@
     {
         os << "(" << vector.x << "," << vector.y << "," << vector.z << ")";
         return os;
+    }
+
+    double uVector::cos_edge(const uVector& second) const
+    {
+        return (*this * second)/(double)(this->Lenght() * second.Lenght());
     }
