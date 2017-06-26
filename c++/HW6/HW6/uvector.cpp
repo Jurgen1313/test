@@ -147,6 +147,11 @@
         return x * second.x + y * second.y + z * second.z;
     }
 
+    uVector uVector::vector_mul(const uVector& second) const
+    {
+        return uVector(y * second.z - z * second.y, z * second.x - x * second.z, x * second.y - y * second.x );
+    }
+
     //COUT
     std::ostream& operator<< (std::ostream& os, const uVector& vector)
     {

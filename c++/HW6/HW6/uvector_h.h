@@ -39,24 +39,13 @@ class uVector
     uVector& operator*= (const int);
     uVector operator* (const int) const;
     int operator* (const uVector&) const;
+    uVector vector_mul(const uVector&) const;
 
     uVector& operator-= (const uVector&);
     uVector operator- (const uVector&) const;
 
     friend std::ostream& operator<< (std::ostream&, const uVector&);
     friend uVector operator* (const int, const uVector&);
-
-//    uVector operator* (const uVector&) const;
-
-//    friend uVector operator* (const int, const uVector&) ;
-
-//    uVector& operator/= (const uVector&);
-//    uVector operator/ (const uVector&) const;
-//    uVector operator/ (const int) const;
-//    friend uVector operator/ (const int, const uVector&) ;
-
-
-
 };
 
 
