@@ -31,6 +31,11 @@ int main(void)
     cout << endl << "F2 = ";
     F2.printFraction();
     cout << endl;
+    cout << endl << "F3 = ";
+    F3.printFraction();
+    cout << endl << "F4 = ";
+    F4.printFraction();
+    cout << endl;
 
     cout << "Compare F1 and F2 " << endl;
     if (F1 > F2)

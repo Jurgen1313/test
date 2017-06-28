@@ -1,28 +1,25 @@
 #include "fraction.h"
 
-uFraction::uFraction ()
+uFraction::uFraction (): nom (1), den (1)
 {
-    nom = 1;
-    den = 1;
 }
 
-uFraction::uFraction (const int nom_, const int den_)
+uFraction::uFraction (const int nom_, const int den_): nom (nom_), den (den_)
 {
-    nom = nom_;
-    den = den_;
-    negativeFraction();
+    Reduce();
 }
 
 void uFraction::setNumerator(const int setValue )
 {
     nom = setValue;
+    Reduce();
 }
 void uFraction::setDenominator(const int setValue)
 {
         den = setValue;
     if (den == 0)
         den = 1;
-    negativeFraction();
+    Reduce();
 }
 void uFraction::setFraction (const int setNom, const int setDen)
 {
@@ -42,7 +39,7 @@ void uFraction::printFraction() const
 {
     std::cout << nom << "/" << den;
 }
-int uFraction::gcd(const int a, const int b) const
+int gcd(const int a, const int b)
 {
    if (b == 0) return a;
    return gcd(b, a % b);
@@ -59,28 +56,11 @@ void uFraction::negativeFraction()
 {
     if (nom != 0 && den < 0)
     {
-        nom *= -1;
-        den *= -1;
+        nom = -nom;
+        den = -den;
     }
     else if (nom == 0)
         den = 1;
-}
-
-uFraction uFraction::aProgression(const int n, const int d) const
-{
-    uFraction result;
-    result.nom = (n/2)*(2*nom+d*(n-1));
-    result.den = den;
-    result.Reduce();
-    return result;
-}
-
-uFraction uFraction::aProgression(const uFraction& second, const int n) const
-{
-    uFraction result {n,2};
-    result *= (*this + second);
-    result.Reduce();
-    return result;
 }
 
  uFraction& uFraction::operator+= (const uFraction& first)
@@ -115,72 +95,24 @@ uFraction& uFraction::operator/= (const uFraction& first)
     return *this;
 }
 
-uFraction uFraction::operator+ (const uFraction& second) const
+uFraction operator+ (uFraction first, const uFraction& second)
  {
-     uFraction result;
-     result.nom = nom * second.den + second.nom * den;
-     result.den = den * second.den;
-     result.Reduce();
-     return result;
+     return first += second;
  }
 
-uFraction uFraction::operator- (const uFraction& second) const
+uFraction operator- (uFraction first, const uFraction& second)
  {
-     uFraction result;
-     result.nom = nom * second.den - second.nom * den;
-     result.den = den * second.den;
-     result.Reduce();
-     return result;
+    return first -= second;
  }
 
-uFraction uFraction::operator* (const uFraction& second) const
+uFraction operator* (uFraction first, const uFraction& second)
 {
-    uFraction result;
-    result.nom = nom * second.nom;
-    result.den = den * second.den;
-    result.Reduce();
-    return result;
+    return first *= second;
 }
 
-uFraction uFraction::operator/ (const uFraction& second) const
+uFraction operator/ (uFraction first, const uFraction& second)
 {
-    uFraction result;
-    result.nom = nom * second.den;
-    result.den = den * second.nom;
-    result.Reduce();
-    return result;
-}
-
-uFraction uFraction::operator+ (const int number) const
-{
-    uFraction result {number, 1};
-    result += *this;
-    result.Reduce();
-    return result;
-}
-
-uFraction uFraction::operator- (const int number) const
-{
-    uFraction result {number, 1};
-    result = *this - result;
-    result.Reduce();
-    return result;
-}
-
-uFraction uFraction::operator* (const int number) const
-{
-    uFraction result {number, 1};
-    result *= *this;
-    result.Reduce();
-    return result;
-}
-
-uFraction uFraction::operator/ (const int number) const
-{
-    uFraction result {number, 1};
-    result = *this / result;
-    result.Reduce();
-    return result;
+    return (first /= second);
 }
 
 uFraction operator+ (const int number, const uFraction& f)
@@ -215,23 +147,25 @@ uFraction operator/ (const int number, const uFraction& f)
     return result;
 }
 
-uFraction uFraction::operator^ (const int power) const
+uFraction operator+ (const uFraction& f, const int number)
 {
-    uFraction result;
-    result.nom = pow(nom, power) ;
-    result.den = pow(den, power);
-    result.Reduce();
-    return result;
+    return number + f;
 }
 
-//uFraction uFraction::operator^ (const uFraction& power) const
-//{
-//    uFraction result;
-//    result.nom = pow(nom, power.nom/power.den) ;
-//    result.den = pow(den, power.nom/power.den);
-//    result.Reduce();
-//    return result;
-//}
+uFraction operator- (const uFraction& f, const int number)
+{
+    return -number + f;
+}
+
+uFraction operator* (const uFraction& f, const int number)
+{
+    return number * f;
+}
+
+uFraction operator/ (const uFraction& f, const int number)
+{
+    return 1/((1 / f) * number);
+}
 
 int uFraction::operator> (const uFraction& second) const
 {
