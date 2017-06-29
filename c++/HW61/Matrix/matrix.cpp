@@ -68,7 +68,6 @@ Matrix::Matrix(const Matrix& copy)
     currentObjCount++;
     Row = copy.Row;
     Col = copy.Col;
-//    matrix = copy.matrix;
     matrix = new int* [Row];
     for (int i = 0; i < Row; ++i)
     {
