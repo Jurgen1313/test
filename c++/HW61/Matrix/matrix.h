@@ -20,14 +20,18 @@ class Matrix
         ~Matrix();
 
         void printMatrix() const;
+        void shortPrintMatrix() const;
         Matrix& operator+= (const Matrix&);
         Matrix& operator-= (const Matrix&);
+        Matrix& operator= (const Matrix&);
 //        Matrix& operator*= (const Matrix&);
-//        Matrix& operator/= (const Matrix&);
+
+        friend Matrix operator* (Matrix, const int);
 
 };
 
-Matrix operator+ (Matrix f, const Matrix& s);
-Matrix operator- (Matrix f, const Matrix& s);
+Matrix operator+ (Matrix, const Matrix&);
+Matrix operator- (Matrix, const Matrix&);
+Matrix operator* (const int, Matrix);
 
 #endif // MATRIX_H

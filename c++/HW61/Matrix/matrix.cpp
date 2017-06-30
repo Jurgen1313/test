@@ -28,11 +28,11 @@ Matrix::Matrix(): Row (1), Col(3)
     allObjCount++;
     currentObjCount++;
 
-    // Just for testing
-    std::cout << "\nRow = " << Row << " Col = " << Col << std::endl;
-    std::cout << "classAllValue = " << allObjCount << std::endl;
-    std::cout << "classCurrentNumber = " << currentObjCount << std::endl << std:: endl;
-    // Just for testing ----- END
+//    // Just for testing
+//    std::cout << "\nRow = " << Row << " Col = " << Col << std::endl;
+//    std::cout << "classAllValue = " << allObjCount << std::endl;
+//    std::cout << "classCurrentNumber = " << currentObjCount << std::endl << std:: endl;
+//    // Just for testing ----- END
 }
 
 Matrix::Matrix(int Col_, int Row_): Row(abs(Row_)), Col(abs(Col_))
@@ -47,19 +47,20 @@ Matrix::Matrix(int Col_, int Row_): Row(abs(Row_)), Col(abs(Col_))
         {
             int rand_number;
             rand_number = rand() % 11;
-            std::cout << (matrix[i][j] = rand_number) << "  ";
+            matrix[i][j] = rand_number;
+//            std::cout << (matrix[i][j] = rand_number) << "  ";
         }
-        std::cout << std::endl;
+//        std::cout << std::endl;
         // Just for testing ----- END
     }
 
     allObjCount++;
     currentObjCount++;
-    // Just for testing
-    std::cout << "\nRow = " << Row << " Col = " << Col << std::endl;
-    std::cout << "classAllValue = " << allObjCount << std::endl;
-    std::cout << "classCurrentNumber = " << currentObjCount << std::endl;
-    // Just for testing ----- END
+//    // Just for testing
+//    std::cout << "\nRow = " << Row << " Col = " << Col << std::endl;
+//    std::cout << "classAllValue = " << allObjCount << std::endl;
+//    std::cout << "classCurrentNumber = " << currentObjCount << std::endl;
+//    // Just for testing ----- END
 }
 
 Matrix::Matrix(const Matrix& copy)
@@ -77,11 +78,12 @@ Matrix::Matrix(const Matrix& copy)
         for (int j= 0; j < Col; ++j)
         {
             matrix[i][j] = copy.matrix[i][j];
-            std::cout << matrix[i][j]<< "  ";
+//            std::cout << matrix[i][j]<< "  ";
         }
-        std::cout << std::endl;
+//        std::cout << std::endl;
         // Just for testing ----- END
     }
+    std::cout << "COPY" << std::endl;
 }
 
 
@@ -101,8 +103,8 @@ Matrix::~Matrix()
 
 Matrix& Matrix::operator+= (const Matrix& s)
 {
-    this->printMatrix();
-    s.printMatrix();
+//    this->printMatrix();
+//    s.printMatrix();
 
     if ((Row == s.Row)&&(Col == s.Col))
     {
@@ -111,23 +113,23 @@ Matrix& Matrix::operator+= (const Matrix& s)
             for (int j = 0; j < Col; ++j)
             {
                 matrix[i][j] += s.matrix[i][j];
-                std::cout << "matrix[" << i << "][" << j << "] = " << matrix[i][j] << " ";
+//                std::cout << "matrix[" << i << "][" << j << "] = " << matrix[i][j] << " ";
             }
-            std::cout << std::endl;
+//            std::cout << std::endl;
         }
         return *this;
     }
     else
     {
-        std::cout << "You can't add this Matrix!!!" << std::endl;
+        std::cout << "You can't add this Matrixs!!!" << std::endl;
         exit(1);
     }
 }
 
 Matrix& Matrix::operator-= (const Matrix& s)
 {
-    this->printMatrix();
-    s.printMatrix();
+//    this->printMatrix();
+//    s.printMatrix();
 
     if ((Row == s.Row)&&(Col == s.Col))
     {
@@ -136,15 +138,15 @@ Matrix& Matrix::operator-= (const Matrix& s)
             for (int j = 0; j < Col; ++j)
             {
                 matrix[i][j] -= s.matrix[i][j];
-                std::cout << "matrix[" << i << "][" << j << "] = " << matrix[i][j] << " ";
+//                std::cout << "matrix[" << i << "][" << j << "] = " << matrix[i][j] << " ";
             }
-            std::cout << std::endl;
+//            std::cout << std::endl;
         }
         return *this;
     }
     else
     {
-        std::cout << "You can't sub this Matrix!!!" << std::endl;
+        std::cout << "You can't sub this Matrixs!!!" << std::endl;
         exit(1);
     }
 }
@@ -153,7 +155,6 @@ Matrix& Matrix::operator-= (const Matrix& s)
 void Matrix::printMatrix() const
 {
     std::cout << std::endl;
-    // Print first Matrix
     for (int i = 0; i < Row; ++i)
     {
         for (int j = 0; j < Col; ++j)
@@ -163,12 +164,24 @@ void Matrix::printMatrix() const
         std::cout << std::endl;
     }
     std::cout << std::endl;
-    //END of printing
+}
+
+void Matrix::shortPrintMatrix() const
+{
+    std::cout << std::endl;
+    for (int i = 0; i < Row; ++i)
+    {
+        for (int j = 0; j < Col; ++j)
+        {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 Matrix operator+ (Matrix f, const Matrix& s)
 {
-//    f+=s;
     return f+=s;
 }
 
@@ -176,6 +189,59 @@ Matrix operator- (Matrix f, const Matrix& s)
 {
     return f-=s;
 }
+
+Matrix& Matrix::operator= (const Matrix& rv)
+{
+    if (this == &rv)
+        return *this;
+    delete [] matrix;
+    Row = rv.Row;
+    Col = rv.Col;
+    matrix = new int* [Row];
+    for (int i = 0; i < Row; ++i)
+    {
+        *(matrix + i) = new int [Col] {0};
+        for (int j = 0; j < Col; ++j)
+            matrix[i][j] = rv.matrix[i][j];
+    }
+    return *this;
+}
+
+Matrix operator* (Matrix lv, const int number)
+{
+    for (int i = 0; i < lv.Row; ++i)
+        for (int j = 0; j < lv.Col; ++j)
+            lv.matrix[i][j] *= number;
+    return lv;
+}
+
+Matrix operator* (const int number, Matrix lv)
+{
+    return lv * number;
+}
+
+
+//Matrix& Matrix::operator*= (const Matrix& s)
+//{
+//    Matrix tmp {Row, Col};
+//    if ((Row == s.Row)&&(Col == s.Col))
+//    {
+//        for (int i = 0; i < Row; ++i)
+//        {
+//            for (int j = 0; j < Col; ++j)
+//            {
+//               tmp.matrix[i][j] = matrix[i][j] -= s.matrix[i][j];
+//            }
+//        }
+//        return *this;
+//    }
+//    else
+//    {
+//        std::cout << "You can't MUL this Matrixs!!!" << std::endl;
+//        exit(1);
+//    }
+//}
+
 
 
 

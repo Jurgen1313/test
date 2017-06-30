@@ -23,12 +23,40 @@ int main()
     m3 += m7;
     std::cout << "\nm3-=m7 :" << std::endl;
     m3 -= m7;
+//    std::cout << "\nm8=m3+m7 :" << std::endl;
+//    m8 = m3 + m7;
+    std::cout << "\nm3 :" << std::endl;
+    m3.shortPrintMatrix();
+    std::cout << "\nm7 :" << std::endl;
+    m7.shortPrintMatrix();
     std::cout << "\nm8=m3+m7 :" << std::endl;
     m8 = m3 + m7;
+    std::cout << "\nm8 :" << std::endl;
+    m8.shortPrintMatrix();
     std::cout << "\nm3 :" << std::endl;
-    m3.printMatrix();
+    m3.shortPrintMatrix();
+    std::cout << "\nm7 :" << std::endl;
+    m7.shortPrintMatrix();
     std::cout << "\nm8=m3-m7 :" << std::endl;
     m8 = m3 - m7;
+    std::cout << "\nm8 :" << std::endl;
+    m8.shortPrintMatrix();
+
+    std::cout << "\nm3 :" << std::endl;
+    m3.shortPrintMatrix();
+    std::cout << "\nm7 :" << std::endl;
+    m7.shortPrintMatrix();
+    std::cout << "\nm3=m7 :" << std::endl;
+    m3 = m7;
+    std::cout << "\nm3 :" << std::endl;
+    m3.shortPrintMatrix();
+
+    m8 = m3 * 2;
+    m7 = 2 * m3;
+    std::cout << "\nm8=m3*2 :" << std::endl;
+    m8.shortPrintMatrix();
+    std::cout << "\nm7=2*m3 :" << std::endl;
+    m7.shortPrintMatrix();
 
     return 0;
 }
