@@ -6,7 +6,14 @@ int Matrix::currentObjCount = 0;
 
 Matrix::Matrix(): Row (1), Col(3)
 {
-    matrix = new int* [Row];
+//    try
+//    {
+        matrix = new int* [Row];
+//    }
+//    catch (bad.alloc &e)
+//    {
+//        std::cout << "I can't allocate mempry for matrix";
+//    }
 //    if (!matrix)
 //    {
 //        std::cout << "ERROR!!! I can't allocate memory for NEW class!!" << std::endl;
