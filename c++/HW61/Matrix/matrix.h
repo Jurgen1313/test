@@ -24,7 +24,7 @@ class Matrix
         size_t getCol() const;
         size_t setRow();
         size_t setCol();
-        void setMatrix();
+//        void setMatrix();
 
         void printMatrix() const;
         void shortPrintMatrix() const;
@@ -32,8 +32,10 @@ class Matrix
         Matrix& operator+= (const Matrix&);
         Matrix& operator-= (const Matrix&);
         Matrix& operator= (const Matrix&);
-//        Matrix& operator*= (const Matrix&);
+        Matrix& operator*= (const Matrix&);
 
+        friend std::ostream& operator<< (std::ostream&, const Matrix&);
+        friend std::istream& operator>> (std::istream&, Matrix&);
         friend Matrix operator* (Matrix, const int);
         friend Matrix operator* (const Matrix& f, const Matrix& s);
 

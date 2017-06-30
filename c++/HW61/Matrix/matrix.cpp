@@ -70,7 +70,7 @@ Matrix::Matrix(const Matrix& copy)
         }
         // Just for testing ----- END
     }
-    std::cout << "COPY" << std::endl;
+//    std::cout << "COPY" << std::endl;
 }
 
 
@@ -82,7 +82,7 @@ Matrix::~Matrix()
     --currentObjCount;
 
     // Just for testing
-    std::cout << " deleted obj" << std::endl;
+//    std::cout << " deleted obj" << std::endl;
 //    std::cout << " currentObjCount = " << currentObjCount << std::endl;
 //    std::cout << " allObjCount = " << allObjCount << std::endl;
     // Just for testing ----- END
@@ -209,6 +209,7 @@ Matrix operator* (const Matrix& f, const Matrix& s)
             {
                 int sum = 0;
                 for (size_t k = 0; k < f.Col; ++k)
+//                    tmp.matrix[i][j] = f.matrix[i][k] * s.matrix[k][j];
                     sum += f.matrix[i][k] * s.matrix[k][j];
                 tmp.matrix[i][j] = sum;
             }
@@ -221,9 +222,46 @@ Matrix operator* (const Matrix& f, const Matrix& s)
     }
 }
 
-void Matrix::setMatrix()
+std::ostream& operator<< (std::ostream& os, const Matrix& tmp)
 {
+    for (size_t i = 0; i < tmp.Row; ++i)
+    {
+        for(size_t j = 0; j < tmp.Col; ++j)
+            os << " " << tmp.matrix[i][j];
+        os << std::endl;
+    }
+    return os;
+}
 
+std::istream& operator>> (std::istream& is, Matrix& tmp)
+{
+    int value;
+    size_t i = 0; //Row
+    size_t j = 0; //Col
+
+    while (i < tmp.Row)
+    {
+        std::cout << "matrix [" << i << "][" << j << "] = ";
+        if( is >> value )
+        {
+            tmp.matrix[i][j] = value;
+            ++j;
+            if ( j == tmp.Col )
+            {
+                j = 0;
+                ++i;
+            }
+        }
+    }
+    return is;
+}
+
+Matrix& Matrix::operator*= (const Matrix& r)
+{
+    Matrix tmp {r.Col, Row};
+    tmp = *this * r;
+    *this = tmp;
+    return *this;
 }
 
 
