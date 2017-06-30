@@ -1,5 +1,5 @@
 #include <iostream>
-#include <exception>
+
 #include "matrix.h"
 
 using namespace std;
@@ -14,7 +14,7 @@ int main()
 
     Matrix m3 = {4,3};
     Matrix m4 {5};
-    Matrix m5 {-1};
+    Matrix m5 {1};
     Matrix m6 {5,6};
     Matrix m7 {4,3};
     Matrix m8 {4,3};

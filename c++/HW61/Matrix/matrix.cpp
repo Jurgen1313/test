@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include <new>
 
 int Matrix::allObjCount = 0;
 int Matrix::currentObjCount = 0;
@@ -6,18 +7,14 @@ int Matrix::currentObjCount = 0;
 
 Matrix::Matrix(): Row (1), Col(3)
 {
-//    try
-//    {
+    try
+    {
         matrix = new int* [Row];
-//    }
-//    catch (bad.alloc &e)
-//    {
-//        std::cout << "I can't allocate mempry for matrix";
-//    }
-//    if (!matrix)
-//    {
-//        std::cout << "ERROR!!! I can't allocate memory for NEW class!!" << std::endl;
-//    }
+    }
+    catch (std::bad_alloc &e)
+    {
+        std::cout << "I can't allocate mempry for matrix : " << std::endl;
+    }
     for (int i = 0; i < Row; ++i)
     {
 //        matrix[i] = new int [Col] {0};
@@ -34,40 +31,26 @@ Matrix::Matrix(): Row (1), Col(3)
 
     allObjCount++;
     currentObjCount++;
-
-//    // Just for testing
-//    std::cout << "\nRow = " << Row << " Col = " << Col << std::endl;
-//    std::cout << "classAllValue = " << allObjCount << std::endl;
-//    std::cout << "classCurrentNumber = " << currentObjCount << std::endl << std:: endl;
-//    // Just for testing ----- END
 }
 
-Matrix::Matrix(int Col_, int Row_): Row(abs(Row_)), Col(abs(Col_))
+Matrix::Matrix(int Col_, int Row_): Row(Row_), Col(Col_)
 {
     matrix = new int* [Row];
     for (int i = 0; i < Row; ++i)
     {
-//        matrix[i] = new int [Col] {0};
-        *(matrix + i) = new int [Col] {0};
+        matrix[i] = new int [Col] {0};
         // Just for testing
         for (int j= 0; j < Col; ++j)
         {
             int rand_number;
             rand_number = rand() % 11;
             matrix[i][j] = rand_number;
-//            std::cout << (matrix[i][j] = rand_number) << "  ";
         }
-//        std::cout << std::endl;
         // Just for testing ----- END
     }
 
     allObjCount++;
     currentObjCount++;
-//    // Just for testing
-//    std::cout << "\nRow = " << Row << " Col = " << Col << std::endl;
-//    std::cout << "classAllValue = " << allObjCount << std::endl;
-//    std::cout << "classCurrentNumber = " << currentObjCount << std::endl;
-//    // Just for testing ----- END
 }
 
 Matrix::Matrix(const Matrix& copy)
@@ -79,15 +62,12 @@ Matrix::Matrix(const Matrix& copy)
     matrix = new int* [Row];
     for (int i = 0; i < Row; ++i)
     {
-//        matrix[i] = new int [Col] {0};
-        *(matrix + i) = new int [Col] {0};
+        matrix[i] = new int [Col] {0};
         // Just for testing
         for (int j= 0; j < Col; ++j)
         {
             matrix[i][j] = copy.matrix[i][j];
-//            std::cout << matrix[i][j]<< "  ";
         }
-//        std::cout << std::endl;
         // Just for testing ----- END
     }
     std::cout << "COPY" << std::endl;
@@ -103,16 +83,13 @@ Matrix::~Matrix()
 
     // Just for testing
     std::cout << " deleted obj" << std::endl;
-    std::cout << " currentObjCount = " << currentObjCount << std::endl;
-    std::cout << " allObjCount = " << allObjCount << std::endl;
+//    std::cout << " currentObjCount = " << currentObjCount << std::endl;
+//    std::cout << " allObjCount = " << allObjCount << std::endl;
     // Just for testing ----- END
 }
 
 Matrix& Matrix::operator+= (const Matrix& s)
 {
-//    this->printMatrix();
-//    s.printMatrix();
-
     if ((Row == s.Row)&&(Col == s.Col))
     {
         for (int i = 0; i < Row; ++i)
@@ -120,9 +97,7 @@ Matrix& Matrix::operator+= (const Matrix& s)
             for (int j = 0; j < Col; ++j)
             {
                 matrix[i][j] += s.matrix[i][j];
-//                std::cout << "matrix[" << i << "][" << j << "] = " << matrix[i][j] << " ";
             }
-//            std::cout << std::endl;
         }
         return *this;
     }
@@ -135,9 +110,6 @@ Matrix& Matrix::operator+= (const Matrix& s)
 
 Matrix& Matrix::operator-= (const Matrix& s)
 {
-//    this->printMatrix();
-//    s.printMatrix();
-
     if ((Row == s.Row)&&(Col == s.Col))
     {
         for (int i = 0; i < Row; ++i)
@@ -145,9 +117,7 @@ Matrix& Matrix::operator-= (const Matrix& s)
             for (int j = 0; j < Col; ++j)
             {
                 matrix[i][j] -= s.matrix[i][j];
-//                std::cout << "matrix[" << i << "][" << j << "] = " << matrix[i][j] << " ";
             }
-//            std::cout << std::endl;
         }
         return *this;
     }
@@ -201,7 +171,11 @@ Matrix& Matrix::operator= (const Matrix& rv)
 {
     if (this == &rv)
         return *this;
+
+    for (int i = 0; i < Row; ++i)
+        delete [] matrix[i];
     delete [] matrix;
+
     Row = rv.Row;
     Col = rv.Col;
     matrix = new int* [Row];
