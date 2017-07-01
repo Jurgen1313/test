@@ -25,6 +25,35 @@ void printField(const int* ttt, const size_t lenght)
 
     }
 }
+
+int humanNumber(const int* Field)
+{
+    int cellNumber = 0;
+    cout << "Put cell number : ";
+    cin >> cellNumber;
+    --cellNumber;
+    while (Field[cellNumber] == 10 || Field[cellNumber] == 11)
+    {
+        cout << "Put cell number : ";
+        cin >> cellNumber;
+        --cellNumber;
+    }
+    return cellNumber;
+}
+
+int robotNumber(const int* Field)
+{
+    int cellNumber;
+    cellNumber = rand() % 8;
+    while (Field[cellNumber] == 10 || Field[cellNumber] == 11)
+    {
+        cellNumber = rand() % 8;
+    }
+    cout << "random : " << cellNumber + 1 << endl;
+    return cellNumber;
+}
+
+
 int main()
 {
 
@@ -34,8 +63,8 @@ int main()
     // ttt[cellNumber] = 10 ---> O
     // ttt[cellNumber] = 11 ---> X
 
-    int ttt [] = {1,2,3,4,5,6,7,8,9};
-    size_t tttLenght = sizeof(ttt)/sizeof(ttt[0]);
+    int tttField [] = {1,2,3,4,5,6,7,8,9};
+    size_t tttLenght = sizeof(tttField)/sizeof(tttField[0]);
 //    //    cout << " -----" << endl;
 //        cout << "|O|X|X|" << endl;
 //    //    cout << " -----" << endl;
@@ -45,37 +74,37 @@ int main()
 //    //    cout << " -----" << endl;
 
 
-    printField(ttt, tttLenght);
+    printField(tttField, tttLenght);
 
     for (;;)
     {
         static int inputCount = 0;
+        static int Player = 0;
         int cellNumber = 0;
 
-        if ( inputCount == 9)
-            return 0;
-
-        cout << "Put cell number : ";
-        cin >> cellNumber;
-        if (ttt[cellNumber] != 10 && ttt[cellNumber] != 11)
+        if (Player == 0)
         {
-            ttt[cellNumber] = 10;
-            ++inputCount;
+            cellNumber = humanNumber(tttField);
+            tttField[cellNumber] = 10;
+            Player = 1;
         }
-        printField(ttt, tttLenght);
+        else
+        {
+            cellNumber = robotNumber(tttField);
+            tttField[cellNumber] = 11;
+            Player = 0;
+        }
+        ++inputCount;
+
+        printField(tttField, tttLenght);
         cout << endl;
 
-//        int rand_number;
-//        rand_number = rand() % 9 + 1;
-        cellNumber = rand() % 9;
-        while (ttt[cellNumber] == 10 || ttt[cellNumber] == 11)
-            cellNumber = rand() % 9;
-
-            ttt[cellNumber] = 11;
-            ++inputCount;
-
-        printField(ttt, tttLenght);
-
+        if ( inputCount == 9)
+        {
+            cout << "GAME OVER!!!";
+            cout << "\nDRAW GAME\n";
+            return 0;
+        }
     }
 
 
@@ -83,5 +112,5 @@ int main()
 
 //    cout << "| | | |" << endl;
 //    cout << "| | | |" << endl;
-    return 0;
+//    return 0;
 }
