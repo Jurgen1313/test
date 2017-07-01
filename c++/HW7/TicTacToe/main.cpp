@@ -16,7 +16,8 @@ int main()
 
     int Player1 = 0; // 0 - BOT
     int Player2 = 0; // 1 - Human
-//    char userChoise;
+    int Player1Moves[n*m] = {0};
+    int Player2Moves[n*m] = {0};
 
     // tic tac toe ---> ttt
     // ttt[cellNumber] = 10 ---> O
@@ -46,6 +47,8 @@ int main()
                 cellNumber = humanNumber(tttField);
             else
                 cellNumber = robotNumber(tttField);
+            Player1Moves[inputCount] = cellNumber + 1;
+//            Player1Moves  += static_cast<char>(cellNumber + '0');
             tttField[cellNumber] = 10;
             Player = 1;
         }
@@ -56,7 +59,7 @@ int main()
                 cellNumber = humanNumber(tttField);
             else
                 cellNumber = robotNumber(tttField);
-//            cellNumber = robotNumber(tttField);
+            Player2Moves[inputCount] = cellNumber + 1;
             tttField[cellNumber] = 11;
             Player = 0;
         }
@@ -72,7 +75,14 @@ int main()
             cout << "GAME OVER!!!\n";
             if (inputCount == 9)
                 cout << "DRAW GAME\n";
-            cout << "Want to play again?\n";
+
+            cout << "Player 1 Moves : ";
+            for (int i = 0; i < inputCount; i += 2)
+                cout << Player1Moves[i] << " ";
+            cout << "\nPlayer 2 Moves : ";
+            for (int i = 1; i < inputCount; i += 2)
+                cout << Player2Moves[i] << " ";
+            cout << "\n\nWant to play again?\n";
             cout << "type <Y> to continue or <N> to exit : ";
             char again;
             cin >> again;
@@ -87,15 +97,7 @@ int main()
                 Player = 0;
             }
             else
-//                break;
                 return 0;
         }
     }
-
-
-
-
-//    cout << "| | | |" << endl;
-//    cout << "| | | |" << endl;
-//    return 0;
 }
