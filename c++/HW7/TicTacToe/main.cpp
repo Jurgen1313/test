@@ -16,7 +16,7 @@ int main()
 
     int Player1 = 0; // 0 - BOT
     int Player2 = 0; // 1 - Human
-    char userChoise;
+//    char userChoise;
 
     // tic tac toe ---> ttt
     // ttt[cellNumber] = 10 ---> O
@@ -29,50 +29,11 @@ int main()
     cout << "\tWelcome to tic tac toe game\n";
     EmptyField(tttField, tttLenght);
     printField(tttField, tttLenght, n);
-    cout << "Now it's time to choose PLAYER 1 :\n";
-    cout << "type <H> - human or <B> - bot\n";
-    cout << "Make your choise! :";
-    cin >> userChoise;
-    switch (userChoise)
-    {
-        case 'h':
-        case 'H':
-        {
-            Player1 = 1;
-            break;
-        }
-        case 'b':
-        case 'B':
-        {
-            Player1 = 0;
-            break;
-        }
-    }
-    cout << "Now it's time to choose PLAYER 2 :\n";
-    cout << "type <H> - human or <B> - bot\n";
-    cout << "Make your choise! :";
-    cin >> userChoise;
-    switch (userChoise)
-    {
-        case 'h':
-        case 'H':
-        {
-            Player2 = 1;
-            break;
-        }
-        case 'b':
-        case 'B':
-        {
-            Player2 = 0;
-            break;
-        }
-    }
-
-    system("cls");
+    choosePlayer (Player1, Player2);
     printField(tttField, tttLenght, n);
     cout << endl;
 
-    for (;;)
+    for (;;) // Play
     {
         static int inputCount = 0;
         static int Player = 0;
@@ -104,12 +65,30 @@ int main()
         printField(tttField, tttLenght, n);
         cout << endl;
 
-        whoWin (tttField, tttLenght, n, Palyer1Wins, Palyer2Wins);
+        int isWinner = whoWin (tttField, tttLenght, n, Palyer1Wins, Palyer2Wins);
 
-        if ( inputCount == 9)
+        if ( inputCount == 9 || isWinner)
         {
-            cout << "GAME OVER!!!";
-            return 0;
+            cout << "GAME OVER!!!\n";
+            if (inputCount == 9)
+                cout << "DRAW GAME\n";
+            cout << "Want to play again?\n";
+            cout << "type <Y> to continue or <N> to exit : ";
+            char again;
+            cin >> again;
+            if (again == 'Y' || again == 'y')
+            {
+                system("cls");
+                EmptyField(tttField, tttLenght);
+                choosePlayer(Player1, Player2);
+                printField(tttField, tttLenght, n);
+                cout << endl;
+                inputCount = 0;
+                Player = 0;
+            }
+            else
+//                break;
+                return 0;
         }
     }
 
