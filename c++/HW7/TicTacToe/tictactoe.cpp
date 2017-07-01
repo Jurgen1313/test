@@ -55,7 +55,7 @@ int robotNumber(const int* Field)
     return cellNumber;
 }
 
-void whoWin (const int* Field, const size_t lenght, const int Col)
+void whoWin (const int* Field, const size_t lenght, const int Col, size_t& Player1Wins_, size_t& Player2Wins_)
 {
     int Winner = 0;
     //Check horizontal
@@ -72,12 +72,14 @@ void whoWin (const int* Field, const size_t lenght, const int Col)
         }
         if (sumO == 3)
         {
-            std::cout << "Win OOO" << std::endl;
+            std::cout << "Win Player 1" << std::endl;
+            ++Player1Wins_;
             Winner = 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win XXX" << std::endl;
+            std::cout << "Win Player 2" << std::endl;
+            ++Player2Wins_;
             Winner = 1;
         }
     }
@@ -96,12 +98,14 @@ void whoWin (const int* Field, const size_t lenght, const int Col)
         }
         if (sumO == 3)
         {
-            std::cout << "Win OOO" << std::endl;
+            std::cout << "Win Player 1" << std::endl;
+            ++Player1Wins_;
             Winner = 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win XXX" << std::endl;
+            std::cout << "Win Player 2" << std::endl;
+            ++Player2Wins_;
             Winner = 1;
         }
     }
@@ -118,15 +122,18 @@ void whoWin (const int* Field, const size_t lenght, const int Col)
 //        cout << "i : " << i << "  " << Field[i + Col * i] << endl;
         if (sumO == 3)
         {
-            std::cout << "Win OOO" << std::endl;
+            std::cout << "Win Player 1" << std::endl;
+            ++Player1Wins_;
             Winner = 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win XXX" << std::endl;
+            std::cout << "Win Player 2" << std::endl;
+            ++Player2Wins_;
             Winner = 1;
         }
     }
+
     sumO = 0;
     sumX = 0;
     //Check diagonals leftLower ---> rightUpper
@@ -139,16 +146,21 @@ void whoWin (const int* Field, const size_t lenght, const int Col)
 //        std::cout << "i : " << i << "  " << Field[i] << std::endl;
         if (sumO == 3)
         {
-            std::cout << "Win OOO" << std::endl;
+            std::cout << "Win Player 1" << std::endl;
+            ++Player1Wins_;
             Winner = 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win XXX" << std::endl;
+            std::cout << "Win Player 2" << std::endl;
+            ++Player2Wins_;
             Winner = 1;
         }
     }
-//    return lenght;
     if (Winner)
+    {
+        std::cout << "Player 1 Wins " << Player1Wins_ << " times\n";
+        std::cout << "Player 2 Wins " << Player2Wins_ << " times";
         exit(0);
+    }
 }
