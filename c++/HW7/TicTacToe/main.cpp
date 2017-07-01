@@ -1,80 +1,25 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include "tictactoe.h"
 
 using namespace std;
 
-void printField(const int* ttt, const size_t lenght)
-{
-    size_t element = 0;
-    for (size_t i = 0; i < lenght; ++i)
-    {
-        cout << "|";//<< ttt[i];
-        if (ttt[i] != 10 && ttt[i] != 11)
-            cout << ttt[i];
-        else if (ttt[i] == 10)
-            cout << "O";
-        else
-            cout << "X";
-        ++element;
-        if ( element == 3)
-        {
-            element = 0;
-            cout << "|" << endl;
-        }
-
-    }
-}
-
-int humanNumber(const int* Field)
-{
-    int cellNumber = 0;
-    cout << "Put cell number : ";
-    cin >> cellNumber;
-    --cellNumber;
-    while (Field[cellNumber] == 10 || Field[cellNumber] == 11)
-    {
-        cout << "Put cell number : ";
-        cin >> cellNumber;
-        --cellNumber;
-    }
-    return cellNumber;
-}
-
-int robotNumber(const int* Field)
-{
-    int cellNumber;
-    cellNumber = rand() % 8;
-    while (Field[cellNumber] == 10 || Field[cellNumber] == 11)
-    {
-        cellNumber = rand() % 8;
-    }
-    cout << "random : " << cellNumber + 1 << endl;
-    return cellNumber;
-}
-
-
 int main()
 {
-
+    const int n = 3; // Col
+    const int m = 3; // Row
     int time_val = time(NULL);
     srand(time_val);
 
     // ttt[cellNumber] = 10 ---> O
     // ttt[cellNumber] = 11 ---> X
 
-    int tttField [] = {1,2,3,4,5,6,7,8,9};
-    size_t tttLenght = sizeof(tttField)/sizeof(tttField[0]);
-//    //    cout << " -----" << endl;
-//        cout << "|O|X|X|" << endl;
-//    //    cout << " -----" << endl;
-//        cout << "|O|X|X|" << endl;
-//    //    cout << " -----" << endl;
-//        cout << "|O|X|X|" << endl << endl;
-//    //    cout << " -----" << endl;
+    const size_t tttLenght = n * m;
+    int tttField [tttLenght];// = {1,2,3,4,5,6,7,8,9};
 
-
-    printField(tttField, tttLenght);
+    EmptyField(tttField, tttLenght);
+    printField(tttField, tttLenght, n);
 
     for (;;)
     {
@@ -95,14 +40,15 @@ int main()
             Player = 0;
         }
         ++inputCount;
-
-        printField(tttField, tttLenght);
+        system("cls");
+        printField(tttField, tttLenght, n);
         cout << endl;
+
+        whoWin (tttField, tttLenght, n);
 
         if ( inputCount == 9)
         {
             cout << "GAME OVER!!!";
-            cout << "\nDRAW GAME\n";
             return 0;
         }
     }
