@@ -9,15 +9,14 @@ int main()
 {
     const size_t n = 3; // Col
     const size_t m = 3; // Row
-    size_t Palyer1Wins = 0;
-    size_t Palyer2Wins = 0;
+    size_t Player1Wins = 0;
+    size_t Player2Wins = 0;
     int time_val = time(NULL);
     srand(time_val);
 
     int Player1 = 0; // 0 - BOT
     int Player2 = 0; // 1 - Human
-    int Player1Moves[n*m] = {0};
-    int Player2Moves[n*m] = {0};
+    int PlayerMoves[n*m] = {0};
 
     // tic tac toe ---> ttt
     // ttt[cellNumber] = 10 ---> O
@@ -46,8 +45,11 @@ int main()
             if (Player1 == 1)
                 cellNumber = humanNumber(tttField);
             else
+//                cellNumber = findBestMove(tttField);
                 cellNumber = robotNumber(tttField);
-            Player1Moves[inputCount] = cellNumber + 1;
+//            Player1Moves[inputCount] = cellNumber + 1;
+            PlayerMoves[inputCount] = cellNumber + 1;
+
 //            Player1Moves  += static_cast<char>(cellNumber + '0');
             tttField[cellNumber] = 10;
             Player = 1;
@@ -58,8 +60,10 @@ int main()
             if (Player2 == 1)
                 cellNumber = humanNumber(tttField);
             else
+//                cellNumber = findBestMove(tttField);
                 cellNumber = robotNumber(tttField);
-            Player2Moves[inputCount] = cellNumber + 1;
+//            Player2Moves[inputCount] = cellNumber + 1;
+            PlayerMoves[inputCount] = cellNumber + 1;
             tttField[cellNumber] = 11;
             Player = 0;
         }
@@ -68,21 +72,26 @@ int main()
         printField(tttField, tttLenght, n);
         cout << endl;
 
-        int isWinner = whoWin (tttField, tttLenght, n, Palyer1Wins, Palyer2Wins);
+        int isWinner = whoWin (tttField, tttLenght, n, Player1Wins, Player2Wins);
 
         if ( inputCount == 9 || isWinner)
         {
-            cout << "GAME OVER!!!\n";
+            cout << "\nGAME OVER!!!\n";
             if (inputCount == 9)
                 cout << "DRAW GAME\n";
 
             cout << "Player 1 Moves : ";
             for (int i = 0; i < inputCount; i += 2)
-                cout << Player1Moves[i] << " ";
+                cout << PlayerMoves[i] << " ";
             cout << "\nPlayer 2 Moves : ";
             for (int i = 1; i < inputCount; i += 2)
-                cout << Player2Moves[i] << " ";
-            cout << "\n\nWant to play again?\n";
+                cout << PlayerMoves[i] << " ";
+
+            cout << "\n\nPlayer 1 Wins " << Player1Wins << " times\n";
+            cout << "Player 2 Wins " << Player2Wins << " times\n";
+            EmptyField(tttField,tttLenght);
+
+            cout << "\nWant to play again?\n";
             cout << "type <Y> to continue or <N> to exit : ";
             char again;
             cin >> again;
