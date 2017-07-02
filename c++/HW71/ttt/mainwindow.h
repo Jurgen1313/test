@@ -17,7 +17,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void GameOver();
-    int whoWin (int* Field, const size_t lenght, const size_t Col, size_t& Player1Wins_, size_t& Player2Wins_);
+    int whoWin (int* Field, size_t& Player1Wins_, size_t& Player2Wins_);
+    void robotNumber(int* Field);
+    int getStartGame() const;
+    int getPlayer1() const;
+    int getPlayer2() const;
+    int getWhosMove() const;
+    int* getField();
 
 private slots:
 //    void on_pushButton_clicked();
@@ -50,6 +56,7 @@ private:
     size_t Player1Wins = 0;
     size_t Player2Wins = 0;
     int inputCount = 0;
+    int StartGame = 0;
 
 //    int time_val = time(NULL);
 //    srand(time(NULL));

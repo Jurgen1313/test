@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ttt_2_1->setEnabled(false);
     ui->ttt_2_2->setEnabled(false);
     ui->pushStartButton->setEnabled(true);
+    ui->whosMove->setText("");
 }
 
 MainWindow::~MainWindow()
@@ -24,15 +25,47 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+int MainWindow::getStartGame() const
+{
+    return StartGame;
+}
+
+int MainWindow::getPlayer1() const
+{
+    return Player1;
+}
+
+int MainWindow::getPlayer2() const
+{
+    return Player2;
+}
+int MainWindow::getWhosMove() const
+{
+    if (ui->whosMove->text() == "Player 1 move")
+        return 1;
+    if (ui->whosMove->text() == "Player 2 move")
+        return 2;
+}
+
 void MainWindow::GameOver()
 {
-    ui->whosMove->setText(" ");
     ui->pushStartButton->setEnabled(true);
     ui->groupBox->setEnabled(true);
     ui->groupBox_2->setEnabled(true);
+    ui->ttt_0_0->setEnabled(false);
+    ui->ttt_0_1->setEnabled(false);
+    ui->ttt_0_2->setEnabled(false);
+    ui->ttt_1_0->setEnabled(false);
+    ui->ttt_1_1->setEnabled(false);
+    ui->ttt_1_2->setEnabled(false);
+    ui->ttt_2_0->setEnabled(false);
+    ui->ttt_2_1->setEnabled(false);
+    ui->ttt_2_2->setEnabled(false);
     inputCount = 0;
     for (size_t i = 0; i < 9; ++i)
         tttField[i] = 0;
+
+    StartGame = 0;
 
 
 }
@@ -83,17 +116,39 @@ void MainWindow::on_pushStartButton_clicked()
     else
         ui->label2->setText("HUMAN");
 
-    ui->whosMove->setText("Player 1 move");
+    for (size_t i = 0; i < tttLenght; ++i)
+        tttField[i] = i;
 
+    ui->whosMove->setText("Player 1 move");
+    StartGame = 1;
 
 }
 
+//int* getField()
+//{
+//    return tttField;
+//}
+void MainWindow::robotNumber(int* Field)
+{
+    int cellNumber;
+    cellNumber = rand() % 9 + 1;
+    --cellNumber;
+    while (Field[cellNumber] == 10 || Field[cellNumber] == 11)
+    {
+        cellNumber = rand() % 9 + 1;
+        --cellNumber;
+    }
+//    std::cout << "random : " << cellNumber + 1 << std::endl;
+//    return cellNumber;
+}
 
-int whoWin (int* Field, const size_t lenght, const size_t Col, size_t& Player1Wins_, size_t& Player2Wins_)
+int MainWindow::whoWin (int* Field, size_t& Player1Wins_, size_t& Player2Wins_)
 {
 //    int Winner = 0;
+    size_t Col = 3;
+    size_t lenght = 9;
     //Check horizontal
-    for (size_t i = 0; i <  Col); ++i)
+    for (size_t i = 0; i <  Col; ++i)
     {
         int sumO = 0;
         int sumX = 0;
@@ -106,14 +161,16 @@ int whoWin (int* Field, const size_t lenght, const size_t Col, size_t& Player1Wi
         }
         if (sumO == 3)
         {
-            std::cout << "Win Player 1" << std::endl;
+//            std::cout << "Win Player 1" << std::endl;
+            ui->whosMove->setText("WIN Player 1 ");
             ++Player1Wins_;
 //            Winner = 1;
             return 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win Player 2" << std::endl;
+//            std::cout << "Win Player 2" << std::endl;
+            ui->whosMove->setText("WIN Player 2 ");
             ++Player2Wins_;
 //            Winner = 1;
             return 1;
@@ -121,7 +178,7 @@ int whoWin (int* Field, const size_t lenght, const size_t Col, size_t& Player1Wi
     }
 
     //Check vertical
-    for (size_t i = 0; i < (lenght - Col); ++i)
+    for (size_t i = 0; i < Col; ++i)
     {
         int sumO = 0;
         int sumX = 0;
@@ -134,14 +191,16 @@ int whoWin (int* Field, const size_t lenght, const size_t Col, size_t& Player1Wi
         }
         if (sumO == 3)
         {
-            std::cout << "Win Player 1" << std::endl;
+//            std::cout << "Win Player 1" << std::endl;
+            ui->whosMove->setText("WIN Player 1 ");
             ++Player1Wins_;
 //            Winner = 1;
             return 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win Player 2" << std::endl;
+//            std::cout << "Win Player 2" << std::endl;
+            ui->whosMove->setText("WIN Player 2 ");
             ++Player2Wins_;
 //            Winner = 1;
             return 1;
@@ -160,14 +219,16 @@ int whoWin (int* Field, const size_t lenght, const size_t Col, size_t& Player1Wi
 //        cout << "i : " << i << "  " << Field[i + Col * i] << endl;
         if (sumO == 3)
         {
-            std::cout << "Win Player 1" << std::endl;
+//            std::cout << "Win Player 1" << std::endl;
+            ui->whosMove->setText("WIN Player 1 ");
             ++Player1Wins_;
 //            Winner = 1;
             return 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win Player 2" << std::endl;
+//            std::cout << "Win Player 2" << std::endl;
+            ui->whosMove->setText("WIN Player 2 ");
             ++Player2Wins_;
 //            Winner = 1;
             return 1;
@@ -186,14 +247,16 @@ int whoWin (int* Field, const size_t lenght, const size_t Col, size_t& Player1Wi
 //        std::cout << "i : " << i << "  " << Field[i] << std::endl;
         if (sumO == 3)
         {
-            std::cout << "Win Player 1" << std::endl;
+//            std::cout << "Win Player 1" << std::endl;
+            ui->whosMove->setText("WIN Player 1 ");
             ++Player1Wins_;
 //            Winner = 1;
             return 1;
         }
         if (sumX == 3)
         {
-            std::cout << "Win Player 2" << std::endl;
+//            std::cout << "Win Player 2" << std::endl;
+            ui->whosMove->setText("WIN Player 2 ");
             ++Player2Wins_;
 //            Winner = 1;
             return 1;
@@ -213,21 +276,33 @@ void MainWindow::on_ttt_0_0_clicked()
     {
         tttField[0] = 10;
         ui->ttt_0_0->setText("O");
-        ui->label_0_0->setText("O");
         ui->ttt_0_0->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[0] = 11;
         ui->ttt_0_0->setText("X");
-        ui->label_0_0->setText("X");
         ui->ttt_0_0->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");;
     }
+
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_1_0_clicked()
@@ -236,21 +311,32 @@ void MainWindow::on_ttt_1_0_clicked()
     {
         tttField[1] = 10;
         ui->ttt_1_0->setText("O");
-        ui->label_1_0->setText("O");
         ui->ttt_1_0->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[1] = 11;
         ui->ttt_1_0->setText("X");
-        ui->label_1_0->setText("X");
         ui->ttt_1_0->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_2_0_clicked()
@@ -259,21 +345,32 @@ void MainWindow::on_ttt_2_0_clicked()
     {
         tttField[2] = 10;
         ui->ttt_2_0->setText("O");
-        ui->label_2_0->setText("O");
         ui->ttt_2_0->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[2] = 11;
         ui->ttt_2_0->setText("X");
-        ui->label_2_0->setText("X");
         ui->ttt_2_0->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_0_1_clicked()
@@ -282,21 +379,32 @@ void MainWindow::on_ttt_0_1_clicked()
     {
         tttField[3] = 10;
         ui->ttt_0_1->setText("O");
-        ui->label_0_1->setText("O");
         ui->ttt_0_1->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[3] = 11;
         ui->ttt_0_1->setText("X");
-        ui->label_0_1->setText("X");
         ui->ttt_0_1->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_1_1_clicked()
@@ -305,21 +413,32 @@ void MainWindow::on_ttt_1_1_clicked()
     {
         tttField[4] = 10;
         ui->ttt_1_1->setText("O");
-        ui->label_1_1->setText("O");
         ui->ttt_1_1->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[4] = 11;
         ui->ttt_1_1->setText("X");
-        ui->label_1_1->setText("X");
         ui->ttt_1_1->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_2_1_clicked()
@@ -328,21 +447,32 @@ void MainWindow::on_ttt_2_1_clicked()
     {
         tttField[5] = 10;
         ui->ttt_2_1->setText("O");
-        ui->label_2_1->setText("O");
         ui->ttt_2_1->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[5] = 11;
         ui->ttt_2_1->setText("X");
-        ui->label_2_1->setText("X");
         ui->ttt_2_1->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_0_2_clicked()
@@ -351,21 +481,32 @@ void MainWindow::on_ttt_0_2_clicked()
     {
         tttField[6] = 10;
         ui->ttt_0_2->setText("O");
-        ui->label_0_2->setText("O");
         ui->ttt_0_2->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[6] = 11;
         ui->ttt_0_2->setText("X");
-        ui->label_0_2->setText("X");
         ui->ttt_0_2->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_1_2_clicked()
@@ -374,21 +515,32 @@ void MainWindow::on_ttt_1_2_clicked()
     {
         tttField[7] = 10;
         ui->ttt_1_2->setText("O");
-        ui->label_1_2->setText("O");
         ui->ttt_1_2->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[7] = 11;
         ui->ttt_1_2->setText("X");
-        ui->label_1_2->setText("X");
         ui->ttt_1_2->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
 
 void MainWindow::on_ttt_2_2_clicked()
@@ -397,19 +549,31 @@ void MainWindow::on_ttt_2_2_clicked()
     {
         tttField[8] = 10;
         ui->ttt_2_2->setText("O");
-        ui->label_2_2->setText("O");
         ui->ttt_2_2->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 2 move");
     }
     else
     {
         tttField[8] = 11;
         ui->ttt_2_2->setText("X");
-        ui->label_2_2->setText("X");
         ui->ttt_2_2->setEnabled(false);
+        if (whoWin(tttField, Player1Wins, Player2Wins))
+        {
+            GameOver();
+            return;
+        }
         ui->whosMove->setText("Player 1 move");
     }
     ++inputCount;
     if (inputCount == 9)
+    {
         GameOver();
+        ui->whosMove->setText("DRAW GAME");
+    }
 }
+
