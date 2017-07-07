@@ -103,7 +103,6 @@ int main()
     {
         system("cls");
         cout << "\n\tWelcome to Tic Tac Toe game";
-        cout << "\n\tStart the game";
         cout << "\n\tType <Y>es to start or <N>o to quit";
         cout << "\nMake your choise : ";
 
@@ -177,7 +176,6 @@ int main()
                 Board.ResetField();
                 system("cls");
                 cout << "\n" << Board << endl;
-
             }
             else
             {

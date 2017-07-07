@@ -14,12 +14,12 @@ playerField::~playerField()
 
 int playerField::player1ID() const
 {
-    return P1;
+    return Player_1;
 }
 
 int playerField::player2ID() const
 {
-    return P2;
+    return Player_2;
 }
 
 bool playerField::isMove()
@@ -80,11 +80,9 @@ void playerField::ResetField()
 bool playerField::PlayerMove(int cellNumber, int playerID)
 {
     if (cellNumber < fieldLenght && cellNumber >= 0 &&
-            Field[cellNumber] != P1 && Field[cellNumber] != P2)
+            Field[cellNumber] != Player_1 && Field[cellNumber] != Player_2)
     {
         ++countMoves;
-//        std::cout << "\nCountMoves = " << countMoves;
-//        std::cout << "\nfieldNumber = " << fieldLenght;
         std::cout << "Player[" << cellNumber + 1 << "]";
         Field[cellNumber] = playerID;
         return true;
@@ -100,9 +98,9 @@ std::ostream& operator<< (std::ostream& os, const playerField& field)
         for (size_t j = 0; j < field.Col; ++j)
         {
             os << " | ";
-            if (field.Field[j+field.Col*i] != field.P1 && field.Field[j+field.Col*i] != field.P2)
+            if (field.Field[j+field.Col*i] != Player_1 && field.Field[j+field.Col*i] != Player_2)
                 os << field.Field[j+field.Col*i];
-            else if (field.Field[j+field.Col*i] == field.P1)
+            else if (field.Field[j+field.Col*i] == Player_1)
                 os << "O";
             else
                 os << "X";

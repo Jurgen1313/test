@@ -11,8 +11,6 @@ private:
     size_t fieldLenght;
     int* Field;
     static size_t countMoves;
-    static const int P1 = 10; // O
-    static const int P2 = 11; // X
 
 public:
     playerField();
