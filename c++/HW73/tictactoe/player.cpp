@@ -3,7 +3,6 @@
 size_t Human::move()
 {
     size_t cellNumber = 0;
-    std::cout << "\nPut cell number : ";
     cellNumber = F_is_this_number ('s');
     return --cellNumber;
 }
@@ -12,6 +11,8 @@ size_t Bot_L1::move()
 {
     return rand() % 9;
 }
+
+
 double F_is_this_number (const char symbol)
 {
     int i_number;

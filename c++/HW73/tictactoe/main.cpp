@@ -93,15 +93,11 @@ int main()
 
     playerField Board;
     cout << Board;
-    Human H1;
-    Human H2;
-    Bot_L1 B1;
-    //    size_t PlayerNumber = 1;
-    //    size_t Move = 0;
-    //    int playerID;
 
-    Player *P1 = 0;
-    Player *P2 = 0;
+    Player *P1 = nullptr;
+    Player *P2 = nullptr;
+    Player *player = nullptr;
+    pID playerID;
 
     for (;;)
     {
@@ -128,36 +124,44 @@ int main()
         }
         for (;;)
         {
+            int numberPlayer = 1;
             for (;;)
             {
-
-                // Player 1 Move
                 if (!Board.isMove())
                 {
                     cout << "\nDRAW GAME\n";
                     break;
                 }
-                while (!Board.PlayerMove(P1->move(),Player_1));
-                cout << "\n" << Board;
-                if (Board.Win(Player_1))
+                switch (numberPlayer)
                 {
-                    cout << "\nPlayer 1 WIN" << endl;
-                    P1->setPlayerWins();
-                    break;
+                    case 1:
+                    {
+                        player = P1;
+                        playerID = Player_1;
+                        numberPlayer = 2;
+                        cout << "\nPlayer 1 : ";
+                        break;
+                    }
+                    case 2:
+                    {
+                        player = P2;
+                        playerID = Player_2;
+                        numberPlayer = 1;
+                        cout << "\nPlayer 2 : ";
+                        break;
+                    }
                 }
+                while (!Board.PlayerMove(player->move(),playerID));
 
-                // Player 2 Move
-                if (!Board.isMove())
-                {
-                    cout << "\nDRAW GAME\n";
-                    break;
-                }
-                while (!Board.PlayerMove(P2->move(),Player_2));
                 cout << "\n" << Board;
-                if (Board.Win(Player_2))
+                if (Board.Win(playerID))
                 {
-                    cout << "\nPlayer 2 WIN" << endl;
-                    P2->setPlayerWins();
+                    if (numberPlayer == 1)
+                        cout << "\nPlayer 2 WIN" << endl;
+                    else
+                        cout << "\nPlayer 1 WIN" << endl;
+
+                    player->setPlayerWins();
                     break;
                 }
             }
@@ -177,12 +181,12 @@ int main()
             }
             else
             {
+                Board.ResetField();
                 delete P1;
                 delete P2;
                 break;
             }
         }
     }
-
     return 0;
 }

@@ -27,5 +27,5 @@ public:
 };
 
 enum pID {Player_1 = 10, Player_2 = 11};
-//size_t countMoves = 0;
+
 #endif // FIELD_H

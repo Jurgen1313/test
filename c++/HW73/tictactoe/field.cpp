@@ -85,6 +85,7 @@ bool playerField::PlayerMove(int cellNumber, int playerID)
         ++countMoves;
 //        std::cout << "\nCountMoves = " << countMoves;
 //        std::cout << "\nfieldNumber = " << fieldLenght;
+        std::cout << "Player[" << cellNumber + 1 << "]";
         Field[cellNumber] = playerID;
         return true;
     }
