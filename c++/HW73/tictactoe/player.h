@@ -11,54 +11,38 @@ class Player
 {
 private:
     int numberWins;
+    static const int moveNumber = 9;
+    int* playerMoves;
 public:
-    Player(size_t wins = 0):numberWins(wins) {}
-    virtual ~Player() {}
+    Player();
+    virtual ~Player();
     int getPlayerWins() const {return numberWins;}
     void setPlayerWins() {++numberWins;}
     void resetPlayerWins() {numberWins = 0;}
+    void resetPlayerMoves();
+    void setPlayerMove(int, int);
+    void printPlayerMoves() const;
     virtual size_t move() = 0;
 };
 
 class Human: public Player
 {
 private:
-    static const int moveNumber = 5;
-    int* playerMoves;
 public:
-    Human()
-    {
-        playerMoves = new int [moveNumber];
-    }
-
-    ~Human()
-    {
-        delete[] playerMoves;
-    }
+    Human() {}
+    ~Human() {}
     size_t move();
-    void printWin() const { std::cout << getPlayerWins();}
-    void win () {setPlayerWins();}
-    void restWins () {resetPlayerWins();}
+    void Human1Func();
 };
 
 class Bot_L1: public Player
 {
 private:
-    static const int moveNumber = 5;
-    int* playerMoves;
 public:
-    Bot_L1()
-    {
-        playerMoves = new int [moveNumber];
-    }
-    ~Bot_L1()
-    {
-        delete[] playerMoves;
-    }
+    Bot_L1() {}
+    ~Bot_L1() {}
     size_t move();
-    void printWin() const { std::cout << getPlayerWins();}
-    void win () {setPlayerWins();}
-    void restWins () {resetPlayerWins();}
+    void Bot1Func();
 };
 
 

@@ -21,6 +21,7 @@ public:
     void ResetField();
     bool PlayerMove(int, int);
     bool Win(int);
+    size_t getMoves() const {return countMoves;}
     friend std::ostream& operator<< (std::ostream&, const playerField&);
 };
 

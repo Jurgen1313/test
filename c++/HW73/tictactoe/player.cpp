@@ -1,5 +1,35 @@
 #include "player.h"
 
+Player::Player():numberWins(0)
+{
+    playerMoves = new int[moveNumber] {0};
+}
+
+Player::~Player()
+{
+    delete[] playerMoves;
+}
+
+void Player::setPlayerMove(int move, int count)
+{
+    playerMoves[count - 1] = move + 1;
+}
+
+void Player::resetPlayerMoves()
+{
+    for (size_t i = 0; i < moveNumber; ++i)
+        playerMoves[i] = 0;
+}
+
+void Player::printPlayerMoves() const
+{
+    for (size_t i = 0; i < moveNumber; ++i)
+    {
+        if (playerMoves[i] != 0)
+            std::cout << playerMoves[i];
+    }
+}
+
 size_t Human::move()
 {
     size_t cellNumber = 0;
@@ -7,11 +37,15 @@ size_t Human::move()
     return --cellNumber;
 }
 
+void Human::Human1Func()
+{
+    std::cout <<"Human 1 Func";
+}
+
 size_t Bot_L1::move()
 {
     return rand() % 9;
 }
-
 
 double F_is_this_number (const char symbol)
 {

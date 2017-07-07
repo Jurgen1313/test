@@ -121,6 +121,7 @@ int main()
                 P2 = new Bot_L1();
             cout << "\n" << Board;
         }
+
         for (;;)
         {
             int numberPlayer = 1;
@@ -150,8 +151,12 @@ int main()
                         break;
                     }
                 }
-                while (!Board.PlayerMove(player->move(),playerID));
+                int move = player->move();
 
+                while (!Board.PlayerMove(move,playerID))
+                    move = player->move();
+
+                player->setPlayerMove(move, Board.getMoves());
                 cout << "\n" << Board;
                 if (Board.Win(playerID))
                 {
@@ -159,13 +164,18 @@ int main()
                         cout << "\nPlayer 2 WIN" << endl;
                     else
                         cout << "\nPlayer 1 WIN" << endl;
-
                     player->setPlayerWins();
                     break;
                 }
             }
 
-            cout << "Player 1 Won : " << P1->getPlayerWins() << " times" << endl;
+            cout << "\nPlayer 1 Moves : ";
+            P1->printPlayerMoves();
+            cout << "\nPlayer 2 Moves : ";
+            P2->printPlayerMoves();
+            P1->resetPlayerMoves();
+            P2->resetPlayerMoves();
+            cout << "\nPlayer 1 Won : " << P1->getPlayerWins() << " times" << endl;
             cout << "Player 2 Won : " << P2->getPlayerWins() << " times" << endl;
 
             cout << "\nWant to play again?\n";
