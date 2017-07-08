@@ -1,0 +1,4 @@
+#ifndef FRIENDCLASS_H
+#define FRIENDCLASS_H
+
+#endif // FRIENDCLASS_H

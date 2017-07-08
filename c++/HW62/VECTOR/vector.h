@@ -2,6 +2,7 @@
 #define VECTOR_H
 
 #include <iostream>
+#include"vector.cpp"
 
 template <typename T>
 class Vector
@@ -40,32 +41,23 @@ size_t Vector<T>::allObjCount = 0;
 template <typename T>
 size_t Vector<T>::currentObjCount = 0;
 
-
 template <typename T>
 Vector<T>::Vector(): lenght(0), capacity(0)
 {
     vector = new T [lenght] {0};
     ++allObjCount;
     ++currentObjCount;
-//    std::cout << "\ndefault constructor";
+ //    std::cout << "\ndefault constructor";
 }
 
 template <typename T>
 Vector<T>::Vector(size_t size): lenght(size), capacity(0)
 {
-//    lenght = size;
+ //    lenght = size;
     vector = new T [lenght] {0};
     ++allObjCount;
     ++currentObjCount;
-//    std::cout << "\nconstructor";
-}
-
-template <typename T>
-Vector<T>::~Vector()
-{
-    delete[] vector;
-    --currentObjCount;
-//    std::cout << "\ndestructor";
+ //    std::cout << "\nconstructor";
 }
 
 template <typename T>
@@ -81,14 +73,49 @@ Vector<T>::Vector(const Vector& copy)
 }
 
 template <typename T>
+Vector<T>::~Vector()
+{
+    delete[] vector;
+    --currentObjCount;
+ //    std::cout << "\ndestructor";
+}
+
+template<typename T>
+T Vector<T>::getVectorElement (size_t element) const
+{
+    if (element <= capacity )
+        return vector[element];
+    return -1;
+}
+
+template<typename T>
+size_t Vector<T>::getLenght () const
+{
+    return lenght;
+}
+
+template<typename T>
+void Vector<T>::printVector() const
+{
+    for (size_t i = 0; i < lenght; ++i)
+        std::cout << vector[i] << " ";
+}
+
+template<typename T>
+void Vector<T>::setElement(size_t number, T value)
+{
+    vector[number] = value;
+}
+
+template <typename T>
 Vector<T>& Vector<T>::operator= (const Vector& copy)
 {
-//    std::cout << "\nold address vector : " << &vector;
+ //    std::cout << "\nold address vector : " << &vector;
     delete [] vector;
     lenght = copy.lenght;
     capacity = copy.capacity;
     vector = new T [lenght] {0};
-//    std::cout << "\nnew address vector : " << &vector;
+ //    std::cout << "\nnew address vector : " << &vector;
     for (size_t i = 0; i < lenght; ++i)
         vector[i] = copy.vector[i];
     return *this;
@@ -97,7 +124,7 @@ Vector<T>& Vector<T>::operator= (const Vector& copy)
 template <typename T>
 bool Vector<T>::operator== (const Vector& copy)
 {
-//    std::cout << "\nFNC compare\n";
+ //    std::cout << "\nFNC compare\n";
     if (lenght != copy.lenght || capacity!= copy.capacity)
         return false;
     for (size_t i = 0; i < lenght; ++i)
@@ -108,11 +135,10 @@ bool Vector<T>::operator== (const Vector& copy)
 
 template<typename T>
 T Vector<T>::operator[] (size_t element)
-//T Vector<T>::operator[] ()
 {
-    if (element < capacity)
+ //    if (element < capacity)
         return vector[element];
-//    else if (element == capacity)
+ //    else if (element == capacity)
 
 }
 
@@ -145,32 +171,6 @@ void Vector<T>::resize(size_t newSize)
     lenght = newSize;
 }
 
-template<typename T>
-T Vector<T>::getVectorElement (size_t element) const
-{
-    if (element <= capacity )
-        return vector[element];
-    return -1;
-}
-
-template<typename T>
-void Vector<T>::printVector() const
-{
-    for (size_t i = 0; i < lenght; ++i)
-        std::cout << vector[i] << " ";
-}
-
-template<typename T>
-size_t Vector<T>::getLenght () const
-{
-    return lenght;
-}
-
-template<typename T>
-void Vector<T>::setElement(size_t number, T value)
-{
-    vector[number] = value;
-}
 
 
 #endif // VECTOR_H
