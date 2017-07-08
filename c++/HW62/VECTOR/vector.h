@@ -8,6 +8,7 @@ class Vector
 {
 private:
     size_t lenght;
+    size_t capacity;
     T* vector;
 
     static size_t allObjCount;
@@ -27,10 +28,10 @@ public:
     bool operator== (const Vector&);
     T operator[] (size_t);
     Vector& swap (Vector&);
-    Vector& resize(Vector&);
 
-    void popback();
-    void pushback(T);
+    void resize(size_t);
+//    void popback();
+//    void pushback(T);
 };
 
 template <typename T>
@@ -41,7 +42,7 @@ size_t Vector<T>::currentObjCount = 0;
 
 
 template <typename T>
-Vector<T>::Vector(): lenght(0)
+Vector<T>::Vector(): lenght(0), capacity(0)
 {
     vector = new T [lenght] {0};
     ++allObjCount;
@@ -50,9 +51,9 @@ Vector<T>::Vector(): lenght(0)
 }
 
 template <typename T>
-Vector<T>::Vector(size_t size)
+Vector<T>::Vector(size_t size): lenght(size), capacity(0)
 {
-    lenght = size;
+//    lenght = size;
     vector = new T [lenght] {0};
     ++allObjCount;
     ++currentObjCount;
@@ -67,11 +68,11 @@ Vector<T>::~Vector()
 //    std::cout << "\ndestructor";
 }
 
-
 template <typename T>
 Vector<T>::Vector(const Vector& copy)
 {
     lenght = copy.lenght;
+    capacity = copy.capacity;
     ++allObjCount;
     ++currentObjCount;
     vector = new T [copy.lenght];
@@ -85,6 +86,7 @@ Vector<T>& Vector<T>::operator= (const Vector& copy)
 //    std::cout << "\nold address vector : " << &vector;
     delete [] vector;
     lenght = copy.lenght;
+    capacity = copy.capacity;
     vector = new T [lenght] {0};
 //    std::cout << "\nnew address vector : " << &vector;
     for (size_t i = 0; i < lenght; ++i)
@@ -96,7 +98,7 @@ template <typename T>
 bool Vector<T>::operator== (const Vector& copy)
 {
 //    std::cout << "\nFNC compare\n";
-    if (lenght != copy.lenght)
+    if (lenght != copy.lenght || capacity!= copy.capacity)
         return false;
     for (size_t i = 0; i < lenght; ++i)
         if (vector[i] != copy.vector[i])
@@ -106,8 +108,12 @@ bool Vector<T>::operator== (const Vector& copy)
 
 template<typename T>
 T Vector<T>::operator[] (size_t element)
+//T Vector<T>::operator[] ()
 {
-    return vector[element];
+    if (element < capacity)
+        return vector[element];
+//    else if (element == capacity)
+
 }
 
 template <typename T>
@@ -115,18 +121,36 @@ Vector<T>& Vector<T>::swap(Vector<T>& second)
 {
     T* tmpVector = second.vector;
     size_t tmpLenght = second.lenght;
+    size_t tmpCapacity = second.capacity;
     second.vector = vector;
     second.lenght = lenght;
+    second.capacity = capacity;
     vector = tmpVector;
     lenght = tmpLenght;
-
+    capacity = tmpCapacity;
     return *this;
+}
+
+template<typename T>
+void Vector<T>::resize(size_t newSize)
+{
+    T* tmp = new T [newSize];
+    for (size_t i = 0; i < newSize; ++i)
+        tmp[i] = vector[i];
+    if (newSize > lenght)
+        for (size_t i = lenght; i < newSize; ++i)
+            tmp[i] = 0;
+    delete[] vector;
+    vector = tmp;
+    lenght = newSize;
 }
 
 template<typename T>
 T Vector<T>::getVectorElement (size_t element) const
 {
-    return vector[element];
+    if (element <= capacity )
+        return vector[element];
+    return -1;
 }
 
 template<typename T>

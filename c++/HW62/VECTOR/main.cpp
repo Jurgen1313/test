@@ -45,31 +45,43 @@ int main()
         V10.setElement(i,i+100);
 
     cout << endl;
-    cout << "V1 :";
+    cout << "\nV1 :";
     printVector (V1);
 
-    cout << endl;
-    cout << "V2 : ";
-    printVector(V2);
+    V1.resize(4);
 
     cout << endl;
-    cout << "V3 : ";
-    printVector(V3);
+    cout << "\nV1 :";
+    printVector (V1);
+
+    V1.resize(9);
 
     cout << endl;
-    cout << "V4 : ";
-    printVector(V4);
+    cout << "\nV1 :";
+    printVector (V1);
 
-    cout << endl;
-    cout << "V10 : ";
-    printVector(V10);
+//    cout << endl;
+//    cout << "V2 : ";
+//    printVector(V2);
 
-    if (V1 == V3)
-        cout << "\n V1 == V2";
-    else
-        cout<< "\n V1 != V3";
+//    cout << endl;
+//    cout << "V3 : ";
+//    printVector(V3);
 
-    cout << "\nV1[2] : " << V1[2] << endl;
+//    cout << endl;
+//    cout << "V4 : ";
+//    printVector(V4);
+
+//    cout << endl;
+//    cout << "V10 : ";
+//    printVector(V10);
+
+//    if (V1 == V3)
+//        cout << "\n V1 == V2";
+//    else
+//        cout<< "\n V1 != V3";
+
+//    cout << "\nV1[2] : " << V1[2] << endl;
 //    cout << "\nV1 = V3" << endl;
 //    V1 = V3;
 //    cout << "\nV2 = V4" << endl;
