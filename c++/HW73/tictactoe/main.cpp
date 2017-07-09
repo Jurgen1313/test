@@ -110,15 +110,17 @@ int main()
             return 0;
         else
         {
+            cout << "\nPlayer 1";
             if (ChoosePlayer())
-                P1 = new Human();
+                P1 = dynamic_cast<Player*>(new Human());
             else
-                P1 = new Bot_L1();
+                P1 = dynamic_cast<Player*>(new Bot_L1());
 
+            cout << "\nPlayer 2";
             if (ChoosePlayer())
-                P2 = new Human();
+                P2 = dynamic_cast<Player*>(new Human());
             else
-                P2 = new Bot_L1();
+                P2 = dynamic_cast<Player*>(new Bot_L1());
             cout << "\n" << Board;
         }
 
