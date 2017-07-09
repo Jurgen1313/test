@@ -12,15 +12,15 @@ playerField::~playerField()
     delete[] Field;
 }
 
-int playerField::player1ID() const
-{
-    return Player_1;
-}
+//int playerField::player1ID() const
+//{
+//    return Player_1;
+//}
 
-int playerField::player2ID() const
-{
-    return Player_2;
-}
+//int playerField::player2ID() const
+//{
+//    return Player_2;
+//}
 
 bool playerField::isMove()
 {

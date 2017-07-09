@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player():numberWins(0)
+Player::Player(): numberWins(0)
 {
     playerMoves = new int[moveNumber] {0};
 }

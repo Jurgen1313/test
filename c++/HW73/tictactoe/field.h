@@ -15,8 +15,8 @@ private:
 public:
     playerField();
     ~playerField();
-    int player1ID() const;
-    int player2ID() const;
+//    int player1ID() const;
+//    int player2ID() const;
     bool isMove();
     void ResetField();
     bool PlayerMove(int, int);
@@ -25,6 +25,7 @@ public:
     friend std::ostream& operator<< (std::ostream&, const playerField&);
 };
 
-enum pID {Player_1 = 10, Player_2 = 11};
+enum pID {Player_1 = 10, Player_2 = 11}; // 10 - O
+                                         // 11 - X
 
 #endif // FIELD_H
