@@ -10,6 +10,8 @@
 #include <QVector>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QSlider>
+#include <QString>
 
 class MainWindow: public QDialog
 {
@@ -18,6 +20,7 @@ public:
     MainWindow();
 private:
     size_t lenght;
+    size_t Bid;
 
     QLabel *lYouHave;
     QLabel *lMakeBid;
@@ -46,11 +49,26 @@ private:
     QPixmap pix6;
     QVector<QLabel*> labels;
     QVector<QPixmap> pictures;
-    QHBoxLayout *l1;
-    QHBoxLayout *l2;
-    QVBoxLayout *v1;
+
+    QSlider *sMakeBid;
+    QSlider *sHowMuchFields;
+
+    QHBoxLayout *lh1;
+    QHBoxLayout *lh2;
+    QHBoxLayout *lh3;
+    QHBoxLayout *lh4;
+    QHBoxLayout *lh5;
+    QHBoxLayout *lh6;
+
+//    QHBoxLayout *l1;
+//    QHBoxLayout *l2;
+    QVBoxLayout *lv1;
 
 public slots:
     void randPic();
+    void resize(QString);
+    void setValueHowMuchField(int);
+    void setMakeBid(int);
+    void setMakeBid(QString);
 };
 #endif // MAINWINDOW_H
