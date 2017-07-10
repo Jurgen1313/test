@@ -13,6 +13,7 @@
 #include <QSlider>
 #include <QString>
 #include <QMessageBox>
+#include <QTime>
 
 class MainWindow: public QDialog
 {
@@ -27,6 +28,7 @@ private:
     double yourMoney;
     double coef;
     QString* Moves;
+    int* MovesInt;
 
     QLabel *lYouHave;
     QLabel *lMakeBid;

@@ -42,6 +42,7 @@ MainWindow::MainWindow()
 
     lenght = (size_t)labels.size();
     Moves = new QString [lenght+1];
+    MovesInt = new int [lenght];
     currentLenght = elHowMuchFields->text().toUInt();
 
     pictures = {pix1, pix2, pix3, pix4, pix5, pix6};
@@ -92,8 +93,6 @@ MainWindow::MainWindow()
     lh6->addWidget(bClear);
     lh6->addWidget(bQuit);
 
-//    lh7->addWidget(lTest);
-
     lv1->addLayout(lh1);
     lv1->addLayout(lh2);
     lv1->addLayout(lh3);
@@ -120,7 +119,9 @@ MainWindow::MainWindow()
 
 void MainWindow::randPic() // move has been done
 {
-    qsrand(qrand());
+    QTime midnight(0, 0, 0);
+    qsrand(midnight.secsTo(QTime::currentTime()));
+
     QString s {""};
     int moves;
     for (size_t i = 0; i < currentLenght; ++i)
@@ -129,11 +130,11 @@ void MainWindow::randPic() // move has been done
         labels[i]->setPixmap(pictures[moves]);
         s.append(QString::number(moves));
         Moves->append(QString::number(moves));
+        MovesInt[i] = moves;
     }
 
     QMessageBox Msgbox;
     int sum = 0;
-//    Msgbox.sett ;
     if (game())
     {
         yourMoney += elMakeBid->text().toDouble() * coef;
@@ -150,6 +151,8 @@ void MainWindow::randPic() // move has been done
     }
     Msgbox.exec();
     Moves->clear();
+    for (size_t i = 0; i < lenght; ++i)
+        MovesInt[i] = 0;
 }
 
 void MainWindow::resize(QString str)
@@ -216,6 +219,13 @@ void MainWindow::clear()
     elMakeBid->setText("0");
     elHowMuchFields->setText("3");
     yourMoney = 500;
+    for (size_t i = 0; i < lenght; ++i)
+    {
+        labels[i]->setPixmap(pictures[0]);
+        if (currentLenght <= i)
+            labels[i]->setEnabled(false);
+//        lh4->addWidget(labels[i]);
+    }
 }
 
 void MainWindow::changedYouHave(QString str)
@@ -231,7 +241,8 @@ bool MainWindow::game()
     {
         case 2:
         {
-            if (Moves->at(0) == Moves->at(1))
+//            if ((Moves->at(0) == Moves->at(1)))
+            if (MovesInt[0] == MovesInt[1])
             {
                 coef = 1;
                 return true;
@@ -243,13 +254,14 @@ bool MainWindow::game()
         }
         case 3:
         {
-            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
             {
                 coef = 2;
                 return true;
             }
-
-            if (Moves->at(0) == Moves->at(1))
+//            if ((Moves->at(0) == Moves->at(1)))
+            if (MovesInt[0] == MovesInt[1])
             {
                 coef = 1;
                 return true;
@@ -258,18 +270,20 @@ bool MainWindow::game()
         }
         case 4:
         {
-            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
+            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3])))
             {
                 coef = 3;
                 return true;
             }
-            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
             {
                 coef = 2;
                 return true;
             }
-
-            if (Moves->at(0) == Moves->at(1))
+//            if ((Moves->at(0) == Moves->at(1)))
+            if (MovesInt[0] == MovesInt[1])
             {
                 coef = 1;
                 return true;
@@ -279,23 +293,26 @@ bool MainWindow::game()
 
         case 5:
         {
-            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3))&&(Moves->at(3) == Moves->at(4)))
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3))&&(Moves->at(3) == Moves->at(4)))
+            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3]))&&((MovesInt[3] == MovesInt[4])))
             {
                 coef = 4;
                 return true;
             }
-            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
+            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3])))
             {
                 coef = 3;
                 return true;
             }
-            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
             {
                 coef = 2;
                 return true;
             }
-
-            if (Moves->at(0) == Moves->at(1))
+//            if ((Moves->at(0) == Moves->at(1)))
+            if (MovesInt[0] == MovesInt[1])
             {
                 coef = 1;
                 return true;
@@ -304,4 +321,5 @@ bool MainWindow::game()
             break;
         }
     }
+    return false;
 }
