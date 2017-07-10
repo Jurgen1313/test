@@ -219,6 +219,16 @@ debug/moc_mainwindow.cpp: C:/Qt/5.8/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/5.8/mingw53_32/include/QtGui/qicon.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextcursor.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextformat.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextoption.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QSlider \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.8/mingw53_32/include/QtCore/QString \
 		../GameMachine/mainwindow.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.8/mingw53_32/bin/moc.exe
@@ -365,7 +375,17 @@ debug/main.o: ../GameMachine/main.cpp C:/Qt/5.8/mingw53_32/include/QtWidgets/QAp
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/QPushButton \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/5.8/mingw53_32/include/QtGui/qicon.h
+		C:/Qt/5.8/mingw53_32/include/QtGui/qicon.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextcursor.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextformat.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextoption.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QSlider \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.8/mingw53_32/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\GameMachine\main.cpp
 
 debug/mainwindow.o: ../GameMachine/mainwindow.cpp ../GameMachine/mainwindow.h \
@@ -486,7 +506,17 @@ debug/mainwindow.o: ../GameMachine/mainwindow.cpp ../GameMachine/mainwindow.h \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/QPushButton \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/5.8/mingw53_32/include/QtGui/qicon.h
+		C:/Qt/5.8/mingw53_32/include/QtGui/qicon.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QLineEdit \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qlineedit.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextcursor.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextformat.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/5.8/mingw53_32/include/QtGui/qtextoption.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QSlider \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qslider.h \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.8/mingw53_32/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\GameMachine\mainwindow.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 

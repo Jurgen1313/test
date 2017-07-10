@@ -4,10 +4,12 @@
 MainWindow::MainWindow()
 {
     Bid = 0;
+    coef = 1;
+
     bRun = new QPushButton ("GO!!!");
     bRun->setEnabled(false);
     bQuit = new QPushButton ("QUIT");
-    bClear = new QPushButton ("CLEAR");
+    bClear = new QPushButton ("NEW GAME");
 
     labelPix1 = new QLabel;
     labelPix2 = new QLabel;
@@ -15,6 +17,7 @@ MainWindow::MainWindow()
     labelPix4 = new QLabel;
     labelPix5 = new QLabel;
     labelPix6 = new QLabel;
+    lTest = new QLabel ("test layer");
 
     lYouHave = new QLabel ("You have : ");
     lMakeBid = new QLabel ("Make your bid : ");
@@ -26,6 +29,8 @@ MainWindow::MainWindow()
     elMakeBid = new QLineEdit ("0");
     elHowMuchFields = new QLineEdit ("3");
 
+    yourMoney = elYouHave->text().toDouble();
+
     pix1 = {"../GameMachine/2.jpg"};
     pix2 = {"../GameMachine/4.jpg"};
     pix3 = {"../GameMachine/1.gif"};
@@ -34,9 +39,11 @@ MainWindow::MainWindow()
     pix6 = {"../GameMachine/6.jpg"};
 
     labels = {labelPix1, labelPix2, labelPix3, labelPix4, labelPix5, labelPix6};
-//    lenght = labels.size();
-    lenght = elHowMuchFields->text().toUInt();
-//    lenght = 3;
+
+    lenght = (size_t)labels.size();
+    Moves = new QString [lenght+1];
+    currentLenght = elHowMuchFields->text().toUInt();
+
     pictures = {pix1, pix2, pix3, pix4, pix5, pix6};
 
     sMakeBid = new QSlider (Qt::Horizontal);
@@ -46,7 +53,7 @@ MainWindow::MainWindow()
 
     sHowMuchFields = new QSlider (Qt::Horizontal);
     sHowMuchFields->setMinimum(2);
-    sHowMuchFields->setMaximum(labels.size());
+    sHowMuchFields->setMaximum(lenght);
     sHowMuchFields->setValue(3);
 
     lh1 = new QHBoxLayout;
@@ -55,6 +62,7 @@ MainWindow::MainWindow()
     lh4 = new QHBoxLayout;
     lh5 = new QHBoxLayout;
     lh6 = new QHBoxLayout;
+    lh7 = new QHBoxLayout;
 
     lv1 = new QVBoxLayout;
 
@@ -71,10 +79,10 @@ MainWindow::MainWindow()
     lh3->addWidget(elHowMuchFields);
     lh3->addWidget(sHowMuchFields);
 
-    for (size_t i = 0; i < (size_t)labels.size(); ++i)
+    for (size_t i = 0; i < lenght; ++i)
     {
         labels[i]->setPixmap(pictures[0]);
-        if (lenght <= i)
+        if (currentLenght <= i)
             labels[i]->setEnabled(false);
         lh4->addWidget(labels[i]);
     }
@@ -84,17 +92,21 @@ MainWindow::MainWindow()
     lh6->addWidget(bClear);
     lh6->addWidget(bQuit);
 
+//    lh7->addWidget(lTest);
+
     lv1->addLayout(lh1);
     lv1->addLayout(lh2);
     lv1->addLayout(lh3);
     lv1->addLayout(lh4);
     lv1->addLayout(lh5);
     lv1->addLayout(lh6);
-
+    lv1->addLayout(lh7);
 
     connect(bQuit, SIGNAL (clicked()), this, SLOT(close() ));
     connect(bRun,  SIGNAL (clicked()), this, SLOT(randPic()));
     connect(bClear, SIGNAL(clicked()), this, SLOT(clear()));
+
+    connect(elYouHave, SIGNAL (textChanged(QString)), this, SLOT(changedYouHave(QString)));
 
     connect(elHowMuchFields, SIGNAL (textChanged(QString)), this, SLOT(resize(QString)));
     connect(sHowMuchFields, SIGNAL(valueChanged(int)),this,SLOT(setValueHowMuchField(int)));
@@ -106,19 +118,46 @@ MainWindow::MainWindow()
     setWindowTitle("Game Machine");
 }
 
-void MainWindow::randPic()
+void MainWindow::randPic() // move has been done
 {
     qsrand(qrand());
-    for (size_t i = 0; i < lenght; ++i)
-        labels[i]->setPixmap(pictures[qrand() % labels.size()]);
+    QString s {""};
+    int moves;
+    for (size_t i = 0; i < currentLenght; ++i)
+    {
+        moves = qrand() % lenght;
+        labels[i]->setPixmap(pictures[moves]);
+        s.append(QString::number(moves));
+        Moves->append(QString::number(moves));
+    }
+
+    QMessageBox Msgbox;
+    int sum = 0;
+//    Msgbox.sett ;
+    if (game())
+    {
+        yourMoney += elMakeBid->text().toDouble() * coef;
+        sum = elMakeBid->text().toDouble() * coef;
+        elYouHave->setText(QString::number(yourMoney));
+        Msgbox.setText("You WIN : \n\t" + QString::number(sum));
+    }
+    else
+    {
+        yourMoney -= elMakeBid->text().toInt();
+        sum = elMakeBid->text().toInt();
+        elYouHave->setText(QString::number(yourMoney));
+        Msgbox.setText("You LOOSE : " + QString::number(sum));
+    }
+    Msgbox.exec();
+    Moves->clear();
 }
 
 void MainWindow::resize(QString str)
 {
     size_t number = (size_t)str.toUInt();
-    if (number > 1 && number <= (size_t)labels.size())
+    if (number > 1 && number <= lenght)
     {
-        for (size_t i = 0; i < (size_t)labels.size(); ++i)
+        for (size_t i = 0; i < lenght; ++i)
         {
             if (i < number)
                 labels[i]->setEnabled(true);
@@ -128,14 +167,14 @@ void MainWindow::resize(QString str)
                 labels[i]->setEnabled(false);
             }
         }
-        lenght = number;
+        currentLenght = number;
         sHowMuchFields->setValue(number);
     }
 }
 
 void MainWindow::setValueHowMuchField(int value)
 {
-    for (size_t i = 0; i < (size_t)labels.size(); ++i)
+    for (size_t i = 0; i < lenght; ++i)
     {
         if (i < (size_t)value)
             labels[i]->setEnabled(true);
@@ -145,7 +184,7 @@ void MainWindow::setValueHowMuchField(int value)
             labels[i]->setEnabled(false);
         }
     }
-    lenght = value;
+    currentLenght = value;
     QString s = QString::number(value);
     elHowMuchFields->setText(s);
 }
@@ -176,5 +215,93 @@ void MainWindow::clear()
     elYouHave->setText("500");
     elMakeBid->setText("0");
     elHowMuchFields->setText("3");
+    yourMoney = 500;
+}
 
+void MainWindow::changedYouHave(QString str)
+{
+    size_t number = (size_t)str.toUInt();
+    sMakeBid->setMaximum(number);
+}
+
+bool MainWindow::game()
+{
+    uint gameType = elHowMuchFields->text().toUInt();
+    switch(gameType)
+    {
+        case 2:
+        {
+            if (Moves->at(0) == Moves->at(1))
+            {
+                coef = 1;
+                return true;
+            }
+            else
+                return false;
+
+            break;
+        }
+        case 3:
+        {
+            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+            {
+                coef = 2;
+                return true;
+            }
+
+            if (Moves->at(0) == Moves->at(1))
+            {
+                coef = 1;
+                return true;
+            }
+            break;
+        }
+        case 4:
+        {
+            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
+            {
+                coef = 3;
+                return true;
+            }
+            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+            {
+                coef = 2;
+                return true;
+            }
+
+            if (Moves->at(0) == Moves->at(1))
+            {
+                coef = 1;
+                return true;
+            }
+            break;
+        }
+
+        case 5:
+        {
+            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3))&&(Moves->at(3) == Moves->at(4)))
+            {
+                coef = 4;
+                return true;
+            }
+            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
+            {
+                coef = 3;
+                return true;
+            }
+            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+            {
+                coef = 2;
+                return true;
+            }
+
+            if (Moves->at(0) == Moves->at(1))
+            {
+                coef = 1;
+                return true;
+            }
+            return false;
+            break;
+        }
+    }
 }

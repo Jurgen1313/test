@@ -12,6 +12,7 @@
 #include <QLineEdit>
 #include <QSlider>
 #include <QString>
+#include <QMessageBox>
 
 class MainWindow: public QDialog
 {
@@ -19,8 +20,13 @@ class MainWindow: public QDialog
 public:
     MainWindow();
 private:
+//    enum Pic {};
     size_t lenght;
+    size_t currentLenght;
     size_t Bid;
+    double yourMoney;
+    double coef;
+    QString* Moves;
 
     QLabel *lYouHave;
     QLabel *lMakeBid;
@@ -32,6 +38,7 @@ private:
     QLabel *labelPix4;// = new QLabel;
     QLabel *labelPix5;// = new QLabel;
     QLabel *labelPix6;// = new QLabel;
+    QLabel *lTest;
 
     QLineEdit *elYouHave;
     QLineEdit *elMakeBid;
@@ -47,6 +54,7 @@ private:
     QPixmap pix4;
     QPixmap pix5;
     QPixmap pix6;
+
     QVector<QLabel*> labels;
     QVector<QPixmap> pictures;
 
@@ -59,10 +67,11 @@ private:
     QHBoxLayout *lh4;
     QHBoxLayout *lh5;
     QHBoxLayout *lh6;
+    QHBoxLayout *lh7; //test layer
 
-//    QHBoxLayout *l1;
-//    QHBoxLayout *l2;
     QVBoxLayout *lv1;
+
+    bool game();
 
 public slots:
     void randPic();
@@ -71,5 +80,13 @@ public slots:
     void setMakeBid(int);
     void setMakeBid(QString);
     void clear();
+    void changedYouHave(QString);
 };
+
+
+//class PlayGame: public QObject
+//{
+//public:
+//    PlayGame();
+//};
 #endif // MAINWINDOW_H
