@@ -70,5 +70,6 @@ public slots:
     void setValueHowMuchField(int);
     void setMakeBid(int);
     void setMakeBid(QString);
+    void clear();
 };
 #endif // MAINWINDOW_H

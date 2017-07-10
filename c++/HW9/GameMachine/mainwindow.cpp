@@ -4,9 +4,8 @@
 MainWindow::MainWindow()
 {
     Bid = 0;
-
     bRun = new QPushButton ("GO!!!");
-//    bRun->setEnabled(false);
+    bRun->setEnabled(false);
     bQuit = new QPushButton ("QUIT");
     bClear = new QPushButton ("CLEAR");
 
@@ -23,6 +22,7 @@ MainWindow::MainWindow()
     lDollar = new QLabel (" $ ");
 
     elYouHave = new QLineEdit ("500");
+    elYouHave->setEnabled(false);
     elMakeBid = new QLineEdit ("0");
     elHowMuchFields = new QLineEdit ("3");
 
@@ -45,7 +45,7 @@ MainWindow::MainWindow()
     sMakeBid->setValue(Bid);
 
     sHowMuchFields = new QSlider (Qt::Horizontal);
-    sHowMuchFields->setMinimum(1);
+    sHowMuchFields->setMinimum(2);
     sHowMuchFields->setMaximum(labels.size());
     sHowMuchFields->setValue(3);
 
@@ -71,7 +71,7 @@ MainWindow::MainWindow()
     lh3->addWidget(elHowMuchFields);
     lh3->addWidget(sHowMuchFields);
 
-    for (size_t i = 0; i < labels.size(); ++i)
+    for (size_t i = 0; i < (size_t)labels.size(); ++i)
     {
         labels[i]->setPixmap(pictures[0]);
         if (lenght <= i)
@@ -94,6 +94,7 @@ MainWindow::MainWindow()
 
     connect(bQuit, SIGNAL (clicked()), this, SLOT(close() ));
     connect(bRun,  SIGNAL (clicked()), this, SLOT(randPic()));
+    connect(bClear, SIGNAL(clicked()), this, SLOT(clear()));
 
     connect(elHowMuchFields, SIGNAL (textChanged(QString)), this, SLOT(resize(QString)));
     connect(sHowMuchFields, SIGNAL(valueChanged(int)),this,SLOT(setValueHowMuchField(int)));
@@ -109,15 +110,15 @@ void MainWindow::randPic()
 {
     qsrand(qrand());
     for (size_t i = 0; i < lenght; ++i)
-        labels[i]->setPixmap(pictures[qrand() % lenght]);
+        labels[i]->setPixmap(pictures[qrand() % labels.size()]);
 }
 
 void MainWindow::resize(QString str)
 {
-    int number = str.toUInt();
-    if (number > 0 && number <= labels.size())
+    size_t number = (size_t)str.toUInt();
+    if (number > 1 && number <= (size_t)labels.size())
     {
-        for (size_t i = 0; i < labels.size(); ++i)
+        for (size_t i = 0; i < (size_t)labels.size(); ++i)
         {
             if (i < number)
                 labels[i]->setEnabled(true);
@@ -134,9 +135,9 @@ void MainWindow::resize(QString str)
 
 void MainWindow::setValueHowMuchField(int value)
 {
-    for (size_t i = 0; i < labels.size(); ++i)
+    for (size_t i = 0; i < (size_t)labels.size(); ++i)
     {
-        if (i < value)
+        if (i < (size_t)value)
             labels[i]->setEnabled(true);
         else
         {
@@ -154,16 +155,26 @@ void MainWindow::setMakeBid(int value)
     Bid = value;
     QString s = QString::number(value);
     elMakeBid->setText(s);
-
+    if (value > 0)
+        bRun->setEnabled(true);
+    else
+        bRun->setEnabled(false);
 }
 
 void MainWindow::setMakeBid(QString str)
 {
     int number = str.toUInt();
-//    if (number > 0 && number <= (elYouHave->text().toUInt()))
-//    {
-        sMakeBid->setValue(number);
-//        sHowMuchFields->setValue(number);
-//    }
+    sMakeBid->setValue(number);
+    if (number > 0)
+        bRun->setEnabled(true);
+    else
+        bRun->setEnabled(false);
+}
+
+void MainWindow::clear()
+{
+    elYouHave->setText("500");
+    elMakeBid->setText("0");
+    elHowMuchFields->setText("3");
 
 }
