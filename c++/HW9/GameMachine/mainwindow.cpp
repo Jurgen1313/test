@@ -119,6 +119,11 @@ MainWindow::MainWindow()
 
 void MainWindow::randPic() // move has been done
 {
+    if (elHowMuchFields->text().toInt() < 2) // || elHowMuchFields->text().toInt() <= lenght)
+        elHowMuchFields->setText("2");
+    else if (elHowMuchFields->text().toInt() > lenght)
+        elHowMuchFields->setText(QString::number(lenght));
+
     QTime midnight(0, 0, 0);
     qsrand(midnight.secsTo(QTime::currentTime()));
 
@@ -153,11 +158,18 @@ void MainWindow::randPic() // move has been done
     Moves->clear();
     for (size_t i = 0; i < lenght; ++i)
         MovesInt[i] = 0;
+
+    if (!yourMoney)
+    {
+        QMessageBox Msgbox;
+        Msgbox.setText("GAME OVER");
+        Msgbox.exec();
+    }
 }
 
 void MainWindow::resize(QString str)
 {
-    size_t number = (size_t)str.toUInt();
+    int number = str.toInt();
     if (number > 1 && number <= lenght)
     {
         for (size_t i = 0; i < lenght; ++i)
@@ -171,7 +183,7 @@ void MainWindow::resize(QString str)
             }
         }
         currentLenght = number;
-        sHowMuchFields->setValue(number);
+        sHowMuchFields->setValue(currentLenght);
     }
 }
 
@@ -224,7 +236,6 @@ void MainWindow::clear()
         labels[i]->setPixmap(pictures[0]);
         if (currentLenght <= i)
             labels[i]->setEnabled(false);
-//        lh4->addWidget(labels[i]);
     }
 }
 
@@ -320,6 +331,40 @@ bool MainWindow::game()
             return false;
             break;
         }
+    case 6:
+    {
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3))&&(Moves->at(3) == Moves->at(4)))
+        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3]))&&((MovesInt[3] == MovesInt[4]))&&((MovesInt[4] == MovesInt[5])))
+        {
+            coef = 5;
+            return true;
+        }
+        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3]))&&((MovesInt[3] == MovesInt[4])))
+        {
+            coef = 4;
+            return true;
+        }
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
+        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3])))
+        {
+            coef = 3;
+            return true;
+        }
+//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
+        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
+        {
+            coef = 2;
+            return true;
+        }
+//            if ((Moves->at(0) == Moves->at(1)))
+        if (MovesInt[0] == MovesInt[1])
+        {
+            coef = 1;
+            return true;
+        }
+        return false;
+        break;
+    }
     }
     return false;
 }
