@@ -229,6 +229,10 @@ release/moc_mainwindow.cpp: C:/Qt/5.8/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qslider.h \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractslider.h \
 		C:/Qt/5.8/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QMessageBox \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/5.8/mingw53_32/include/QtCore/QTime \
+		C:/Qt/5.8/mingw53_32/include/QtCore/qdatetime.h \
 		../GameMachine/mainwindow.h \
 		release/moc_predefs.h \
 		C:/Qt/5.8/mingw53_32/bin/moc.exe
@@ -385,7 +389,11 @@ release/main.o: ../GameMachine/main.cpp C:/Qt/5.8/mingw53_32/include/QtWidgets/Q
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/QSlider \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qslider.h \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.8/mingw53_32/include/QtCore/QString
+		C:/Qt/5.8/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QMessageBox \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/5.8/mingw53_32/include/QtCore/QTime \
+		C:/Qt/5.8/mingw53_32/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\GameMachine\main.cpp
 
 release/mainwindow.o: ../GameMachine/mainwindow.cpp ../GameMachine/mainwindow.h \
@@ -516,7 +524,11 @@ release/mainwindow.o: ../GameMachine/mainwindow.cpp ../GameMachine/mainwindow.h 
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/QSlider \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qslider.h \
 		C:/Qt/5.8/mingw53_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.8/mingw53_32/include/QtCore/QString
+		C:/Qt/5.8/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/QMessageBox \
+		C:/Qt/5.8/mingw53_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/5.8/mingw53_32/include/QtCore/QTime \
+		C:/Qt/5.8/mingw53_32/include/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\GameMachine\mainwindow.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 

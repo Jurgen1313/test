@@ -20,13 +20,13 @@ class MainWindow: public QDialog
     Q_OBJECT
 public:
     MainWindow();
+    void setMoney(const int);
 private:
 //    enum Pic {};
     size_t lenght;
     size_t currentLenght;
     size_t Bid;
-    double yourMoney;
-    double coef;
+
     QString* Moves;
     int* MovesInt;
 
@@ -75,7 +75,7 @@ private:
 
     bool game();
 
-public slots:
+private slots:
     void randPic();
     void resize(QString);
     void setValueHowMuchField(int);
@@ -83,12 +83,41 @@ public slots:
     void setMakeBid(QString);
     void clear();
     void changedYouHave(QString);
+    void Money(const int);
+
+signals:
+    void Play(const int* const, const int, const int);
+    void newGame();
 };
 
+class Player: public QObject
+{
+    Q_OBJECT
+private:
+    double yourMoney;
+    double coef;
+    double Bid;
+public:
+    Player(int money = 500):yourMoney(money), coef(1), Bid(0){}
+    virtual ~Player(){}
+    int getMoney() const;
+    void setMoney(const int);
+    int getCoef() const;
+    void setCoef(const int);
+    virtual bool game(const int* const, const int) = 0;
+public slots:
+    void playGame(const int* const, const int, const int);
+    void newPGame();
+signals:
+    void changedMoney(const int);
+};
 
-//class PlayGame: public QObject
-//{
-//public:
-//    PlayGame();
-//};
+class FirstPlayer: public Player
+{
+public:
+    FirstPlayer(int money = 500): Player(money){}
+    ~FirstPlayer(){}
+    bool game(const int* const, const int);
+};
+
 #endif // MAINWINDOW_H

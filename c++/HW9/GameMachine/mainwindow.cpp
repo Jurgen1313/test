@@ -3,9 +3,7 @@
 
 MainWindow::MainWindow()
 {
-    Bid = 0;
-    coef = 1;
-
+//    Bid = 0;
     bRun = new QPushButton ("GO!!!");
     bRun->setEnabled(false);
     bQuit = new QPushButton ("QUIT");
@@ -24,12 +22,10 @@ MainWindow::MainWindow()
     lHowMuchFields = new QLabel ("How much fields? :");
     lDollar = new QLabel (" $ ");
 
-    elYouHave = new QLineEdit ("500");
+    elYouHave = new QLineEdit ("0");
     elYouHave->setEnabled(false);
     elMakeBid = new QLineEdit ("0");
     elHowMuchFields = new QLineEdit ("3");
-
-    yourMoney = elYouHave->text().toDouble();
 
     pix1 = {"../GameMachine/2.jpg"};
     pix2 = {"../GameMachine/4.jpg"};
@@ -138,33 +134,7 @@ void MainWindow::randPic() // move has been done
         MovesInt[i] = moves;
     }
 
-    QMessageBox Msgbox;
-    int sum = 0;
-    if (game())
-    {
-        yourMoney += elMakeBid->text().toDouble() * coef;
-        sum = elMakeBid->text().toDouble() * coef;
-        elYouHave->setText(QString::number(yourMoney));
-        Msgbox.setText("You WIN : \n\t" + QString::number(sum));
-    }
-    else
-    {
-        yourMoney -= elMakeBid->text().toInt();
-        sum = elMakeBid->text().toInt();
-        elYouHave->setText(QString::number(yourMoney));
-        Msgbox.setText("You LOOSE : " + QString::number(sum));
-    }
-    Msgbox.exec();
-    Moves->clear();
-    for (size_t i = 0; i < lenght; ++i)
-        MovesInt[i] = 0;
-
-    if (!yourMoney)
-    {
-        QMessageBox Msgbox;
-        Msgbox.setText("GAME OVER");
-        Msgbox.exec();
-    }
+    emit Play(MovesInt, elHowMuchFields->text().toInt(), elMakeBid->text().toInt());
 }
 
 void MainWindow::resize(QString str)
@@ -227,16 +197,16 @@ void MainWindow::setMakeBid(QString str)
 
 void MainWindow::clear()
 {
-    elYouHave->setText("500");
+    elYouHave->setText("0");
     elMakeBid->setText("0");
     elHowMuchFields->setText("3");
-    yourMoney = 500;
     for (size_t i = 0; i < lenght; ++i)
     {
         labels[i]->setPixmap(pictures[0]);
         if (currentLenght <= i)
             labels[i]->setEnabled(false);
     }
+    emit newGame();
 }
 
 void MainWindow::changedYouHave(QString str)
@@ -245,126 +215,189 @@ void MainWindow::changedYouHave(QString str)
     sMakeBid->setMaximum(number);
 }
 
-bool MainWindow::game()
+void MainWindow::Money(const int money)
 {
-    uint gameType = elHowMuchFields->text().toUInt();
-    switch(gameType)
-    {
-        case 2:
-        {
-//            if ((Moves->at(0) == Moves->at(1)))
-            if (MovesInt[0] == MovesInt[1])
-            {
-                coef = 1;
-                return true;
-            }
-            else
-                return false;
-
-            break;
-        }
-        case 3:
-        {
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
-            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
-            {
-                coef = 2;
-                return true;
-            }
-//            if ((Moves->at(0) == Moves->at(1)))
-            if (MovesInt[0] == MovesInt[1])
-            {
-                coef = 1;
-                return true;
-            }
-            break;
-        }
-        case 4:
-        {
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
-            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3])))
-            {
-                coef = 3;
-                return true;
-            }
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
-            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
-            {
-                coef = 2;
-                return true;
-            }
-//            if ((Moves->at(0) == Moves->at(1)))
-            if (MovesInt[0] == MovesInt[1])
-            {
-                coef = 1;
-                return true;
-            }
-            break;
-        }
-
-        case 5:
-        {
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3))&&(Moves->at(3) == Moves->at(4)))
-            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3]))&&((MovesInt[3] == MovesInt[4])))
-            {
-                coef = 4;
-                return true;
-            }
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
-            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3])))
-            {
-                coef = 3;
-                return true;
-            }
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
-            if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
-            {
-                coef = 2;
-                return true;
-            }
-//            if ((Moves->at(0) == Moves->at(1)))
-            if (MovesInt[0] == MovesInt[1])
-            {
-                coef = 1;
-                return true;
-            }
-            return false;
-            break;
-        }
-    case 6:
-    {
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3))&&(Moves->at(3) == Moves->at(4)))
-        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3]))&&((MovesInt[3] == MovesInt[4]))&&((MovesInt[4] == MovesInt[5])))
-        {
-            coef = 5;
-            return true;
-        }
-        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3]))&&((MovesInt[3] == MovesInt[4])))
-        {
-            coef = 4;
-            return true;
-        }
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2))&&(Moves->at(2) == Moves->at(3)))
-        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2]))&&((MovesInt[2] == MovesInt[3])))
-        {
-            coef = 3;
-            return true;
-        }
-//            if ((Moves->at(0) == Moves->at(1))&&(Moves->at(1) == Moves->at(2)))
-        if ((MovesInt[0] == MovesInt[1])&&((MovesInt[1] == MovesInt[2])))
-        {
-            coef = 2;
-            return true;
-        }
-//            if ((Moves->at(0) == Moves->at(1)))
-        if (MovesInt[0] == MovesInt[1])
-        {
-            coef = 1;
-            return true;
-        }
-        return false;
-        break;
-    }
-    }
-    return false;
+    elYouHave->setText(QString::number(money));
 }
+
+void MainWindow::setMoney(const int money)
+{
+    elYouHave->setText(QString::number(money));
+}
+
+//Player
+void Player::playGame(const int* const combination, const int lenght, const int makeBid)
+{
+    QMessageBox Msgbox;
+    if (game(combination, lenght))
+    {
+        yourMoney += makeBid * coef;
+        Msgbox.setText("You WIN : \n\t" + QString::number(makeBid * coef));
+    }
+    else
+    {
+        yourMoney -= makeBid;
+        Msgbox.setText("You LOOSE : " + QString::number(makeBid));
+    }
+    Msgbox.exec();
+
+    if (!yourMoney)
+    {
+        QMessageBox Msgbox;
+        Msgbox.setText("GAME OVER");
+        Msgbox.exec();
+    }
+    emit changedMoney(yourMoney);
+}
+
+void Player::setMoney(const int money)
+{
+    yourMoney = money;
+}
+
+int Player::getCoef() const
+{
+    return coef;
+}
+
+void Player::setCoef(const int coefNew)
+{
+    coef = coefNew;
+}
+
+int Player::getMoney() const
+{
+    return yourMoney;
+}
+
+void Player::newPGame()
+{
+    yourMoney = 500;
+    coef = 0;
+    emit changedMoney(yourMoney);
+}
+
+//bool Player::game(const int* const, const int)
+//{}
+
+bool FirstPlayer::game(const int* const combination, const int lenght)
+{
+     switch(lenght)
+     {
+         case 2:
+         {
+             if (combination[0] == combination[1])
+             {
+                 setCoef(1);
+                 return true;
+             }
+             else
+                 return false;
+
+             break;
+         }
+         case 3:
+         {
+             if ((combination[0] == combination[1])&&((combination[1] == combination[2])))
+             {
+                 setCoef(2);
+                 return true;
+             }
+             if (combination[0] == combination[1])
+             {
+                 setCoef(1);
+                 return true;
+             }
+             break;
+         }
+         case 4:
+         {
+             if ((combination[0] == combination[1])&&((combination[1] == combination[2]))&&((combination[2] == combination[3])))
+             {
+//                 coef = 3;
+                 setCoef(3);
+                 return true;
+             }
+             if ((combination[0] == combination[1])&&((combination[1] == combination[2])))
+             {
+//                 coef = 2;
+                 setCoef(2);
+                 return true;
+             }
+             if (combination[0] == combination[1])
+             {
+//                 coef = 1;
+                 setCoef(1);
+                 return true;
+             }
+             break;
+         }
+
+         case 5:
+         {
+             if ((combination[0] == combination[1])&&((combination[1] == combination[2]))&&((combination[2] == combination[3]))&&((combination[3] == combination[4])))
+             {
+//                 coef = 4;
+                 setCoef(4);
+                 return true;
+             }
+             if ((combination[0] == combination[1])&&((combination[1] == combination[2]))&&((combination[2] == combination[3])))
+             {
+//                 coef = 3;
+                 setCoef(3);
+                 return true;
+             }
+             if ((combination[0] == combination[1])&&((combination[1] == combination[2])))
+             {
+//                 coef = 2;
+                 setCoef(2);
+                 return true;
+             }
+             if (combination[0] == combination[1])
+             {
+//                 coef = 1;
+                 setCoef(1);
+                 return true;
+             }
+             return false;
+             break;
+         }
+     case 6:
+     {
+         if ((combination[0] == combination[1])&&((combination[1] == combination[2]))&&((combination[2] == combination[3]))&&((combination[3] == combination[4]))&&((combination[4] == combination[5])))
+         {
+//             coef = 5;
+             setCoef(5);
+             return true;
+         }
+         if ((combination[0] == combination[1])&&((combination[1] == combination[2]))&&((combination[2] == combination[3]))&&((combination[3] == combination[4])))
+         {
+//             coef = 4;
+             setCoef(4);
+             return true;
+         }
+         if ((combination[0] == combination[1])&&((combination[1] == combination[2]))&&((combination[2] == combination[3])))
+         {
+//             coef = 3;
+             setCoef(3);
+             return true;
+         }
+         if ((combination[0] == combination[1])&&((combination[1] == combination[2])))
+         {
+//             coef = 2;
+             setCoef(2);
+             return true;
+         }
+         if (combination[0] == combination[1])
+         {
+//             coef = 1;
+             setCoef(1);
+             return true;
+         }
+         return false;
+         break;
+     }
+     }
+     return false;
+}
+
