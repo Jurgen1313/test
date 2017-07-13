@@ -26,8 +26,8 @@ public:
     void setElement(size_t, T);
 
     Vector& operator= (const Vector&);
-    bool operator== (const Vector&);
-    T operator[] (size_t);
+    bool operator== (const Vector&) const;
+    T operator[] (size_t) const;
     Vector& swap (Vector&);
 
     void resize(size_t);
@@ -122,7 +122,7 @@ Vector<T>& Vector<T>::operator= (const Vector& copy)
 }
 
 template <typename T>
-bool Vector<T>::operator== (const Vector& copy)
+bool Vector<T>::operator== (const Vector& copy) const
 {
  //    std::cout << "\nFNC compare\n";
     if (lenght != copy.lenght || capacity!= copy.capacity)
@@ -134,7 +134,7 @@ bool Vector<T>::operator== (const Vector& copy)
 }
 
 template<typename T>
-T Vector<T>::operator[] (size_t element)
+T Vector<T>::operator[] (size_t element) const
 {
  //    if (element < capacity)
         return vector[element];
