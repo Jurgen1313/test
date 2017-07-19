@@ -31,7 +31,6 @@ int main()
     fstream outFile2;
 
     // Open file only for reading
-//    inFile.open("../map/test.txt",  std::fstream::in);
     inFile.open("../map/big.txt",  std::fstream::in);
 
     //remove old file JUST FOR TESTING -----------///////
@@ -50,9 +49,8 @@ int main()
 
 
     std::map <string, int> mapArr;
-    std::map <string, int> mapArr2;
-//    while (!inFile.eof())
-        string item;
+    string item;
+
     while (inFile >> item)
     {
         for (std::string::iterator itr = item.begin(); itr < item.end(); ++itr)
@@ -63,27 +61,10 @@ int main()
                 outFile2 << item;
                 --itr;
             }
-
-//        outFile2 << " Last item: " << item << endl;
-//                    *(tmp.) = *tmp;
-//                *itr = ' ';
-//                *itr = *(itr+1);
         mapArr[item]++;
-//        string item;
-//        inFile >> item;
-//        mapArr2[item]++;
-//        if (item[item.length() - 1] == ',' || item[item.length() - 1] == '.' ||
-//                item[item.length() - 1] == '!' || item[item.length() - 1] == '?' ||
-//                item[item.length() - 1] == '-' || item[item.length() - 1] == ':' ||
-//                item[item.length() - 1] == '"' || item[item.length() - 1] == ')' ||
-//                item[item.length() - 1] == '\'' || item[item.length() - 1] == ']')
-//            item = item.substr(0,item.length() - 1);
-//        if (item[0] == '"' || item[0] == '(' || item[0] == '#')
-//            item = item.substr(1,item.length());
-//        mapArr[item]++;
     }
 
-            outFile2.close();
+    outFile2.close();
     inFile.close();
 
     //open file only for writing
