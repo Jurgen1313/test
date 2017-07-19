@@ -55,12 +55,7 @@ int main()
     {
         for (std::string::iterator itr = item.begin(); itr < item.end(); ++itr)
             if ( !isalnum(*itr))
-            {
-                outFile2 << "\nitr: " << *itr << " item: " << item << " new item: ";
-                item.erase(itr);
-                outFile2 << item;
-                --itr;
-            }
+                item.erase(itr--);
         mapArr[item]++;
     }
 
