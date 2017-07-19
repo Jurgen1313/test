@@ -16,7 +16,7 @@ private:
     static size_t currentObjCount;
 public:
     Vector();
-    Vector(size_t );
+    explicit Vector(size_t);
     Vector(const Vector&);
     ~Vector();
 
@@ -27,12 +27,11 @@ public:
 
     Vector& operator= (const Vector&);
     bool operator== (const Vector&) const;
-    T operator[] (size_t) const;
+    T& operator[] (size_t) ;
+    const T& operator[] (size_t) const;
     Vector& swap (Vector&);
 
     void resize(size_t);
-//    void popback();
-//    void pushback(T);
 };
 
 template <typename T>
@@ -44,20 +43,17 @@ size_t Vector<T>::currentObjCount = 0;
 template <typename T>
 Vector<T>::Vector(): lenght(0), capacity(0)
 {
-    vector = new T [lenght] {0};
+     vector = new T [lenght];
     ++allObjCount;
     ++currentObjCount;
- //    std::cout << "\ndefault constructor";
 }
 
 template <typename T>
 Vector<T>::Vector(size_t size): lenght(size), capacity(0)
 {
- //    lenght = size;
-    vector = new T [lenght] {0};
+    vector = new T [lenght];
     ++allObjCount;
     ++currentObjCount;
- //    std::cout << "\nconstructor";
 }
 
 template <typename T>
@@ -134,7 +130,7 @@ bool Vector<T>::operator== (const Vector& copy) const
 }
 
 template<typename T>
-T Vector<T>::operator[] (size_t element) const
+T& Vector<T>::operator[] (size_t element)
 {
  //    if (element < capacity)
         return vector[element];

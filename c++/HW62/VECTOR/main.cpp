@@ -1,5 +1,6 @@
 #include <iostream>
 #include "vector.h"
+#include "ufraction.h"
 
 using namespace std;
 
@@ -16,14 +17,12 @@ void printVector (const Vector<T>& tmp)
 
 int main()
 {
-
-//    size_t lenght1;
-//    size_t lenght2 = 2;
     Vector<int> V1 (40);
     Vector<int> V3 (70);
     Vector<double> V2 (6);
     Vector<double> V4 (3);
     Vector<int> V10 (5);
+    Vector<uFraction> V11 (4);
 
     cout << endl;
     cout << "Adress V1 = " << &V1 << endl;
@@ -44,6 +43,12 @@ int main()
     for (size_t i = 0; i < V10.getLenght(); ++i)
         V10.setElement(i,i+100);
 
+    for (size_t i = 0; i < V11.getLenght(); ++i)
+    {
+        V11[i].setNumerator(10+i);
+        V11[i].setDenominator(20+i);
+    }
+
     cout << endl;
     cout << "\nV1 :";
     printVector (V1);
@@ -59,6 +64,10 @@ int main()
     cout << endl;
     cout << "\nV1 :";
     printVector (V1);
+
+    cout << endl;
+    cout << "\nV11 :";
+    printVector (V11);
 
 //    cout << endl;
 //    cout << "V2 : ";

@@ -4,7 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    vector.cpp
+    vector.cpp \
+    ufraction.cpp
 
 HEADERS += \
-    vector.h
+    vector.h \
+    ufraction.h
