@@ -3,6 +3,7 @@
 #include <cstring>
 #include <map>
 #include <algorithm>
+#include <cctype>
 
 using namespace std;
 
@@ -36,9 +37,17 @@ int main()
     //remove old file JUST FOR TESTING -----------///////
     remove("../map/NEWtest.txt");
     remove("../map/NEWtest22.txt");
+    remove("../map/test123.txt");
 
     if (inFile.fail())
         cout << "Can't open file" << endl;
+
+
+    outFile2.open("../map/test123.txt",  std::fstream::out | std::fstream::app);
+    if (outFile.fail())
+        cout << "Can't open test file " << endl;
+
+
 
     std::map <string, int> mapArr;
     std::map <string, int> mapArr2;
@@ -46,6 +55,19 @@ int main()
         string item;
     while (inFile >> item)
     {
+        for (std::string::iterator itr = item.begin(); itr < item.end(); ++itr)
+            if ( !isalnum(*itr))
+            {
+                outFile2 << "\nitr: " << *itr << " item: " << item << " new item: ";
+                item.erase(itr);
+                outFile2 << item;
+                --itr;
+            }
+
+//        outFile2 << " Last item: " << item << endl;
+//                    *(tmp.) = *tmp;
+//                *itr = ' ';
+//                *itr = *(itr+1);
         mapArr[item]++;
 //        string item;
 //        inFile >> item;
@@ -61,6 +83,7 @@ int main()
 //        mapArr[item]++;
     }
 
+            outFile2.close();
     inFile.close();
 
     //open file only for writing
